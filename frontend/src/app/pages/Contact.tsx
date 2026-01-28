@@ -1,45 +1,6 @@
 import { Mail, Phone, MapPin, Clock, Facebook, Twitter, Instagram } from 'lucide-react';
-import { useState } from 'react';
-import { inquiriesAPI } from '@/services/api';
 
 export function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: 'general',
-    message: '',
-  });
-  const [submitting, setSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setSubmitMessage(null);
-
-    try {
-      await inquiriesAPI.submit({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        subject: formData.subject,
-        message: formData.message,
-      });
-      setSubmitMessage({ type: 'success', text: 'Thank you! Your message has been sent successfully.' });
-      setFormData({ name: '', email: '', phone: '', subject: 'general', message: '' });
-    } catch (error) {
-      console.error('Failed to submit inquiry:', error);
-      setSubmitMessage({ type: 'error', text: 'Failed to send message. Please try again.' });
-    } finally {
-      setSubmitting(false);
-    }
-  };
   return (
     <div>
       <section className="bg-gradient-to-r from-[#33AAA1] to-[#4CC9BF] text-white py-20">
@@ -58,15 +19,12 @@ export function Contact() {
             {/* Contact Form */}
             <div>
               <h2 className="text-3xl font-bold text-slate-900 mb-8">Send Us a Message</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
                   <input
                     type="text"
                     id="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
                     className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                     placeholder="Juan Dela Cruz"
                   />
@@ -76,9 +34,6 @@ export function Contact() {
                   <input
                     type="email"
                     id="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
                     className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                     placeholder="juan.delacruz@email.com"
                   />
@@ -88,8 +43,6 @@ export function Contact() {
                   <input
                     type="tel"
                     id="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
                     className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                     placeholder="+63 123 456 7890"
                   />
@@ -98,15 +51,13 @@ export function Contact() {
                   <label htmlFor="subject" className="block text-sm font-semibold text-slate-700 mb-2">Subject</label>
                   <select
                     id="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
                     className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                   >
-                    <option value="general">General Inquiry</option>
-                    <option value="admissions">Admissions</option>
-                    <option value="curriculum">Curriculum Questions</option>
-                    <option value="support">Technical Support</option>
-                    <option value="other">Other</option>
+                    <option>General Inquiry</option>
+                    <option>Admissions</option>
+                    <option>Curriculum Questions</option>
+                    <option>Technical Support</option>
+                    <option>Other</option>
                   </select>
                 </div>
                 <div>
@@ -114,24 +65,15 @@ export function Contact() {
                   <textarea
                     id="message"
                     rows={6}
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
                     className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                     placeholder="Type your message here..."
                   />
                 </div>
-                {submitMessage && (
-                  <div className={`p-4 rounded-lg ${submitMessage.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                    {submitMessage.text}
-                  </div>
-                )}
                 <button
                   type="submit"
-                  disabled={submitting}
-                  className="w-full px-8 py-4 bg-gradient-to-r from-[#4CC9BF] to-[#33AAA1] text-white rounded-lg font-semibold hover:shadow-lg transition-all disabled:opacity-50"
+                  className="w-full px-8 py-4 bg-gradient-to-r from-[#4CC9BF] to-[#33AAA1] text-white rounded-lg font-semibold hover:shadow-lg transition-all"
                 >
-                  {submitting ? 'Sending...' : 'Send Message'}
+                  Send Message
                 </button>
               </form>
             </div>

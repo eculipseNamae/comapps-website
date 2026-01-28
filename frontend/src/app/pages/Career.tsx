@@ -1,6 +1,29 @@
 import { Briefcase, TrendingUp, Users, Award } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { careerServicesAPI } from "../../services/api";
 
 export function Career() {
+  const [paths, setPaths] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPaths = async () => {
+      try {
+        const data = await careerServicesAPI.getPaths();
+        setPaths(data);
+      } catch (error) {
+        console.error("Error fetching career paths:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPaths();
+  }, []);
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+
   return (
     <div>
       <section className="bg-gradient-to-r from-[#33AAA1] to-[#4CC9BF] text-white py-20">
@@ -16,21 +39,26 @@ export function Career() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Career Paths</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { title: 'IoT Engineer', salary: '₱35,000 - ₱60,000/month', desc: 'Design and implement IoT solutions for smart devices and systems' },
-              { title: 'Embedded Systems Developer', salary: '₱40,000 - ₱70,000/month', desc: 'Develop firmware and software for embedded devices' },
-              { title: 'Software Engineer', salary: '₱30,000 - ₱55,000/month', desc: 'Create software applications and systems' },
-              { title: 'Systems Architect', salary: '₱60,000 - ₱100,000/month', desc: 'Design complex system architectures and integrations' },
-              { title: 'Technical Consultant', salary: '₱45,000 - ₱80,000/month', desc: 'Provide expert advice on technology solutions' },
-              { title: 'Research & Development', salary: '₱35,000 - ₱65,000/month', desc: 'Innovate new technologies and solutions' },
-            ].map((career, idx) => (
-              <div key={idx} className="bg-gradient-to-br from-[#4CC9BF]/10 to-white p-6 rounded-xl shadow-lg">
+            {paths.map((career, idx) => (
+              <div key={career.id || idx} className="bg-gradient-to-br from-[#4CC9BF]/10 to-white p-6 rounded-xl shadow-lg">
                 <Briefcase className="w-10 h-10 text-[#4CC9BF] mb-4" />
                 <h3 className="text-xl font-bold text-slate-900 mb-2">{career.title}</h3>
-                <div className="text-[#4CC9BF] font-semibold mb-3">{career.salary}</div>
-                <p className="text-slate-600 text-sm">{career.desc}</p>
+                <div className="text-[#4CC9BF] font-semibold mb-3">{career.salary_range}</div>
+                <p className="text-slate-600 text-sm mb-3">{career.description}</p>
+                {career.skills_required && (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {career.skills_required.split(',').map((skill: string, i: number) => (
+                      <span key={i} className="text-xs bg-white text-[#33AAA1] px-2 py-1 rounded border border-[#33AAA1]/20">
+                        {skill.trim()}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
+            {paths.length === 0 && (
+              <div className="col-span-full text-center text-slate-500 italic">No career paths listed yet.</div>
+            )}
           </div>
         </div>
       </section>

@@ -10,9 +10,25 @@ from news.models import NewsItem, Event
 from curriculum.models import Program as CurriculumProgram, Year, Semester, Course
 from admissions.models import Program as AdmissionsProgram, ApplicationStage, ApplicationRequirement
 from department.models import Department, Facility, FAQ
+from students.models import StudentProject, StudentOrganization, StudentAchievement
+from alumni.models import AlumniProfile
+from research.models import ResearchProject, ResearchAchievement
+from extension.models import ExtensionProgram, ExtensionImpact
+from resources.models import ResourceFile
+from career_services.models import CareerPath
 
 # Clear existing data
 print("Clearing existing data...")
+ExtensionImpact.objects.all().delete()
+ExtensionProgram.objects.all().delete()
+ResearchProject.objects.all().delete()
+ResearchAchievement.objects.all().delete()
+StudentProject.objects.all().delete()
+StudentOrganization.objects.all().delete()
+StudentAchievement.objects.all().delete()
+AlumniProfile.objects.all().delete()
+ResourceFile.objects.all().delete()
+CareerPath.objects.all().delete()
 Faculty.objects.all().delete()
 NewsItem.objects.all().delete()
 Event.objects.all().delete()
@@ -208,5 +224,113 @@ faqs = [
 
 for faq in faqs:
     FAQ.objects.create(**faq)
+
+# Create Student Data
+print("Creating student data...")
+StudentOrganization.objects.create(
+    name='Junior Philippine Computer Society (JPCS)',
+    description='JPCS is the official student organization for Computer Applications students. It aims to provide members with opportunities to enhance their skills, network with professionals, and participate in tech events.',
+    president='John Doe',
+    adviser='Prof. Paul Rodolf Castor',
+    founded_year=2010
+)
+
+StudentProject.objects.create(
+    title='Smart Irrigation System using IoT',
+    description='An automated irrigation system that monitors soil moisture levels and controls water flow using IoT sensors and actuators. This project aims to optimize water usage in agriculture.',
+    students_involved='Juan dela Cruz, Maria Clara',
+    advisor='Prof. Apple Rose Alce',
+    year_completed=2025,
+    featured=True
+)
+
+StudentAchievement.objects.create(
+    title='Best Capstone Project 2025',
+    description='Awarded to the team behind the Smart Irrigation System for their outstanding contribution to agricultural technology.',
+    date=date(2025, 5, 20),
+    recipient='Team Agrotech',
+    category='academic'
+)
+
+# Create Alumni Data
+print("Creating alumni data...")
+AlumniProfile.objects.create(
+    name='Jane Smith',
+    batch_year=2015,
+    current_position='Senior IoT Engineer',
+    company='Tech Giants Inc.',
+    testimonial='The ComApps program provided me with the solid foundation and hands-on experience I needed to succeed in the fast-paced world of IoT.',
+    featured=True
+)
+
+# Create Research Data
+print("Creating research data...")
+ResearchProject.objects.create(
+    title='LoRaWAN-based Environmental Monitoring',
+    abstract='This research investigates the improved range and power consumption of LoRaWAN networks for environmental monitoring in dense urban areas.',
+    authors='Prof. Paul Rodolf Castor, Prof. Leah Alindayo',
+    category='faculty',
+    publication_date=date(2024, 11, 15),
+    journal_or_conference='International Journal of Sensor Networks'
+)
+
+ResearchAchievement.objects.create(
+    title='Outstanding Research Award',
+    description='Received for the LoRaWAN environmental monitoring project at the Regional Research Conference.',
+    date=date(2024, 12, 10),
+    awarding_body='Regional Science & Technology Council'
+)
+
+# Create Extension Data
+print("Creating extension data...")
+ext_prog = ExtensionProgram.objects.create(
+    title='Digital Literacy for Rural Communities',
+    description='A series of workshops designed to teach basic computer skills and internet literacy to residents of remote barangays.',
+    status='ongoing',
+    start_date=date(2025, 1, 10),
+    location='Barangay Digkilaan',
+    beneficiaries='Local Residents'
+)
+
+ExtensionImpact.objects.create(
+    program=ext_prog,
+    metric='Participants Trained',
+    value='50',
+    description='Number of residents who completed the basic computer skills workshop.'
+)
+
+# Create Resources Data
+print("Creating resources data...")
+ResourceFile.objects.create(
+    title='Thesis Format Guidelines',
+    description='Official guidelines for undergraduate thesis formatting and submission.',
+    category='research_thesis',
+    external_link='https://docs.google.com/document/d/example'
+)
+
+ResourceFile.objects.create(
+    title='Enrollment Form',
+    description='Standard enrollment form for new students.',
+    category='academic_form',
+    external_link='https://docs.google.com/document/d/example-form'
+)
+
+# Create Career Services Data
+print("Creating career services data...")
+CareerPath.objects.create(
+    title='IoT Developer',
+    description='Develops applications and systems that connect devices to the internet. Requires strong skills in programming, networking, and hardware interfacing.',
+    skills_required='Python, C++, MQTT, Embedded Systems, Cloud Platforms',
+    potential_employers='Smart Home Companies, Industrial Automation Firms, AgriTech Startups',
+    salary_range='30k-60k'
+)
+
+CareerPath.objects.create(
+    title='Embedded Systems Engineer',
+    description='Designs and implements software for embedded devices. Involves working with microcontrollers, RTOS, and low-level programming.',
+    skills_required='C, Assembly, RTOS, Digital Electronics, PCB Design',
+    potential_employers='Semiconductor Companies, Automotive Industry, Consumer Electronics',
+    salary_range='35k-70k'
+)
 
 print("✅ Seed data successfully created!")

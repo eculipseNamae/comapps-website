@@ -1,363 +1,207 @@
 import image_143a3129593303e6dcd9081f0a4bb79591419a81 from 'figma:asset/143a3129593303e6dcd9081f0a4bb79591419a81.png';
-import image_9c651c6941c1fe1149d524cd3d74781a936cd1ee from 'figma:asset/9c651c6941c1fe1149d524cd3d74781a936cd1ee.png';
-import { Award, Target, Users, TrendingUp, Briefcase } from 'lucide-react';
+import { Award, Target, Users, TrendingUp, History, Eye, Globe } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
-import bsImage from 'figma:asset/c99c2d0a7fd7efc97d3e8690664a35863071a999.png';
-import deptImage from 'figma:asset/1750b6bfd40d7bd4e3e4bdf50ef8fe5e415065c0.png';
 
 export function About() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-[#33AAA1] to-[#4CC9BF] text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-5xl font-bold mb-6">About the Programs</h1>
+      <section className="bg-gradient-to-r from-[#33AAA1] to-[#4CC9BF] text-white py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h1 className="text-5xl font-bold mb-6">About the Department</h1>
           <p className="text-xl text-[#77D6CE] max-w-3xl">
-            Discover the BS and MS in Computer Applications programs at Mindanao State University - Iligan Institute of Technology, where innovation meets excellence in technology education.
+            The Computer Applications Department at MSU-IIT is dedicated to advancing technology through excellence in education, research, and innovation.
           </p>
         </div>
       </section>
 
-      {/* Department Description */}
+      {/* Who We Are & Vision/Mission */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-            <div className="relative rounded-xl overflow-hidden shadow-2xl">
-              <img src={image_143a3129593303e6dcd9081f0a4bb79591419a81} alt="Department of Computer Applications" className="w-full h-auto" />
-            </div>
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            {/* Who We Are */}
             <div>
-              <h2 className="text-4xl font-bold text-slate-900 mb-6">Department of Computer Applications</h2>
-              <div className="prose prose-lg text-slate-600">
-                <p className="mb-4">
-                  The Department of Computer Applications (CA Dept.) leads the institute in the field of emerging technologies by providing students with the knowledge and technical skills needed for the Industry 4.0 Implementation, aligned with the current Information Technology Education (ITE) landscape.
+              <div className="flex items-center space-x-3 mb-6">
+                 <div className="p-2 bg-[#4CC9BF]/10 rounded-lg">
+                    <Users className="w-6 h-6 text-[#33AAA1]" />
+                 </div>
+                 <h2 className="text-3xl font-bold text-slate-900">Who We Are</h2>
+              </div>
+              
+              <div className="prose prose-lg text-slate-600 mb-12">
+                <p className="mb-4 text-justify">
+                  The Department of Computer Applications (CA Dept.) stands at the forefront of the institute's technological initiatives. We are committed to leading in the field of emerging technologies by providing students with the theoretical knowledge and practical technical skills necessary for Industry 4.0 implementation.
                 </p>
-                <p>
-                  With its expert faculty members specialized in; computer applications and interfacing (between software, firmware and hardware); related electronic circuit and analysis; computer networking; & computer hardware programming and development. The department aims and encourages students to apply their skills gained to develop research through the rapid advancement of technology.
+                <p className="mb-4 text-justify">
+                  Our curriculum and research initiatives are strictly aligned with the current Information Technology Education (ITE) landscape, ensuring our graduates are not just job-ready but are capable of driving innovation.
+                </p>
+                <p className="text-justify">
+                  Our faculty is composed of experts specialized in computer applications, interfacing (bridging software, firmware, and hardware), electronic circuit analysis, computer networking, and hardware programming. Together, we foster an environment that encourages students to apply their skills in developing research that contributes to the rapid advancement of technology.
                 </p>
               </div>
-            </div>
-          </div>
 
-          {/* BS Computer Applications Overview */}
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-bold text-slate-900 mb-6">Bachelor of Science in Computer Applications</h2>
-              <div className="prose prose-lg text-slate-600">
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">Overview</h3>
-                <p className="text-slate-700 leading-relaxed mb-4">
-                  Understand the design & development of hardware devices and software programs through specialized skills in Embedded System and Internet of Things (IoT). To sharpen the mathematical analysis and produce patentable innovations to cater the demands of Information and Communication Technology (ICT) in helping to solve the emerging and future global problems.
-                </p>
+              {/* History - Nested here for better flow or separate column */}
+               <div className="relative rounded-2xl overflow-hidden shadow-2xl mt-8">
+                <img src={image_143a3129593303e6dcd9081f0a4bb79591419a81} alt="Department Faculty and Staff" className="w-full h-auto object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent flex items-end">
+                   <p className="text-white p-6 font-medium">Empowering the next generation of tech leaders.</p>
+                </div>
               </div>
             </div>
-            <div className="relative rounded-xl overflow-hidden shadow-2xl">
-              <img src={image_9c651c6941c1fe1149d524cd3d74781a936cd1ee} alt="BS Computer Applications" className="w-full h-auto" />
+
+            {/* Vision & Mission Cards */}
+            <div className="space-y-8">
+              {/* Vision */}
+              <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="p-3 bg-blue-100 rounded-xl text-blue-600">
+                    <Eye className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-900">Our Vision</h3>
+                </div>
+                <p className="text-slate-700 text-lg leading-relaxed italic">
+                  "To be a center of excellence in computer applications and emerging technologies, producing globally competitive professionals who drive sustainable development and innovation."
+                </p>
+              </div>
+
+              {/* Mission */}
+              <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 shadow-lg hover:shadow-xl transition-shadow">
+                 <div className="flex items-center space-x-4 mb-4">
+                  <div className="p-3 bg-emerald-100 rounded-xl text-emerald-600">
+                    <Globe className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-900">Our Mission</h3>
+                </div>
+                <ul className="space-y-4 text-slate-700">
+                  <li className="flex items-start">
+                    <span className="w-2 h-2 bg-emerald-500 rounded-full mt-2.5 mr-3 flex-shrink-0"></span>
+                    <span>Provide high-quality education in computer applications through innovative teaching and learning practices.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="w-2 h-2 bg-emerald-500 rounded-full mt-2.5 mr-3 flex-shrink-0"></span>
+                    <span>Conduct relevant research and extension activities that address societal needs and technological challenges.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="w-2 h-2 bg-emerald-500 rounded-full mt-2.5 mr-3 flex-shrink-0"></span>
+                    <span>Foster a culture of ethical responsibility, leadership, and lifelong learning among faculty, staff, and students.</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* MSCA Program Section */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="relative rounded-xl overflow-hidden shadow-2xl">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxncmFkdWF0ZSUyMHN0dWRlbnRzJTIwY29tcHV0ZXJ8ZW58MXx8fHwxNzY4OTY1MDI4fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Graduate Students"
-                className="w-full h-auto"
-              />
-            </div>
-            <div>
-              <h2 className="text-4xl font-bold text-slate-900 mb-6">Master of Science in Computer Applications (MSCA)</h2>
-              <div className="prose prose-lg text-slate-600">
-                <p className="mb-4">
-                  The Master of Science in Computer Applications is an advanced graduate program designed to deepen expertise in specialized areas of computer applications, IoT, and embedded systems.
-                </p>
-                <p className="mb-4">
-                  The MSCA program emphasizes advanced research, thesis work, and specialized coursework that prepares students for leadership roles in industry, academia, and research institutions.
-                </p>
-                <p>
-                  Graduate students work closely with faculty on cutting-edge research projects, publish in international conferences and journals, and contribute to the advancement of computer applications technology.
-                </p>
-              </div>
-            </div>
+      {/* History Section */}
+      <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[#33AAA1] opacity-5"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col md:flex-row gap-12 items-center">
+             <div className="md:w-1/2">
+                <div className="inline-flex items-center space-x-2 text-[#4CC9BF] font-semibold tracking-wider uppercase mb-4">
+                  <History className="w-5 h-5" />
+                  <span>Our Heritage</span>
+                </div>
+                <h2 className="text-4xl font-bold mb-6">A Legacy of Innovation</h2>
+                <div className="space-y-6 text-slate-300 text-lg leading-relaxed">
+                  <p>
+                    The Computer Applications Department traces its roots back to the pioneering days of technology education at MSU-IIT. Originally established to address the growing need for skilled technicians in electronics and computer technology, the department has evolved significantly over the decades.
+                  </p>
+                  <p>
+                    From its humble beginnings offering certificate programs, the department expanded its curriculum to include the Bachelor of Science in Electronics and Computer Technology (BS ECT), a legacy program that produced countless industry leaders. Recognizing the shift towards software-hardware integration and the Fourth Industrial Revolution, the department successfully transitioned to offer the Bachelor of Science in Computer Applications (BSCA).
+                  </p>
+                  <p>
+                    Today, we continue this tradition of adaptation and excellence by introducing specialized tracks in Embedded Systems and the Internet of Things (IoT), ensuring our curriculum remains at the cutting edge of technological progress.
+                  </p>
+                </div>
+             </div>
+             <div className="md:w-1/2">
+               <div className="grid grid-cols-2 gap-4">
+                  <ImageWithFallback 
+                    src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                    alt="Legacy Computer Lab" 
+                    className="rounded-2xl shadow-xl transform translate-y-8"
+                  />
+                  <ImageWithFallback 
+                    src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                    alt="Modern Research Facility" 
+                    className="rounded-2xl shadow-xl"
+                  />
+               </div>
+             </div>
           </div>
         </div>
       </section>
 
-      {/* Philosophy & Objectives */}
-      <section className="py-20 bg-slate-50">
+      {/* Philosophy & Core Values */}
+      <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">Program Philosophy</h2>
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">Department Philosophy</h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              We believe in fostering innovation, critical thinking, and ethical responsibility in technology development.
+              Our educational philosophy is grounded in the belief that technology should serve humanity. We strive to cultivate not just skilled technicians, but thoughtful innovators.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              <div className="w-12 h-12 bg-[#4CC9BF]/20 rounded-lg flex items-center justify-center mb-4">
-                <Target className="w-6 h-6 text-[#4CC9BF]" />
+            <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-all hover:-translate-y-1">
+              <div className="w-14 h-14 bg-[#4CC9BF]/10 rounded-xl flex items-center justify-center mb-6">
+                <Target className="w-7 h-7 text-[#33AAA1]" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">Excellence</h3>
-              <p className="text-slate-600">
-                Striving for the highest standards in education and research.
+              <p className="text-slate-600 leading-relaxed">
+                We refuse to settle for mediocrity. Every lecture, laboratory session, and research project is an opportunity to achieve the highest standards of quality.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              <div className="w-12 h-12 bg-[#4CC9BF]/20 rounded-lg flex items-center justify-center mb-4">
-                <Users className="w-6 h-6 text-[#4CC9BF]" />
+            <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-all hover:-translate-y-1">
+              <div className="w-14 h-14 bg-[#4CC9BF]/10 rounded-xl flex items-center justify-center mb-6">
+                <Users className="w-7 h-7 text-[#33AAA1]" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">Collaboration</h3>
-              <p className="text-slate-600">
-                Building strong partnerships with industry and academia.
+              <p className="text-slate-600 leading-relaxed">
+                Innovation doesn't happen in isolation. We build strong partnerships with industry leaders, alumni, and other academic institutions.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              <div className="w-12 h-12 bg-[#4CC9BF]/20 rounded-lg flex items-center justify-center mb-4">
-                <TrendingUp className="w-6 h-6 text-[#4CC9BF]" />
+            <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-all hover:-translate-y-1">
+              <div className="w-14 h-14 bg-[#4CC9BF]/10 rounded-xl flex items-center justify-center mb-6">
+                <TrendingUp className="w-7 h-7 text-[#33AAA1]" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">Innovation</h3>
-              <p className="text-slate-600">
-                Encouraging creative solutions to real-world problems.
+              <p className="text-slate-600 leading-relaxed">
+                We challenge the status quo. We encourage our students to think creatively and develop novel solutions to real-world problems.
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              <div className="w-12 h-12 bg-[#4CC9BF]/20 rounded-lg flex items-center justify-center mb-4">
-                <Award className="w-6 h-6 text-[#4CC9BF]" />
+            <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-all hover:-translate-y-1">
+              <div className="w-14 h-14 bg-[#4CC9BF]/10 rounded-xl flex items-center justify-center mb-6">
+                <Award className="w-7 h-7 text-[#33AAA1]" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">Integrity</h3>
-              <p className="text-slate-600">
-                Upholding ethical standards in all technological endeavors.
+              <p className="text-slate-600 leading-relaxed">
+                We uphold the highest ethical standards. We teach our students that responsible technology use is just as important as technical proficiency.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Educational Objectives */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Educational Objectives</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-gradient-to-br from-[#4CC9BF]/10 to-white p-8 rounded-xl border-l-4 border-[#4CC9BF]">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">PEO 1: Technical Competence</h3>
-              <p className="text-slate-600">
-                Graduates will demonstrate proficiency in computer applications, IoT systems, and embedded programming, applying theoretical knowledge to practical solutions.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-[#4CC9BF]/10 to-white p-8 rounded-xl border-l-4 border-[#4CC9BF]">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">PEO 2: Professional Development</h3>
-              <p className="text-slate-600">
-                Graduates will engage in continuous learning and professional growth, adapting to emerging technologies and industry trends.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-[#4CC9BF]/10 to-white p-8 rounded-xl border-l-4 border-[#4CC9BF]">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">PEO 3: Leadership & Teamwork</h3>
-              <p className="text-slate-600">
-                Graduates will effectively communicate, collaborate in teams, and demonstrate leadership in multidisciplinary projects.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-[#4CC9BF]/10 to-white p-8 rounded-xl border-l-4 border-[#4CC9BF]">
-              <h3 className="text-xl font-bold text-slate-900 mb-4">PEO 4: Ethical Responsibility</h3>
-              <p className="text-slate-600">
-                Graduates will practice professional ethics, considering social impact and sustainability in technology development.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Learning Outcomes */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Program Learning Outcomes</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              "Apply knowledge of computing and mathematics to solve complex problems",
-              "Design and implement IoT solutions for real-world applications",
-              "Develop embedded systems with hardware-software integration",
-              "Analyze and evaluate computer-based systems and applications",
-              "Work effectively in diverse and multidisciplinary teams",
-              "Communicate technical concepts clearly and professionally",
-              "Recognize ethical and social responsibilities in technology",
-              "Engage in lifelong learning and professional development",
-              "Utilize contemporary tools and techniques in computing"
-            ].map((outcome, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow">
-                <div className="flex items-start">
-                  <div className="w-8 h-8 bg-[#4CC9BF] text-white rounded-full flex items-center justify-center flex-shrink-0 mr-4">
-                    {index + 1}
-                  </div>
-                  <p className="text-slate-700">{outcome}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Accreditation */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-[#4CC9BF] to-[#33AAA1] rounded-2xl p-12 text-white text-center">
-            <Award className="w-16 h-16 mx-auto mb-6" />
-            <h2 className="text-4xl font-bold mb-4">CHED Accredited Program</h2>
-            <p className="text-xl text-[#77D6CE] mb-6 max-w-2xl mx-auto">
-              Our program is accredited by the Commission on Higher Education (CHED), ensuring quality education standards and recognition.
-            </p>
-            <div className="inline-flex items-center px-6 py-3 bg-white text-[#33AAA1] rounded-lg font-semibold">
-              Level III Accreditation
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Unique Features */}
-      <section className="py-20 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Specialized Tracks</h2>
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
-            <div className="bg-white rounded-xl overflow-hidden shadow-xl">
-              <div className="bg-gradient-to-r from-[#33AAA1] to-[#2A8F87] p-6">
-                <h3 className="text-2xl font-bold text-white">A. Embedded Systems Track</h3>
-              </div>
-              <div className="p-8">
-                <h4 className="text-lg font-bold text-slate-900 mb-3">Course Overview</h4>
-                <p className="text-slate-600 mb-6">
-                  The Embedded Systems Track introduces the students to the theories and technologies associated with the computer fundamental concepts, analysis of electronic circuit products, microcontroller-based hardware design and implementation of computer programs used in the industry.
-                </p>
-                
-                <h4 className="text-lg font-bold text-slate-900 mb-3">Key Focus Areas</h4>
-                <ul className="space-y-3 mb-6">
-                  {[
-                    'Microcontroller programming (ARM, AVR)',
-                    'Real-time operating systems (RTOS)',
-                    'Hardware-software interface design',
-                    'Signal processing and control systems'
-                  ].map((area, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <div className="w-2 h-2 bg-[#33AAA1] rounded-full mt-2 mr-3 flex-shrink-0" />
-                      <span className="text-slate-700">{area}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <h4 className="text-lg font-bold text-slate-900 mb-3 flex items-center">
-                  <Briefcase className="w-5 h-5 mr-2 text-[#4CC9BF]" />
-                  Career Possibilities
-                </h4>
-                <ul className="space-y-2">
-                  {[
-                    'Web / Desktop / Mobile-App Developer',
-                    'Embedded Software Specialist / Developer',
-                    'Computer Application Instructor (Embedded Track)',
-                    'Microcontroller Design Programmer/Developer',
-                    'Entrepreneur in ICT Industry',
-                    'Technology Development Researcher',
-                    'Computer Vision Specialist / Developer',
-                    'Hardware Test Specialist'
-                  ].map((career, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <div className="w-2 h-2 bg-[#4CC9BF] rounded-full mt-2 mr-3 flex-shrink-0" />
-                      <span className="text-slate-700">{career}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl overflow-hidden shadow-xl">
-              <div className="bg-gradient-to-r from-[#4CC9BF] to-[#33AAA1] p-6">
-                <h3 className="text-2xl font-bold text-white">B. Internet of Things (IoT) Track</h3>
-              </div>
-              <div className="p-8">
-                <h4 className="text-lg font-bold text-slate-900 mb-3">Course Overview</h4>
-                <p className="text-slate-600 mb-6">
-                  The Internet of Things (IoT) Track introduces the students to computer network theories and emerging technologies as well as designing applications (e.g data logging, data visualization and remote control automation) that can be used to communicate and exchange data with other devices and systems over the internet connectivity through cloud server.
-                </p>
-                
-                <h4 className="text-lg font-bold text-slate-900 mb-3">Key Focus Areas</h4>
-                <ul className="space-y-3 mb-6">
-                  {[
-                    'Sensor networks and data acquisition',
-                    'Cloud computing and edge computing',
-                    'Smart device development and protocols',
-                    'IoT security and data analytics'
-                  ].map((area, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <div className="w-2 h-2 bg-[#4CC9BF] rounded-full mt-2 mr-3 flex-shrink-0" />
-                      <span className="text-slate-700">{area}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <h4 className="text-lg font-bold text-slate-900 mb-3 flex items-center">
-                  <Briefcase className="w-5 h-5 mr-2 text-[#4CC9BF]" />
-                  Career Possibilities
-                </h4>
-                <ul className="space-y-2">
-                  {[
-                    'IoT Systems Administrator',
-                    'Internet of Things (IoT) Infrastructure Architect',
-                    'Computer Application Instructor (IoT Track)',
-                    'IoT Systems Technologist',
-                    'Entrepreneur in ICT Industry',
-                    'Technology Development Researcher',
-                    'Network Engineer',
-                    'Computer Support Specialist'
-                  ].map((career, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <div className="w-2 h-2 bg-[#4CC9BF] rounded-full mt-2 mr-3 flex-shrink-0" />
-                      <span className="text-slate-700">{career}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Alumni Success Stories */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Alumni Success Stories</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-slate-50 rounded-xl p-8">
-              <div className="w-16 h-16 bg-[#4CC9BF] rounded-full mb-4" />
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Maria Santos</h3>
-              <p className="text-[#4CC9BF] font-semibold mb-4">IoT Engineer, Tech Corp</p>
-              <p className="text-slate-600">
-                "The IoT specialization prepared me perfectly for my current role. The hands-on projects and industry exposure were invaluable."
-              </p>
-            </div>
-
-            <div className="bg-slate-50 rounded-xl p-8">
-              <div className="w-16 h-16 bg-[#4CC9BF] rounded-full mb-4" />
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Juan Dela Cruz</h3>
-              <p className="text-[#4CC9BF] font-semibold mb-4">Embedded Systems Developer, StartupX</p>
-              <p className="text-slate-600">
-                "The program's emphasis on embedded systems gave me the skills to land my dream job right after graduation."
-              </p>
-            </div>
-
-            <div className="bg-slate-50 rounded-xl p-8">
-              <div className="w-16 h-16 bg-[#4CC9BF] rounded-full mb-4" />
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Sarah Johnson</h3>
-              <p className="text-[#4CC9BF] font-semibold mb-4">Research Fellow, MSU</p>
-              <p className="text-slate-600">
-                "The strong research foundation allowed me to pursue graduate studies and contribute to cutting-edge IoT research."
-              </p>
-            </div>
-          </div>
+      {/* Footer Contact Teaser */}
+      <section className="py-20 bg-white border-t border-slate-100">
+        <div className="max-w-4xl mx-auto text-center px-4">
+          <h2 className="text-3xl font-bold text-slate-900 mb-6">Connect With Us</h2>
+          <p className="text-lg text-slate-600 mb-8">
+            Do you have questions about our department, our history, or our vision for the future? We'd love to hear from you.
+          </p>
+          <Link 
+            to="/contact" 
+            className="inline-flex items-center px-8 py-4 bg-slate-900 text-white font-bold rounded-full hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl"
+          >
+            Get in Touch
+          </Link>
         </div>
       </section>
     </div>

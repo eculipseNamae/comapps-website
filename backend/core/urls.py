@@ -54,6 +54,12 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/curriculum/', include(curriculum_router.urls)),
     path('api/admissions/', include(admissions_router.urls)),
+    path('api/students/', include('students.urls')),
+    path('api/alumni/', include('alumni.urls')),
+    path('api/research/', include('research.urls')),
+    path('api/extension/', include('extension.urls')),
+    path('api/resources/', include('resources.urls')),
+    path('api/career-services/', include('career_services.urls')),
     path('api-auth/', include('rest_framework.urls')),
 ]
 

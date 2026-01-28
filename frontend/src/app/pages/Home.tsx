@@ -56,7 +56,7 @@ export function Home() {
               {/* CTA Buttons */}
               <div className="flex flex-wrap gap-3">
                 <Link
-                  to="/admissions"
+                  to="/programs-admissions"
                   className="inline-flex items-center px-5 py-2.5 bg-white text-[#236c65] rounded-lg font-semibold hover:bg-[#e6f7f6] transition-all shadow-xl hover:shadow-2xl"
                 >
                   Apply Now
@@ -205,6 +205,76 @@ export function Home() {
                 </Link>
               </div>
             </article>
+          </div>
+        </div>
+      </section>
+
+      {/* Program Highlights */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+             <h2 className="text-3xl font-bold text-slate-900 mb-4">Our Academic Programs</h2>
+             <p className="text-slate-600 max-w-2xl mx-auto">
+               Explore the pathways we offer for your future career in technology.
+             </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+             {/* BSCA Track 1 */}
+             <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-lg transition-all group">
+                <div className="w-12 h-12 bg-[#4CC9BF]/10 rounded-lg flex items-center justify-center text-[#4CC9BF] mb-4 group-hover:bg-[#4CC9BF] group-hover:text-white transition-colors">
+                   <Cpu className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-2">BSCA: Embedded Systems</h3>
+                <p className="text-sm text-slate-600 mb-4">
+                  Focuses on the design and development of specialized computer systems integrated into larger devices.
+                </p>
+                <Link to="/programs-admissions" className="text-sm font-semibold text-[#33AAA1] flex items-center group-hover:text-[#2d958d]">
+                   Learn more <ArrowRight className="ml-1 w-3 h-3" />
+                </Link>
+             </div>
+
+             {/* BSCA Track 2 */}
+             <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-lg transition-all group">
+                <div className="w-12 h-12 bg-[#4CC9BF]/10 rounded-lg flex items-center justify-center text-[#4CC9BF] mb-4 group-hover:bg-[#4CC9BF] group-hover:text-white transition-colors">
+                   <Award className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-2">BSCA: Internet of Things (IoT)</h3>
+                <p className="text-sm text-slate-600 mb-4">
+                  Specializes in connecting physical devices to the internet to collect and exchange data for smart solutions.
+                </p>
+                <Link to="/programs-admissions" className="text-sm font-semibold text-[#33AAA1] flex items-center group-hover:text-[#2d958d]">
+                   Learn more <ArrowRight className="ml-1 w-3 h-3" />
+                </Link>
+             </div>
+
+             {/* MSCA */}
+             <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-lg transition-all group">
+                <div className="w-12 h-12 bg-[#4CC9BF]/10 rounded-lg flex items-center justify-center text-[#4CC9BF] mb-4 group-hover:bg-[#4CC9BF] group-hover:text-white transition-colors">
+                   <Users className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-2">MS Computer Applications</h3>
+                <p className="text-sm text-slate-600 mb-4">
+                   Advanced graduate studies focusing on research, IT management, and emerging technologies.
+                </p>
+                <Link to="/programs-admissions" className="text-sm font-semibold text-[#33AAA1] flex items-center group-hover:text-[#2d958d]">
+                   Learn more <ArrowRight className="ml-1 w-3 h-3" />
+                </Link>
+             </div>
+
+             {/* BS ECT */}
+             <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-lg transition-all group">
+                <div className="w-12 h-12 bg-slate-200 rounded-lg flex items-center justify-center text-slate-500 mb-4 group-hover:bg-slate-800 group-hover:text-white transition-colors">
+                   <Calendar className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-2">BS ECT (Legacy)</h3>
+                <p className="text-sm text-slate-600 mb-4">
+                   Our foundational program in electronics technology. Note: This program is closed for new admissions.
+                </p>
+                <Link to="/programs-admissions" className="text-sm font-semibold text-slate-500 flex items-center group-hover:text-slate-700">
+                   View details <ArrowRight className="ml-1 w-3 h-3" />
+                </Link>
+             </div>
           </div>
         </div>
       </section>

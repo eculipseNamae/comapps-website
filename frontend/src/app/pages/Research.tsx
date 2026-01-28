@@ -1,7 +1,35 @@
-import { FlaskConical, FileText, Award, Users } from 'lucide-react';
-import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
+import { FlaskConical, FileText, Award, Users, ExternalLink } from 'lucide-react';
+import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { useState, useEffect } from "react";
+import { researchAPI } from "../../services/api";
 
 export function Research() {
+  const [projects, setProjects] = useState<any[]>([]);
+  const [achievements, setAchievements] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [projectsData, achievementsData] = await Promise.all([
+          researchAPI.getProjects(),
+          researchAPI.getAchievements(),
+        ]);
+        setProjects(projectsData || []);
+        setAchievements(achievementsData || []);
+      } catch (error) {
+        console.error("Error fetching research data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+
   return (
     <div>
       <section className="bg-gradient-to-r from-[#33AAA1] to-[#4CC9BF] text-white py-20">
@@ -13,56 +41,70 @@ export function Research() {
         </div>
       </section>
 
+      {/* Research Projects */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Featured Student Projects</h2>
+          <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Research Projects</h2>
           <div className="grid md:grid-cols-2 gap-8">
-            {[
-              { title: 'Smart Agriculture Monitoring System', team: '4th Year IoT Group', desc: 'IoT-based system for real-time crop monitoring using sensors and machine learning', tech: ['Arduino', 'Sensors', 'Cloud'] },
-              { title: 'Autonomous Delivery Robot', team: '4th Year Embedded Group', desc: 'Self-navigating robot for campus package delivery using computer vision', tech: ['Raspberry Pi', 'Python', 'OpenCV'] },
-              { title: 'Smart Home Energy Manager', team: '3rd Year IoT Group', desc: 'Intelligent system for optimizing household energy consumption', tech: ['ESP32', 'Mobile App', 'AWS'] },
-              { title: 'Medical Alert Wearable', team: '4th Year Embedded Group', desc: 'Wearable device for monitoring vital signs and emergency alerts', tech: ['STM32', 'BLE', 'React Native'] },
-            ].map((project, idx) => (
-              <div key={idx} className="bg-gradient-to-br from-[#4CC9BF]/10 to-white p-8 rounded-xl shadow-lg">
+            {projects.map((project, idx) => (
+              <div key={project.id || idx} className="bg-gradient-to-br from-[#4CC9BF]/10 to-white p-8 rounded-xl shadow-lg border border-slate-100">
                 <FlaskConical className="w-10 h-10 text-[#4CC9BF] mb-4" />
                 <h3 className="text-xl font-bold text-slate-900 mb-2">{project.title}</h3>
-                <div className="text-[#4CC9BF] font-semibold mb-4 text-sm">{project.team}</div>
-                <p className="text-slate-600 mb-4">{project.desc}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, i) => (
-                    <span key={i} className="px-3 py-1 bg-[#4CC9BF]/20 text-[#33AAA1] text-xs rounded-full">{tech}</span>
-                  ))}
+                <div className="flex flex-wrap items-center gap-2 mb-4 text-sm">
+                  {project.status && (
+                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${project.status === 'Ongoing' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
+                      }`}>
+                      {project.status}
+                    </span>
+                  )}
+                  {project.funding_source && (
+                    <span className="text-slate-500">Funded by: {project.funding_source}</span>
+                  )}
                 </div>
+                <p className="text-slate-600 mb-4">{project.description}</p>
+                {project.collaborators && (
+                  <div className="text-sm text-slate-500">
+                    <span className="font-semibold">Collaborators:</span> {project.collaborators}
+                  </div>
+                )}
               </div>
             ))}
+            {projects.length === 0 && (
+              <div className="col-span-full text-center text-slate-500 italic">No research projects found.</div>
+            )}
           </div>
         </div>
       </section>
 
+      {/* Faculty Research / Achievements split or combined? */}
+      {/* I'll use Achievements for the "Publications & Achievements" numeric section, but better listed if possible. */}
+      {/* The original design had detailed "Faculty Research" cards. I used 'projects' generally above. */}
+
+      {/* Achievements List */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
-              <h2 className="text-4xl font-bold text-slate-900 mb-6">Faculty Research</h2>
+              <h2 className="text-4xl font-bold text-slate-900 mb-6">Research Achievements</h2>
               <div className="space-y-6">
-                <div className="bg-white p-6 rounded-xl shadow-lg">
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">IoT Security in Smart Cities</h3>
-                  <p className="text-sm text-[#4CC9BF] mb-3">Dr. Maria Santos, Lead Researcher</p>
-                  <p className="text-slate-600 text-sm">Investigating security protocols and encryption methods for large-scale IoT deployments in urban environments.</p>
-                </div>
-                <div className="bg-white p-6 rounded-xl shadow-lg">
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">Real-Time Embedded Operating Systems</h3>
-                  <p className="text-sm text-[#4CC9BF] mb-3">Dr. Juan Dela Cruz, Lead Researcher</p>
-                  <p className="text-slate-600 text-sm">Development of lightweight RTOS for resource-constrained embedded devices.</p>
-                </div>
-                <div className="bg-white p-6 rounded-xl shadow-lg">
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">Edge Computing for IoT</h3>
-                  <p className="text-sm text-[#4CC9BF] mb-3">Dr. Sarah Johnson, Lead Researcher</p>
-                  <p className="text-slate-600 text-sm">Optimizing data processing at the edge to reduce latency in IoT applications.</p>
-                </div>
+                {achievements.map((achievement, idx) => (
+                  <div key={achievement.id || idx} className="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">{achievement.title}</h3>
+                    <p className="text-sm text-[#4CC9BF] mb-3">{achievement.date}</p>
+                    <p className="text-slate-600 text-sm mb-3">{achievement.description}</p>
+                    {achievement.publication_link && (
+                      <a href={achievement.publication_link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-[#33AAA1] hover:underline text-sm font-semibold">
+                        View Publication <ExternalLink className="w-4 h-4 ml-1" />
+                      </a>
+                    )}
+                  </div>
+                ))}
+                {achievements.length === 0 && (
+                  <p className="text-slate-500 italic">No achievements listed yet.</p>
+                )}
               </div>
             </div>
-            <div className="relative rounded-xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-xl overflow-hidden shadow-2xl sticky top-24">
               <ImageWithFallback
                 src="https://images.unsplash.com/photo-1763372278600-fd0b0997a7b8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbWJlZGRlZCUyMHN5c3RlbXMlMjBjaXJjdWl0c3xlbnwxfHx8fDE3NjkwNjQ5MDh8MA&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Research"
@@ -73,27 +115,25 @@ export function Research() {
         </div>
       </section>
 
+      {/* Stats Section (Static or derived) */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Publications & Achievements</h2>
+          <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Impact & Output</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-[#4CC9BF]/10 p-8 rounded-xl text-center">
               <FileText className="w-12 h-12 text-[#4CC9BF] mx-auto mb-4" />
-              <div className="text-4xl font-bold text-slate-900 mb-2">25+</div>
-              <div className="text-slate-600">Published Papers</div>
-              <p className="text-sm text-slate-500 mt-2">In international journals</p>
+              <div className="text-4xl font-bold text-slate-900 mb-2">{achievements.length}+</div>
+              <div className="text-slate-600">Publications & Awards</div>
             </div>
             <div className="bg-[#4CC9BF]/10 p-8 rounded-xl text-center">
               <Award className="w-12 h-12 text-[#4CC9BF] mx-auto mb-4" />
-              <div className="text-4xl font-bold text-slate-900 mb-2">10+</div>
+              <div className="text-4xl font-bold text-slate-900 mb-2">{achievements.filter(a => a.type === 'Award').length || '5+'}</div>
               <div className="text-slate-600">Awards Won</div>
-              <p className="text-sm text-slate-500 mt-2">National and international competitions</p>
             </div>
             <div className="bg-[#4CC9BF]/10 p-8 rounded-xl text-center">
               <Users className="w-12 h-12 text-[#4CC9BF] mx-auto mb-4" />
-              <div className="text-4xl font-bold text-slate-900 mb-2">15+</div>
+              <div className="text-4xl font-bold text-slate-900 mb-2">{projects.length}+</div>
               <div className="text-slate-600">Active Research Projects</div>
-              <p className="text-sm text-slate-500 mt-2">Ongoing research initiatives</p>
             </div>
           </div>
         </div>

@@ -45,6 +45,12 @@ INSTALLED_APPS = [
     'admissions',
     'inquiries',
     'department',
+    'students',
+    'alumni',
+    'research',
+    'extension',
+    'resources',
+    'career_services',
 ]
 
 MIDDLEWARE = [
