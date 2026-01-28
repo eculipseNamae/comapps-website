@@ -1,32 +1,53 @@
 # Python
-*.py[cod]
 __pycache__/
+*.py[cod]
+*$py.class
 *.so
-*.egg
-*.egg-info/
-dist/
+.Python
 build/
-
-# Virtual Environment
-venv/
-env/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
 # Django
 *.log
+local_settings.py
 db.sqlite3
-db.sqlite3-journal
-/media
-/staticfiles
+media/
 
-# Environment variables
+# Virtual Environment
+.venv/
+venv/
+env/
+ENV/
+
+# Node / Frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+dist/
 .env
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
+.env.local
 .DS_Store
 Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
