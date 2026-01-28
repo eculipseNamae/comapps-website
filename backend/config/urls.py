@@ -4,11 +4,15 @@ from rest_framework.routers import DefaultRouter
 from faculty.views import FacultyMemberViewSet
 from news.views import NewsItemViewSet
 from core.views import HeroSlideViewSet
+from news.views import NewsItemViewSet, EventViewSet
+from students.views import StudentAchievementViewSet
 
 router = DefaultRouter()
 router.register(r'faculty', FacultyMemberViewSet)
 router.register(r'news', NewsItemViewSet)
 router.register(r'hero-slides', HeroSlideViewSet)
+router.register(r'events', EventViewSet, basename='events')
+router.register(r'achievements', StudentAchievementViewSet)
 
 # Admin Site Customization
 admin.site.site_header = "ComApps Dashboard"

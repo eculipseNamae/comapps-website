@@ -8,3 +8,14 @@ class StudentProject(models.Model):
 
     def __str__(self):
         return self.title
+
+class StudentAchievement(models.Model):
+    achievement = models.CharField(max_length=200)
+    student_name = models.CharField(max_length=200)
+    date = models.DateField()
+    
+    class Meta:
+        ordering = ['-date']
+
+    def __str__(self):
+        return f"{self.achievement} - {self.student_name}"
