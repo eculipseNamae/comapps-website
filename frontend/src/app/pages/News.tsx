@@ -19,26 +19,26 @@ export function News() {
           <h2 className="text-4xl font-bold text-slate-900 mb-12">Latest Announcements</h2>
           <div className="space-y-8">
             {[
-              { 
-                title: 'Graduation Ceremony 2026 - Celebrating Excellence', 
+              {
+                title: 'Graduation Ceremony 2026 - Celebrating Excellence',
                 date: 'January 15, 2026',
                 category: 'Event',
                 image: 'https://images.unsplash.com/photo-1738949538943-e54722a44ffc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxncmFkdWF0aW9uJTIwY2VyZW1vbnklMjB1bml2ZXJzaXR5fGVufDF8fHx8MTc2ODk2NTAyOHww&ixlib=rb-4.1.0&q=80&w=1080',
-                content: 'The Computer Applications Department proudly celebrates the achievements of 120 graduating students. This year\'s batch showed exceptional performance in IoT and Embedded Systems, with several students receiving awards for outstanding capstone projects.' 
+                content: 'The Computer Applications Department proudly celebrates the achievements of 120 graduating students. This year\'s batch showed exceptional performance in IoT and Embedded Systems, with several students receiving awards for outstanding capstone projects.'
               },
-              { 
-                title: 'New State-of-the-Art IoT Laboratory Officially Opens', 
+              {
+                title: 'New State-of-the-Art IoT Laboratory Officially Opens',
                 date: 'January 10, 2026',
                 category: 'Facility',
                 image: 'https://images.unsplash.com/photo-1717323181080-334e21c2dde5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxJb1QlMjBkZXZpY2VzJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NjkwNjQ5MDd8MA&ixlib=rb-4.1.0&q=80&w=1080',
-                content: 'Our newly inaugurated IoT Laboratory features cutting-edge equipment including 50 development kits, advanced sensors, and cloud integration platforms. The facility will enhance hands-on learning experiences for students specializing in Internet of Things.' 
+                content: 'Our newly inaugurated IoT Laboratory features cutting-edge equipment including 50 development kits, advanced sensors, and cloud integration platforms. The facility will enhance hands-on learning experiences for students specializing in Internet of Things.'
               },
-              { 
-                title: 'ComApps Students Win National Hackathon Championship', 
+              {
+                title: 'ComApps Students Win National Hackathon Championship',
                 date: 'January 5, 2026',
                 category: 'Achievement',
                 image: 'https://images.unsplash.com/photo-1683319598210-d70486f2f996?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwc3R1ZGVudHMlMjBzdHVkeWluZ3xlbnwxfHx8fDE3Njg5Njc5NzJ8MA&ixlib=rb-4.1.0&q=80&w=1080',
-                content: 'A team of four ComApps students developed an innovative smart farming solution that won first place at the National Tech Innovation Hackathon, competing against 50 teams from universities nationwide. The solution uses IoT sensors and machine learning for precision agriculture.' 
+                content: 'A team of four ComApps students developed an innovative smart farming solution that won first place at the National Tech Innovation Hackathon, competing against 50 teams from universities nationwide. The solution uses IoT sensors and machine learning for precision agriculture.'
               },
             ].map((news, idx) => (
               <article key={idx} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">

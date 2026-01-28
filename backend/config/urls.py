@@ -3,10 +3,12 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from faculty.views import FacultyMemberViewSet
 from news.views import NewsItemViewSet
+from core.views import HeroSlideViewSet
 
 router = DefaultRouter()
 router.register(r'faculty', FacultyMemberViewSet)
 router.register(r'news', NewsItemViewSet)
+router.register(r'hero-slides', HeroSlideViewSet)
 
 # Admin Site Customization
 admin.site.site_header = "ComApps Dashboard"

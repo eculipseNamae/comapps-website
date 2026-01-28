@@ -11,7 +11,25 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import { fetchHeroSlides } from "@/app/data/api";
+import { useEffect, useState } from "react";
+
 export function Home() {
+  const [heroSlides, setHeroSlides] = useState<any[]>([]);
+  const [loadingHero, setLoadingHero] = useState(true);
+
+  useEffect(() => {
+    fetchHeroSlides()
+      .then(data => {
+        setHeroSlides(data);
+        setLoadingHero(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch hero slides", err);
+        setLoadingHero(false);
+      });
+  }, []);
+
   const carouselSettings = {
     dots: true,
     infinite: true,
@@ -74,30 +92,45 @@ export function Home() {
             <div className="relative">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <Slider {...carouselSettings}>
-                  <div>
-                    <ImageWithFallback
-                      src="https://images.unsplash.com/photo-1685456891912-c09f9cd252eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwbW9kZXJufGVufDF8fHx8MTc2ODk4ODg2OXww&ixlib=rb-4.1.0&q=80&w=1080"
-                      alt="MSU Campus"
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#236c65]/50 to-transparent" />
-                  </div>
-                  <div>
-                    <ImageWithFallback
-                      src="https://images.unsplash.com/photo-1717323181080-334e21c2dde5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxJb1QlMjBkZXZpY2VzJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NjkwNjQ5MDd8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                      alt="IoT Technology"
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#236c65]/50 to-transparent" />
-                  </div>
-                  <div>
-                    <ImageWithFallback
-                      src="https://images.unsplash.com/photo-1738949538943-e54722a44ffc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxncmFkdWF0aW9uJTIwY2VyZW1vbnklMjB1bml2ZXJzaXR5fGVufDF8fHx8MTc2ODk2NTAyOHww&ixlib=rb-4.1.0&q=80&w=1080"
-                      alt="Graduation Ceremony"
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#236c65]/50 to-transparent" />
-                  </div>
+                  {heroSlides.length > 0 ? (
+                    heroSlides.map((slide) => (
+                      <div key={slide.id} className="relative">
+                        <ImageWithFallback
+                          src={slide.image}
+                          alt={slide.title || "Hero Slide"}
+                          className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#236c65]/80 to-transparent flex items-end">
+                          {(slide.title || slide.caption) && (
+                            <div className="p-6 text-white">
+                              {slide.title && <h2 className="text-2xl font-bold mb-2">{slide.title}</h2>}
+                              {slide.caption && <p className="text-sm md:text-base opacity-90">{slide.caption}</p>}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    /* Fallback Static Slides if API returns empty */
+                    <>
+                      <div>
+                        <ImageWithFallback
+                          src="https://images.unsplash.com/photo-1685456891912-c09f9cd252eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwbW9kZXJufGVufDF8fHx8MTc2ODk4ODg2OXww&ixlib=rb-4.1.0&q=80&w=1080"
+                          alt="MSU Campus"
+                          className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#236c65]/50 to-transparent" />
+                      </div>
+                      <div>
+                        <ImageWithFallback
+                          src="https://images.unsplash.com/photo-1717323181080-334e21c2dde5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxJb1QlMjBkZXZpY2VzJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NjkwNjQ5MDd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                          alt="IoT Technology"
+                          className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#236c65]/50 to-transparent" />
+                      </div>
+                    </>
+                  )}
                 </Slider>
               </div>
             </div>
@@ -213,68 +246,68 @@ export function Home() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-             <h2 className="text-3xl font-bold text-slate-900 mb-4">Our Academic Programs</h2>
-             <p className="text-slate-600 max-w-2xl mx-auto">
-               Explore the pathways we offer for your future career in technology.
-             </p>
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Our Academic Programs</h2>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              Explore the pathways we offer for your future career in technology.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-             {/* BSCA Track 1 */}
-             <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-lg transition-all group">
-                <div className="w-12 h-12 bg-[#4CC9BF]/10 rounded-lg flex items-center justify-center text-[#4CC9BF] mb-4 group-hover:bg-[#4CC9BF] group-hover:text-white transition-colors">
-                   <Cpu className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-lg text-slate-900 mb-2">BSCA: Embedded Systems</h3>
-                <p className="text-sm text-slate-600 mb-4">
-                  Focuses on the design and development of specialized computer systems integrated into larger devices.
-                </p>
-                <Link to="/programs-admissions" className="text-sm font-semibold text-[#33AAA1] flex items-center group-hover:text-[#2d958d]">
-                   Learn more <ArrowRight className="ml-1 w-3 h-3" />
-                </Link>
-             </div>
+            {/* BSCA Track 1 */}
+            <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-lg transition-all group">
+              <div className="w-12 h-12 bg-[#4CC9BF]/10 rounded-lg flex items-center justify-center text-[#4CC9BF] mb-4 group-hover:bg-[#4CC9BF] group-hover:text-white transition-colors">
+                <Cpu className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-lg text-slate-900 mb-2">BSCA: Embedded Systems</h3>
+              <p className="text-sm text-slate-600 mb-4">
+                Focuses on the design and development of specialized computer systems integrated into larger devices.
+              </p>
+              <Link to="/programs-admissions" className="text-sm font-semibold text-[#33AAA1] flex items-center group-hover:text-[#2d958d]">
+                Learn more <ArrowRight className="ml-1 w-3 h-3" />
+              </Link>
+            </div>
 
-             {/* BSCA Track 2 */}
-             <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-lg transition-all group">
-                <div className="w-12 h-12 bg-[#4CC9BF]/10 rounded-lg flex items-center justify-center text-[#4CC9BF] mb-4 group-hover:bg-[#4CC9BF] group-hover:text-white transition-colors">
-                   <Award className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-lg text-slate-900 mb-2">BSCA: Internet of Things (IoT)</h3>
-                <p className="text-sm text-slate-600 mb-4">
-                  Specializes in connecting physical devices to the internet to collect and exchange data for smart solutions.
-                </p>
-                <Link to="/programs-admissions" className="text-sm font-semibold text-[#33AAA1] flex items-center group-hover:text-[#2d958d]">
-                   Learn more <ArrowRight className="ml-1 w-3 h-3" />
-                </Link>
-             </div>
+            {/* BSCA Track 2 */}
+            <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-lg transition-all group">
+              <div className="w-12 h-12 bg-[#4CC9BF]/10 rounded-lg flex items-center justify-center text-[#4CC9BF] mb-4 group-hover:bg-[#4CC9BF] group-hover:text-white transition-colors">
+                <Award className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-lg text-slate-900 mb-2">BSCA: Internet of Things (IoT)</h3>
+              <p className="text-sm text-slate-600 mb-4">
+                Specializes in connecting physical devices to the internet to collect and exchange data for smart solutions.
+              </p>
+              <Link to="/programs-admissions" className="text-sm font-semibold text-[#33AAA1] flex items-center group-hover:text-[#2d958d]">
+                Learn more <ArrowRight className="ml-1 w-3 h-3" />
+              </Link>
+            </div>
 
-             {/* MSCA */}
-             <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-lg transition-all group">
-                <div className="w-12 h-12 bg-[#4CC9BF]/10 rounded-lg flex items-center justify-center text-[#4CC9BF] mb-4 group-hover:bg-[#4CC9BF] group-hover:text-white transition-colors">
-                   <Users className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-lg text-slate-900 mb-2">MS Computer Applications</h3>
-                <p className="text-sm text-slate-600 mb-4">
-                   Advanced graduate studies focusing on research, IT management, and emerging technologies.
-                </p>
-                <Link to="/programs-admissions" className="text-sm font-semibold text-[#33AAA1] flex items-center group-hover:text-[#2d958d]">
-                   Learn more <ArrowRight className="ml-1 w-3 h-3" />
-                </Link>
-             </div>
+            {/* MSCA */}
+            <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-lg transition-all group">
+              <div className="w-12 h-12 bg-[#4CC9BF]/10 rounded-lg flex items-center justify-center text-[#4CC9BF] mb-4 group-hover:bg-[#4CC9BF] group-hover:text-white transition-colors">
+                <Users className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-lg text-slate-900 mb-2">MS Computer Applications</h3>
+              <p className="text-sm text-slate-600 mb-4">
+                Advanced graduate studies focusing on research, IT management, and emerging technologies.
+              </p>
+              <Link to="/programs-admissions" className="text-sm font-semibold text-[#33AAA1] flex items-center group-hover:text-[#2d958d]">
+                Learn more <ArrowRight className="ml-1 w-3 h-3" />
+              </Link>
+            </div>
 
-             {/* BS ECT */}
-             <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-lg transition-all group">
-                <div className="w-12 h-12 bg-slate-200 rounded-lg flex items-center justify-center text-slate-500 mb-4 group-hover:bg-slate-800 group-hover:text-white transition-colors">
-                   <Calendar className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-lg text-slate-900 mb-2">BS ECT (Legacy)</h3>
-                <p className="text-sm text-slate-600 mb-4">
-                   Our foundational program in electronics technology. Note: This program is closed for new admissions.
-                </p>
-                <Link to="/programs-admissions" className="text-sm font-semibold text-slate-500 flex items-center group-hover:text-slate-700">
-                   View details <ArrowRight className="ml-1 w-3 h-3" />
-                </Link>
-             </div>
+            {/* BS ECT */}
+            <div className="bg-slate-50 p-6 rounded-xl border border-slate-100 hover:shadow-lg transition-all group">
+              <div className="w-12 h-12 bg-slate-200 rounded-lg flex items-center justify-center text-slate-500 mb-4 group-hover:bg-slate-800 group-hover:text-white transition-colors">
+                <Calendar className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-lg text-slate-900 mb-2">BS ECT (Legacy)</h3>
+              <p className="text-sm text-slate-600 mb-4">
+                Our foundational program in electronics technology. Note: This program is closed for new admissions.
+              </p>
+              <Link to="/programs-admissions" className="text-sm font-semibold text-slate-500 flex items-center group-hover:text-slate-700">
+                View details <ArrowRight className="ml-1 w-3 h-3" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

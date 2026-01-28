@@ -16,8 +16,17 @@ export async function fetchFacultyMember(id: string) {
   return response.json();
 }
 
+
 export async function fetchNews() {
   const response = await fetch(`${API_BASE_URL}/news/`);
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+}
+
+export async function fetchHeroSlides() {
+  const response = await fetch(`${API_BASE_URL}/hero-slides/`);
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }

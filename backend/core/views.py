@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import HeroSlide
+from .serializers import HeroSlideSerializer
 
-# Create your views here.
+class HeroSlideViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = HeroSlide.objects.filter(is_active=True)
+    serializer_class = HeroSlideSerializer

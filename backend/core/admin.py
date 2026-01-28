@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import HeroSlide
 
-# Register your models here.
+@admin.register(HeroSlide)
+class HeroSlideAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'order', 'is_active', 'image')
+    list_editable = ('order', 'is_active')
+    search_fields = ('title', 'caption')
