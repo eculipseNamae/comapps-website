@@ -10,13 +10,14 @@ from image_cropping import ImageCroppingMixin
 
 @admin.register(RegularFaculty)
 class RegularFacultyAdmin(ImageCroppingMixin, admin.ModelAdmin):
-    list_display = ('name', 'position', 'profile_image', 'email')
+    list_display = ('name', 'position', 'faculty_type', 'profile_image', 'email')
     search_fields = ('name', 'email', 'bio')
+    list_filter = ('faculty_type',)
     inlines = [PublicationInline]
     
     fieldsets = (
         ('Personal Information', {
-            'fields': ('id', 'name', 'profile_image', 'cropping', 'email', 'position', 'bio')
+            'fields': ('id', 'name', 'profile_image', 'cropping', 'email', 'position', 'faculty_type', 'bio')
         }),
         ('Academic & Research', {
             'fields': ('research_interests', 'networks'),

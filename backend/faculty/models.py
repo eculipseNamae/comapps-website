@@ -11,6 +11,12 @@ class FacultyMember(models.Model):
     networks = models.JSONField(default=dict, blank=True)
     profile_image = models.ImageField(upload_to='faculty_images/', blank=True, null=True)
     cropping = ImageRatioField('profile_image', '400x400')
+    
+    FACULTY_TYPE_CHOICES = [
+        ('Core', 'Core Faculty'),
+        ('Adjunct', 'Adjunct Faculty'),
+    ]
+    faculty_type = models.CharField(max_length=20, choices=FACULTY_TYPE_CHOICES, default='Core')
 
     def __str__(self):
         return self.name

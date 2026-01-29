@@ -12,6 +12,7 @@ interface FacultyMemberFromAPI {
   bio: string;
   research_interests: string[];
   profile_image: string | null;
+  faculty_type: 'Core' | 'Adjunct';
 }
 
 export function Faculty() {
@@ -26,12 +27,15 @@ export function Faculty() {
     m.position.toLowerCase().includes('staff')
   );
   // Regular faculty is everyone who is NOT a lecturer and NOT staff
-  const regularFaculty = facultyMembers.filter(m =>
+  const allFaculty = facultyMembers.filter(m =>
     !m.position.toLowerCase().includes('lecturer') &&
     !m.position.toLowerCase().includes('secretary') &&
     !m.position.toLowerCase().includes('admin') &&
     !m.position.toLowerCase().includes('staff')
   );
+
+  const coreFaculty = allFaculty.filter(m => m.faculty_type === 'Core' || !m.faculty_type);
+  const adjunctFaculty = allFaculty.filter(m => m.faculty_type === 'Adjunct');
 
   useEffect(() => {
     fetchFaculty()
@@ -72,16 +76,16 @@ export function Faculty() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Faculty Members</h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Core Faculty</h2>
             <p className="text-slate-600 max-w-3xl mx-auto">
-              Our faculty members are experts in their fields, dedicated to advancing knowledge and preparing the next generation of innovators.
+              Our core faculty members are dedicated full-time educators and researchers committed to academic excellence.
             </p>
           </div>
           {loading ? (
             <div className="text-center">Loading faculty data...</div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {regularFaculty.map((member, idx) => (
+              {coreFaculty.map((member, idx) => (
                 <motion.div
                   key={member.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -135,6 +139,53 @@ export function Faculty() {
           )}
         </div>
       </section>
+
+      {/* Adjunct Faculty */}
+      {adjunctFaculty.length > 0 && (
+        <section className="py-20 bg-slate-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Adjunct Faculty</h2>
+              <p className="text-slate-600 max-w-3xl mx-auto">
+                Industry experts and visiting professors enhancing our curriculum with real-world perspectives.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {adjunctFaculty.map((member, idx) => (
+                <motion.div
+                  key={member.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.05 }}
+                  viewport={{ once: true }}
+                >
+                  <Link to={`/faculty/${member.id}`}>
+                    <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-slate-200 hover:shadow-xl hover:border-[#4CC9BF] transition-all cursor-pointer h-full">
+                      <div className="bg-gradient-to-r from-slate-700 to-slate-600 h-32" />
+                      <div className="p-6 -mt-16">
+                        <div className="w-24 h-24 bg-white rounded-full border-4 border-white shadow-lg mb-4 flex items-center justify-center overflow-hidden">
+                          {member.profile_image ? (
+                            <img src={member.profile_image} alt={member.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <User className="w-12 h-12 text-slate-500" />
+                          )}
+                        </div>
+                        <h3 className="text-xl font-bold text-slate-900 mb-1">{member.name}</h3>
+                        <p className="text-slate-600 font-semibold mb-3">{member.position}</p>
+                        <div className="border-t border-slate-200 pt-4">
+                          <span className="text-sm text-slate-600 font-semibold hover:text-[#33AAA1]">
+                            View Profile →
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Lecturers */}
       <section className="py-20 bg-slate-50">

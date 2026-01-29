@@ -61,25 +61,29 @@ export function Students() {
       name: "Computer Applications Society",
       description: "The official student organization fostering academic excellence and camaraderie.",
       icon: Users,
-      color: "bg-blue-100 text-blue-600"
+      color: "bg-blue-100 text-blue-600",
+      image: "/comapps-society-logo.jpg"
     },
     {
       name: "College of Computer Studies Student Council",
-      description: "A community of developers building innovative projects and competing in hackathons.",
+      description: "The official student governing body of the College of Computer Studies.",
       icon: Code,
-      color: "bg-teal-100 text-teal-600"
+      color: "bg-teal-100 text-teal-600",
+      image: "/ccs-sc-logo.png"
     },
     {
       name: "The Motherboard",
-      description: "Focused on hardware-software integration and embedded systems innovation.",
+      description: "The official publication of the College of Computer Studies.",
       icon: Lightbulb,
-      color: "bg-purple-100 text-purple-600"
+      color: "bg-purple-100 text-purple-600",
+      image: "/themotherboard-logo.png"
     },
     {
       name: "Tesseract",
-      description: "Exploring the Internet of Things and smart device technologies.",
+      description: "Community for showcasing and upskilling IT talents.",
       icon: Award,
-      color: "bg-green-100 text-green-600"
+      color: "bg-green-100 text-green-600",
+      image: "/tesseract-logo.png"
     }
   ];
 
@@ -396,8 +400,12 @@ export function Students() {
                 viewport={{ once: true }}
                 className="bg-white rounded-xl p-6 border border-slate-100 hover:shadow-lg transition-all"
               >
-                <div className={`w-12 h-12 ${org.color} rounded-lg flex items-center justify-center mb-4`}>
-                  <org.icon className="w-6 h-6" />
+                <div className={`w-16 h-16 ${org.color} bg-opacity-20 rounded-full flex items-center justify-center mb-4 overflow-hidden border border-slate-100`}>
+                  {org.image ? (
+                    <img src={org.image} alt={org.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <org.icon className="w-8 h-8" />
+                  )}
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-2">{org.name}</h3>
                 <p className="text-sm text-slate-600">{org.description}</p>
