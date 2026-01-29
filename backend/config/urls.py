@@ -7,11 +7,13 @@ from news.views import NewsItemViewSet, EventViewSet
 from students.views import StudentAchievementViewSet, StudentProjectViewSet, AcademicScholarViewSet, AlumniViewSet
 from faculty.views import FacultyMemberViewSet, FacultyResearchProjectViewSet
 from extensions.views import ExtensionProgramViewSet
+from resources_app.views import ResourceViewSet
 
 router = DefaultRouter()
 router.register(r'faculty', FacultyMemberViewSet)
 router.register(r'faculty-research', FacultyResearchProjectViewSet)
 router.register(r'extensions', ExtensionProgramViewSet)
+router.register(r'resources', ResourceViewSet)
 router.register(r'news', NewsItemViewSet)
 router.register(r'hero-slides', HeroSlideViewSet)
 router.register(r'admission-deadlines', AdmissionDeadlineViewSet)

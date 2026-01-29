@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'research',
     'students',
     'extensions',
+    'resources_app',
     'core.apps.CoreConfig',
 ]
 

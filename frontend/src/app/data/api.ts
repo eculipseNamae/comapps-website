@@ -105,3 +105,11 @@ export const fetchExtensionMetrics = async () => {
   }
   return response.json();
 };
+
+export const fetchResources = async () => {
+  const response = await fetch(`${API_BASE_URL}/resources/`);
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+};

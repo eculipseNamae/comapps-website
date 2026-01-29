@@ -17,17 +17,16 @@ export function Career() {
           <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Career Paths</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { title: 'IoT Engineer', salary: '₱35,000 - ₱60,000/month', desc: 'Design and implement IoT solutions for smart devices and systems' },
-              { title: 'Embedded Systems Developer', salary: '₱40,000 - ₱70,000/month', desc: 'Develop firmware and software for embedded devices' },
-              { title: 'Software Engineer', salary: '₱30,000 - ₱55,000/month', desc: 'Create software applications and systems' },
-              { title: 'Systems Architect', salary: '₱60,000 - ₱100,000/month', desc: 'Design complex system architectures and integrations' },
-              { title: 'Technical Consultant', salary: '₱45,000 - ₱80,000/month', desc: 'Provide expert advice on technology solutions' },
-              { title: 'Research & Development', salary: '₱35,000 - ₱65,000/month', desc: 'Innovate new technologies and solutions' },
+              { title: 'IoT Engineer', desc: 'Design and implement IoT solutions for smart devices and systems' },
+              { title: 'Embedded Systems Developer', desc: 'Develop firmware and software for embedded devices' },
+              { title: 'Software Engineer', desc: 'Create software applications and systems' },
+              { title: 'Systems Architect', desc: 'Design complex system architectures and integrations' },
+              { title: 'Technical Consultant', desc: 'Provide expert advice on technology solutions' },
+              { title: 'Research & Development', desc: 'Innovate new technologies and solutions' },
             ].map((career, idx) => (
               <div key={idx} className="bg-gradient-to-br from-[#4CC9BF]/10 to-white p-6 rounded-xl shadow-lg">
                 <Briefcase className="w-10 h-10 text-[#4CC9BF] mb-4" />
                 <h3 className="text-xl font-bold text-slate-900 mb-2">{career.title}</h3>
-                <div className="text-[#4CC9BF] font-semibold mb-3">{career.salary}</div>
                 <p className="text-slate-600 text-sm">{career.desc}</p>
               </div>
             ))}
@@ -48,7 +47,7 @@ export function Career() {
               ].map((service, idx) => (
                 <div key={idx} className="bg-white/10 backdrop-blur-sm p-6 rounded-xl">
                   <h3 className="font-bold mb-2">{service.title}</h3>
-                  <p className="text-sm text-[#77D6CE]">{service.desc}</p>
+                  <p className="text-sm text-white/90">{service.desc}</p>
                 </div>
               ))}
             </div>

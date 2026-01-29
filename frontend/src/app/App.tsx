@@ -23,9 +23,12 @@ import { Extension } from '@/app/pages/Extension';
 import { Contact } from '@/app/pages/Contact';
 import { News } from '@/app/pages/News';
 
+import { ScrollToTop } from '@/app/components/ScrollToTop';
+
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
