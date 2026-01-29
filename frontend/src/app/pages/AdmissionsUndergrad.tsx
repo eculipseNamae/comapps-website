@@ -1,20 +1,47 @@
 import { Calendar, FileText, Award, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { fetchAdmissionDeadlines } from '@/app/data/api';
 
 export function AdmissionsUndergrad() {
+  const [deadlines, setDeadlines] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadDeadlines = async () => {
+      try {
+        const data = await fetchAdmissionDeadlines();
+        const undergraduateDeadlines = data.filter((d: any) => d.category === 'Undergraduate');
+        setDeadlines(undergraduateDeadlines);
+      } catch (error) {
+        console.error("Failed to load deadlines", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadDeadlines();
+  }, []);
+
+  // Helper to format date
+  const formatDate = (dateString: string) => {
+    if (!dateString) return 'TBA';
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  };
+
   return (
     <div>
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-[#33AAA1] to-[#4CC9BF] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-4">
-            <Link to="/admissions" className="text-[#77D6CE] hover:text-white transition-colors">
-              ← Back to Admissions Overview
+            <Link to="/programs-admissions" className="text-[#77D6CE] hover:text-white transition-colors">
+              ← Back to Programs & Admissions
             </Link>
           </div>
           <h1 className="text-5xl font-bold mb-6">BS Computer Applications Admissions</h1>
           <p className="text-xl text-[#77D6CE] max-w-3xl">
-            Begin your undergraduate journey in Computer Applications with specializations in IoT and Embedded Systems. 
+            Begin your undergraduate journey in Computer Applications with specializations in IoT and Embedded Systems.
             Learn about admission requirements, application process, and important dates.
           </p>
         </div>
@@ -25,7 +52,7 @@ export function AdmissionsUndergrad() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-slate-900 mb-4 text-center">BS Computer Applications</h2>
           <h3 className="text-2xl font-bold text-[#4CC9BF] mb-12 text-center">Admission Requirements</h3>
-          
+
           <div className="max-w-5xl mx-auto bg-slate-50 rounded-xl shadow-lg p-8 md:p-12">
             <ol className="space-y-8">
               {/* 1. SASE Cut-off Score */}
@@ -155,7 +182,7 @@ export function AdmissionsUndergrad() {
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Application Requirements</h2>
-          
+
           {/* Important Notice */}
           <div className="max-w-4xl mx-auto mb-12 bg-[#4CC9BF]/10 border-l-4 border-[#4CC9BF] p-6 rounded-r-lg">
             <p className="text-slate-700 mb-2">
@@ -244,21 +271,28 @@ export function AdmissionsUndergrad() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Important Deadlines</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: 'Early Application', date: 'October 15, 2025', desc: 'First admission cycle' },
-              { title: 'Regular Application', date: 'January 15, 2026', desc: 'Standard admission deadline' },
-              { title: 'Late Application', date: 'March 15, 2026', desc: 'Final admission deadline' },
-              { title: 'Classes Begin', date: 'June 1, 2026', desc: 'Academic year starts' },
-            ].map((item, idx) => (
-              <div key={idx} className="bg-[#4CC9BF]/10 p-6 rounded-xl text-center">
-                <Calendar className="w-10 h-10 text-[#4CC9BF] mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
-                <div className="text-2xl font-bold text-[#4CC9BF] mb-2">{item.date}</div>
-                <p className="text-sm text-slate-600">{item.desc}</p>
-              </div>
-            ))}
-          </div>
+
+          {loading ? (
+            <div className="text-center text-slate-500 py-10">Loading deadlines...</div>
+          ) : deadlines.length === 0 ? (
+            <div className="text-center text-slate-500 py-10">No active deadlines posted at the moment.</div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {deadlines.map((item, idx) => (
+                <div key={idx} className="bg-[#4CC9BF]/10 p-6 rounded-xl text-center">
+                  <Calendar className="w-10 h-10 text-[#4CC9BF] mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
+                  <div className="text-2xl font-bold text-[#4CC9BF] mb-2">{formatDate(item.start_date)}</div>
+                  {item.end_date && (
+                    <div className="text-sm text-slate-500 mb-2 font-semibold">
+                      until {formatDate(item.end_date)}
+                    </div>
+                  )}
+                  <p className="text-sm text-slate-600">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -269,12 +303,12 @@ export function AdmissionsUndergrad() {
           <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg text-center">
             <FileText className="w-16 h-16 text-[#4CC9BF] mx-auto mb-6" />
             <p className="text-lg text-slate-700 mb-6">
-              For a complete and up-to-date list of required documents and specific submission requirements, 
+              For a complete and up-to-date list of required documents and specific submission requirements,
               please refer to the <span className="font-semibold text-[#4CC9BF]">MSU-IIT Admissions Office</span>.
             </p>
             <div className="bg-[#4CC9BF]/10 border-l-4 border-[#4CC9BF] p-4 rounded-r-lg text-left">
               <p className="text-sm text-slate-700">
-                <span className="font-semibold">Contact:</span> Office of Admissions and Scholarship Administration (OASA) and 
+                <span className="font-semibold">Contact:</span> Office of Admissions and Scholarship Administration (OASA) and
                 Office of the Institute Registrar (OIR) for detailed documentary requirements.
               </p>
             </div>
@@ -286,7 +320,7 @@ export function AdmissionsUndergrad() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Tuition and Fees</h2>
-          
+
           {/* RA 10931 Highlight */}
           <div className="max-w-4xl mx-auto mb-12">
             <div className="bg-gradient-to-r from-[#4CC9BF] to-[#33AAA1] text-white p-8 rounded-xl shadow-xl">
@@ -295,8 +329,8 @@ export function AdmissionsUndergrad() {
                 <div>
                   <h3 className="text-2xl font-bold mb-3">100% FREE Education under RA 10931</h3>
                   <p className="text-[#77D6CE] mb-4">
-                    As a State University and College (SUC), MSU-IIT is covered by <strong>Republic Act 10931</strong>, 
-                    the Universal Access to Quality Tertiary Education Act. Filipino students enrolled in the BS Computer Applications 
+                    As a State University and College (SUC), MSU-IIT is covered by <strong>Republic Act 10931</strong>,
+                    the Universal Access to Quality Tertiary Education Act. Filipino students enrolled in the BS Computer Applications
                     program enjoy <strong>completely FREE education</strong> with ALL fees covered by the government.
                   </p>
                   <div className="flex items-center gap-2 text-white/90">
@@ -369,7 +403,7 @@ export function AdmissionsUndergrad() {
                     <span>Students only need to cover personal expenses such as transportation and meals</span>
                   </div>
                 </div>
-                
+
                 {/* Additional Info Box */}
                 <div className="mt-6 bg-[#4CC9BF]/10 border-l-4 border-[#4CC9BF] p-6 rounded-r-lg">
                   <h4 className="font-bold text-slate-900 mb-2">Who Qualifies for RA 10931?</h4>
@@ -420,7 +454,7 @@ export function AdmissionsUndergrad() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Additional Financial Assistance</h2>
           <p className="text-center text-slate-600 mb-12 max-w-3xl mx-auto">
-            Beyond the FREE tuition provided by RA 10931, additional scholarship programs are available to cover 
+            Beyond the FREE tuition provided by RA 10931, additional scholarship programs are available to cover
             other educational expenses such as books, materials, and living allowances.
           </p>
           <div className="grid md:grid-cols-3 gap-8">

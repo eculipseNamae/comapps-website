@@ -3,7 +3,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from faculty.views import FacultyMemberViewSet
 from news.views import NewsItemViewSet
-from core.views import HeroSlideViewSet
+from core.views import HeroSlideViewSet, AdmissionDeadlineViewSet
 from news.views import NewsItemViewSet, EventViewSet
 from students.views import StudentAchievementViewSet
 
@@ -11,6 +11,7 @@ router = DefaultRouter()
 router.register(r'faculty', FacultyMemberViewSet)
 router.register(r'news', NewsItemViewSet)
 router.register(r'hero-slides', HeroSlideViewSet)
+router.register(r'admission-deadlines', AdmissionDeadlineViewSet)
 router.register(r'events', EventViewSet, basename='events')
 router.register(r'achievements', StudentAchievementViewSet)
 

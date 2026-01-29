@@ -11,14 +11,17 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import { fetchHeroSlides } from "@/app/data/api";
+import { fetchHeroSlides, fetchNews } from "@/app/data/api";
 import { useEffect, useState } from "react";
 
 export function Home() {
   const [heroSlides, setHeroSlides] = useState<any[]>([]);
   const [loadingHero, setLoadingHero] = useState(true);
+  const [newsItems, setNewsItems] = useState<any[]>([]);
+  const [loadingNews, setLoadingNews] = useState(true);
 
   useEffect(() => {
+    // Fetch Hero Slides
     fetchHeroSlides()
       .then(data => {
         setHeroSlides(data);
@@ -28,7 +31,25 @@ export function Home() {
         console.error("Failed to fetch hero slides", err);
         setLoadingHero(false);
       });
+
+    // Fetch Latest News
+    fetchNews(1)
+      .then(data => {
+        // Handle paginated response
+        const results = data.results ? data.results : data;
+        setNewsItems(results.slice(0, 3)); // Ensure max 3 just in case
+        setLoadingNews(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch news", err);
+        setLoadingNews(false);
+      });
   }, []);
+
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  };
 
   const carouselSettings = {
     dots: true,
@@ -154,90 +175,45 @@ export function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <article className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1738949538943-e54722a44ffc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxncmFkdWF0aW9uJTIwY2VyZW1vbnklMjB1bml2ZXJzaXR5fGVufDF8fHx8MTc2ODk2NTAyOHww&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Graduation"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="flex items-center text-sm text-slate-500 mb-3">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  January 15, 2026
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
-                  Commencement Exercises 2026
-                </h3>
-                <p className="text-slate-600 mb-4">
-                  Celebrating the achievements of our graduating
-                  class with outstanding performances in IoT and
-                  Embedded Systems.
-                </p>
-                <Link
-                  to="/news"
-                  className="text-[#33AAA1] font-semibold hover:text-[#2d958d] inline-flex items-center"
-                >
-                  Read more{" "}
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
-              </div>
-            </article>
-
-            <article className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1717323181080-334e21c2dde5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxJb1QlMjBkZXZpY2VzJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NjkwNjQ5MDd8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="IoT Project"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="flex items-center text-sm text-slate-500 mb-3">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  January 10, 2026
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
-                  New IoT Lab Opens
-                </h3>
-                <p className="text-slate-600 mb-4">
-                  State-of-the-art Internet of Things laboratory
-                  equipped with latest sensors and development
-                  platforms.
-                </p>
-                <Link
-                  to="/news"
-                  className="text-[#4CC9BF] font-semibold hover:text-[#33AAA1] inline-flex items-center"
-                >
-                  Read more{" "}
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
-              </div>
-            </article>
-
-            <article className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1509228468518-180dd4864904?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMHByb2plY3QlMjB0ZWNobm9sb2d5fGVufDB8fHx8MTc2OTA2NDkwN3ww&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Research Competition"
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="flex items-center text-sm text-slate-500 mb-3">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  January 5, 2026
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
-                  Students Win National Tech Competition
-                </h3>
-                <p className="text-slate-600 mb-4">
-                  Department students secure first place at the National Embedded Systems Competition with innovative smart home project.
-                </p>
-                <Link
-                  to="/news"
-                  className="text-[#33AAA1] font-semibold hover:text-[#2d958d] inline-flex items-center"
-                >
-                  Read more{" "}
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
-              </div>
-            </article>
+            {loadingNews ? (
+              <div className="col-span-3 text-center py-10 text-slate-500">Loading news...</div>
+            ) : newsItems.length > 0 ? (
+              newsItems.map((item) => (
+                <article key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow flex flex-col h-full">
+                  <ImageWithFallback
+                    src={item.image || "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop"} // Default fallback
+                    alt={item.title}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center text-sm text-slate-500 mb-3">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      {formatDate(item.date)}
+                    </div>
+                    <span className="inline-block px-2 py-1 mb-2 text-xs font-semibold text-white bg-[#4CC9BF] rounded-full w-fit">
+                      {item.category}
+                    </span>
+                    <h3 className="text-xl font-bold text-slate-900 mb-3 line-clamp-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-slate-600 mb-4 line-clamp-3">
+                      {item.summary}
+                    </p>
+                    <div className="mt-auto pt-4">
+                      <Link
+                        to="/news"
+                        className="text-[#33AAA1] font-semibold hover:text-[#2d958d] inline-flex items-center"
+                      >
+                        Read more{" "}
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              ))
+            ) : (
+              <div className="col-span-3 text-center py-10 text-slate-500">No news available at the moment.</div>
+            )}
           </div>
         </div>
       </section>

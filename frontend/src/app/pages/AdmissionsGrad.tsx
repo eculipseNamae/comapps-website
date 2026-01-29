@@ -1,20 +1,47 @@
 import { Calendar, FileText, Phone, Mail, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { fetchAdmissionDeadlines } from '@/app/data/api';
 
 export function AdmissionsGrad() {
+  const [deadlines, setDeadlines] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadDeadlines = async () => {
+      try {
+        const data = await fetchAdmissionDeadlines();
+        const graduateDeadlines = data.filter((d: any) => d.category === 'Graduate');
+        setDeadlines(graduateDeadlines);
+      } catch (error) {
+        console.error("Failed to load deadlines", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadDeadlines();
+  }, []);
+
+  // Helper to format date
+  const formatDate = (dateString: string) => {
+    if (!dateString) return 'TBA';
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  };
+
   return (
     <div>
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-[#236c65] to-[#33AAA1] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-4">
-            <Link to="/admissions" className="text-[#77D6CE] hover:text-white transition-colors">
-              ← Back to Admissions Overview
+            <Link to="/programs-admissions" className="text-[#77D6CE] hover:text-white transition-colors">
+              ← Back to Programs & Admissions
             </Link>
           </div>
           <h1 className="text-5xl font-bold mb-6">MSCA Graduate Admissions</h1>
           <p className="text-xl text-[#77D6CE] max-w-3xl">
-            Advance your career with a Master of Science in Computer Applications. Learn about graduate program 
+            Advance your career with a Master of Science in Computer Applications. Learn about graduate program
             admission requirements, application process, and important dates.
           </p>
         </div>
@@ -101,20 +128,28 @@ export function AdmissionsGrad() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Graduate Program Deadlines</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { title: 'First Semester Intake', date: 'March 31, 2026', desc: 'Application deadline' },
-              { title: 'Second Semester Intake', date: 'September 30, 2025', desc: 'Application deadline' },
-              { title: 'Summer Term (if offered)', date: 'February 28, 2026', desc: 'Limited slots' },
-            ].map((item, idx) => (
-              <div key={idx} className="bg-[#33AAA1]/10 p-6 rounded-xl text-center">
-                <Calendar className="w-10 h-10 text-[#33AAA1] mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
-                <div className="text-2xl font-bold text-[#33AAA1] mb-2">{item.date}</div>
-                <p className="text-sm text-slate-600">{item.desc}</p>
-              </div>
-            ))}
-          </div>
+
+          {loading ? (
+            <div className="text-center text-slate-500 py-10">Loading deadlines...</div>
+          ) : deadlines.length === 0 ? (
+            <div className="text-center text-slate-500 py-10">No active deadlines posted at the moment.</div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {deadlines.map((item, idx) => (
+                <div key={idx} className="bg-[#33AAA1]/10 p-6 rounded-xl text-center">
+                  <Calendar className="w-10 h-10 text-[#33AAA1] mx-auto mb-4" />
+                  <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
+                  <div className="text-2xl font-bold text-[#33AAA1] mb-2">{formatDate(item.start_date)}</div>
+                  {item.end_date && (
+                    <div className="text-sm text-slate-500 mb-2 font-semibold">
+                      until {formatDate(item.end_date)}
+                    </div>
+                  )}
+                  <p className="text-sm text-slate-600">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          )}
           <div className="mt-8 text-center text-slate-600">
             <p className="text-sm">Note: Graduate program intake schedules may vary. Please contact the department for the most current information.</p>
           </div>
@@ -153,7 +188,7 @@ export function AdmissionsGrad() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Tuition and Fees</h2>
-          
+
           <div className="max-w-3xl mx-auto">
             <div className="bg-gradient-to-br from-[#33AAA1]/10 to-white rounded-xl shadow-xl overflow-hidden border-2 border-[#33AAA1]/20">
               <div className="bg-gradient-to-r from-[#236c65] to-[#33AAA1] text-white p-8">
@@ -163,7 +198,7 @@ export function AdmissionsGrad() {
               <div className="p-8">
                 <div className="bg-[#33AAA1]/10 border-l-4 border-[#33AAA1] p-6 rounded-r-lg mb-6">
                   <p className="text-slate-700 mb-4">
-                    <strong>Important Notice:</strong> Graduate programs (MS/MA/PhD) are <strong>not covered</strong> by the 
+                    <strong>Important Notice:</strong> Graduate programs (MS/MA/PhD) are <strong>not covered</strong> by the
                     Universal Access to Quality Tertiary Education Act (RA 10931). Tuition and fees apply for graduate students.
                   </p>
                   <p className="text-slate-600 text-sm">
@@ -178,7 +213,7 @@ export function AdmissionsGrad() {
                       Contact the Department
                     </h4>
                     <p className="text-slate-600 mb-4">
-                      For detailed information about current tuition rates, fees, payment schedules, and available 
+                      For detailed information about current tuition rates, fees, payment schedules, and available
                       scholarships or financial assistance programs, please contact:
                     </p>
                     <div className="space-y-2">
@@ -233,14 +268,14 @@ export function AdmissionsGrad() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Scholarships & Financial Assistance</h2>
           <p className="text-center text-slate-600 mb-12 max-w-3xl mx-auto">
-            Several scholarship and financial assistance programs are available for graduate students to help 
+            Several scholarship and financial assistance programs are available for graduate students to help
             support their studies.
           </p>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-white p-8 rounded-xl shadow-lg">
               <h3 className="text-xl font-bold text-slate-900 mb-4">DOST-SEI Scholarship</h3>
               <p className="text-slate-600 mb-4">
-                The Department of Science and Technology - Science Education Institute offers scholarships for 
+                The Department of Science and Technology - Science Education Institute offers scholarships for
                 graduate students pursuing degrees in science and technology fields.
               </p>
               <ul className="space-y-2 text-sm text-slate-700">
@@ -262,7 +297,7 @@ export function AdmissionsGrad() {
             <div className="bg-white p-8 rounded-xl shadow-lg">
               <h3 className="text-xl font-bold text-slate-900 mb-4">CHED Faculty Development Program</h3>
               <p className="text-slate-600 mb-4">
-                For faculty members of higher education institutions seeking to pursue graduate studies to 
+                For faculty members of higher education institutions seeking to pursue graduate studies to
                 enhance their teaching qualifications.
               </p>
               <ul className="space-y-2 text-sm text-slate-700">
@@ -284,7 +319,7 @@ export function AdmissionsGrad() {
             <div className="bg-white p-8 rounded-xl shadow-lg">
               <h3 className="text-xl font-bold text-slate-900 mb-4">Graduate Assistantship</h3>
               <p className="text-slate-600 mb-4">
-                Teaching or research assistantship positions may be available within the department, providing 
+                Teaching or research assistantship positions may be available within the department, providing
                 tuition waivers and monthly stipends.
               </p>
               <p className="text-sm text-slate-600 italic">
@@ -295,7 +330,7 @@ export function AdmissionsGrad() {
             <div className="bg-white p-8 rounded-xl shadow-lg">
               <h3 className="text-xl font-bold text-slate-900 mb-4">Industry-Sponsored Scholarships</h3>
               <p className="text-slate-600 mb-4">
-                Various technology companies and organizations offer scholarships for graduate students in 
+                Various technology companies and organizations offer scholarships for graduate students in
                 computer applications and related fields.
               </p>
               <p className="text-sm text-slate-600 italic">

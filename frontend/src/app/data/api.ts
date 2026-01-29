@@ -49,3 +49,11 @@ export async function fetchHeroSlides() {
   }
   return response.json();
 }
+
+export async function fetchAdmissionDeadlines() {
+  const response = await fetch(`${API_BASE_URL}/admission-deadlines/`);
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+}

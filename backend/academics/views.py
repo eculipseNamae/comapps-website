@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import Program
+from .serializers import ProgramSerializer
 
-# Create your views here.
+class ProgramViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Program.objects.filter(is_active=True)
+    serializer_class = ProgramSerializer
+    lookup_field = 'slug'
