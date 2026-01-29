@@ -81,3 +81,11 @@ export async function fetchAlumni() {
   }
   return response.json();
 }
+
+export async function fetchFacultyResearch() {
+  const response = await fetch(`${API_BASE_URL}/faculty-research/`);
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+}

@@ -3,9 +3,9 @@ from .models import StudentProject, StudentAchievement, AcademicScholar, Alumni
 
 @admin.register(StudentProject)
 class StudentProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'track', 'project_type', 'year_level', 'semester')
+    list_display = ('title', 'track', 'project_type', 'status', 'year_level', 'semester')
     search_fields = ('title', 'team_members', 'description', 'technologies')
-    list_filter = ('track', 'project_type', 'year_level', 'semester')
+    list_filter = ('track', 'project_type', 'status', 'year_level', 'semester')
 
 @admin.register(StudentAchievement)
 class StudentAchievementAdmin(admin.ModelAdmin):

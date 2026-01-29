@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.db import models
-from .models import FacultyMember, Publication, RegularFaculty, Lecturer, SupportStaff
+from .models import FacultyMember, RegularFaculty, Lecturer, SupportStaff, Publication
 
 class PublicationInline(admin.TabularInline):
     model = Publication
@@ -27,6 +27,12 @@ class RegularFacultyAdmin(ImageCroppingMixin, admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         return qs.exclude(position__icontains="Lecturer").exclude(position__icontains="Secretary").exclude(position__icontains="Staff").exclude(position__icontains="Admin")
+
+@admin.register(Publication)
+class PublicationAdmin(admin.ModelAdmin):
+    list_display = ('title', 'faculty', 'year', 'venue')
+    search_fields = ('title', 'venue')
+    list_filter = ('year', 'faculty')
 
 @admin.register(Lecturer)
 class LecturerAdmin(ImageCroppingMixin, admin.ModelAdmin):

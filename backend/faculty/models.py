@@ -42,3 +42,17 @@ class Publication(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.year})"
+
+class FacultyResearchProject(models.Model):
+    STATUS_CHOICES = [
+        ('Ongoing', 'Ongoing'),
+        ('Completed', 'Completed'),
+    ]
+
+    title = models.CharField(max_length=500)
+    lead_researcher = models.ForeignKey(FacultyMember, related_name='research_projects', on_delete=models.CASCADE)
+    description = models.TextField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Ongoing')
+    
+    def __str__(self):
+        return self.title

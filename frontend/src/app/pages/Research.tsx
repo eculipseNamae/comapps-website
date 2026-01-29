@@ -1,7 +1,62 @@
-import { FlaskConical, FileText, Award, Users } from 'lucide-react';
+import { FlaskConical, FileText, Award, Users, ChevronDown, ChevronUp } from 'lucide-react';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
+import { useState, useEffect } from 'react';
+import { fetchStudentProjects, fetchFacultyResearch } from '@/app/data/api';
+import { motion } from 'motion/react';
 
 export function Research() {
+  const [studentProjects, setStudentProjects] = useState<any[]>([]);
+  const [facultyResearch, setFacultyResearch] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const [showAllStudent, setShowAllStudent] = useState(false);
+  const [showAllFaculty, setShowAllFaculty] = useState(false);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [studentsRes, facultyRes] = await Promise.all([
+          fetchStudentProjects(),
+          fetchFacultyResearch()
+        ]);
+
+        // Handle potential pagination (results array) or direct array
+        const students = Array.isArray(studentsRes) ? studentsRes : (studentsRes.results || []);
+        const faculty = Array.isArray(facultyRes) ? facultyRes : (facultyRes.results || []);
+
+        console.log("Students:", students);
+        console.log("Faculty:", faculty);
+
+        // Filter students for 'Research' type if mixed, or just take all returned
+        // Assuming API returns all, we might want to filter or just use them.
+        // For now, sorting by id desc to get newest? Or random?
+        // Let's just use the fetched list.
+        setStudentProjects(students);
+        setFacultyResearch(faculty);
+      } catch (error) {
+        console.error("Failed to fetch research data", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
+
+  const displayedStudentProjects = showAllStudent ? studentProjects.slice(0, 10) : studentProjects.slice(0, 4);
+  const displayedFacultyResearch = showAllFaculty ? facultyResearch.slice(0, 10) : facultyResearch.slice(0, 3);
+
+  const StatusBadge = ({ status }: { status: string }) => {
+    const isCompleted = status === 'Completed';
+    return (
+      <span className={`px-3 py-1 text-xs font-semibold rounded-full ${isCompleted
+        ? 'bg-green-100 text-green-700 border border-green-200'
+        : 'bg-blue-100 text-blue-700 border border-blue-200'
+        }`}>
+        {status}
+      </span>
+    );
+  };
+
   return (
     <div>
       <section className="bg-gradient-to-r from-[#33AAA1] to-[#4CC9BF] text-white py-20">
@@ -13,56 +68,116 @@ export function Research() {
         </div>
       </section>
 
+      {/* Student Research Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Featured Student Projects</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              { title: 'Smart Agriculture Monitoring System', team: '4th Year IoT Group', desc: 'IoT-based system for real-time crop monitoring using sensors and machine learning', tech: ['Arduino', 'Sensors', 'Cloud'] },
-              { title: 'Autonomous Delivery Robot', team: '4th Year Embedded Group', desc: 'Self-navigating robot for campus package delivery using computer vision', tech: ['Raspberry Pi', 'Python', 'OpenCV'] },
-              { title: 'Smart Home Energy Manager', team: '3rd Year IoT Group', desc: 'Intelligent system for optimizing household energy consumption', tech: ['ESP32', 'Mobile App', 'AWS'] },
-              { title: 'Medical Alert Wearable', team: '4th Year Embedded Group', desc: 'Wearable device for monitoring vital signs and emergency alerts', tech: ['STM32', 'BLE', 'React Native'] },
-            ].map((project, idx) => (
-              <div key={idx} className="bg-gradient-to-br from-[#4CC9BF]/10 to-white p-8 rounded-xl shadow-lg">
-                <FlaskConical className="w-10 h-10 text-[#4CC9BF] mb-4" />
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{project.title}</h3>
-                <div className="text-[#4CC9BF] font-semibold mb-4 text-sm">{project.team}</div>
-                <p className="text-slate-600 mb-4">{project.desc}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, i) => (
-                    <span key={i} className="px-3 py-1 bg-[#4CC9BF]/20 text-[#33AAA1] text-xs rounded-full">{tech}</span>
-                  ))}
-                </div>
+          <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Student Research</h2>
+
+          {loading ? (
+            <div className="text-center text-slate-500 italic">Loading research projects...</div>
+          ) : (
+            <>
+              <div className="grid md:grid-cols-2 gap-8 mb-8">
+                {Array.isArray(displayedStudentProjects) && displayedStudentProjects.map((project, idx) => (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    key={idx}
+                    className="bg-gradient-to-br from-[#4CC9BF]/10 to-white p-8 rounded-xl shadow-lg border border-slate-100 relative"
+                  >
+                    <div className="flex justify-between items-start mb-4">
+                      <FlaskConical className="w-10 h-10 text-[#4CC9BF]" />
+                      <StatusBadge status={project.status} />
+                    </div>
+
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">{project.title}</h3>
+                    {/* Serializer returns 'students' array, not 'team_members' string. Adapted. */}
+                    <div className="text-[#4CC9BF] font-semibold mb-4 text-sm">
+                      {project.students && Array.isArray(project.students) ? project.students.join(', ') : (project.team_members || '')}
+                    </div>
+                    <p className="text-slate-600 mb-4 text-sm line-clamp-3">{project.description}</p>
+
+                    {/* Backend Serializer returns array for technologies, but just in case check type */}
+                    {project.technologies && (
+                      <div className="flex flex-wrap gap-2 mt-auto">
+                        {(Array.isArray(project.technologies) ? project.technologies : (typeof project.technologies === 'string' ? project.technologies.split(',') : [])).map((tech: string, i: number) => (
+                          <span key={i} className="px-3 py-1 bg-[#4CC9BF]/20 text-[#33AAA1] text-xs rounded-full">
+                            {tech.trim()}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
               </div>
-            ))}
-          </div>
+
+              {studentProjects.length > 4 && (
+                <div className="text-center">
+                  <button
+                    onClick={() => setShowAllStudent(!showAllStudent)}
+                    className="inline-flex items-center text-[#4CC9BF] font-semibold hover:text-[#33AAA1] transition-colors"
+                  >
+                    {showAllStudent ? (
+                      <>Show Less <ChevronUp className="ml-1 w-4 h-4" /></>
+                    ) : (
+                      <>See More <ChevronDown className="ml-1 w-4 h-4" /></>
+                    )}
+                  </button>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </section>
 
+      {/* Faculty Research Section */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             <div>
               <h2 className="text-4xl font-bold text-slate-900 mb-6">Faculty Research</h2>
-              <div className="space-y-6">
-                <div className="bg-white p-6 rounded-xl shadow-lg">
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">IoT Security in Smart Cities</h3>
-                  <p className="text-sm text-[#4CC9BF] mb-3">Dr. Maria Santos, Lead Researcher</p>
-                  <p className="text-slate-600 text-sm">Investigating security protocols and encryption methods for large-scale IoT deployments in urban environments.</p>
+
+              {loading ? (
+                <div className="text-slate-500 italic">Loading faculty research...</div>
+              ) : (
+                <div className="space-y-6">
+                  {Array.isArray(displayedFacultyResearch) && displayedFacultyResearch.map((project, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      viewport={{ once: true }}
+                      className="bg-white p-6 rounded-xl shadow-lg border border-slate-100"
+                    >
+                      <div className="flex justify-between items-start mb-2">
+                        <h3 className="text-lg font-bold text-slate-900 pr-4">{project.title}</h3>
+                        <StatusBadge status={project.status} />
+                      </div>
+                      <p className="text-sm text-[#4CC9BF] mb-3">{project.lead_researcher_name ? `Dr. ${project.lead_researcher_name}` : 'Faculty Lead'}, Lead Researcher</p>
+                      <p className="text-slate-600 text-sm">{project.description}</p>
+                    </motion.div>
+                  ))}
+
+                  {facultyResearch.length > 3 && (
+                    <div className="pt-2">
+                      <button
+                        onClick={() => setShowAllFaculty(!showAllFaculty)}
+                        className="inline-flex items-center text-[#4CC9BF] font-semibold hover:text-[#33AAA1] transition-colors"
+                      >
+                        {showAllFaculty ? (
+                          <>Show Less <ChevronUp className="ml-1 w-4 h-4" /></>
+                        ) : (
+                          <>See More <ChevronDown className="ml-1 w-4 h-4" /></>
+                        )}
+                      </button>
+                    </div>
+                  )}
                 </div>
-                <div className="bg-white p-6 rounded-xl shadow-lg">
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">Real-Time Embedded Operating Systems</h3>
-                  <p className="text-sm text-[#4CC9BF] mb-3">Dr. Juan Dela Cruz, Lead Researcher</p>
-                  <p className="text-slate-600 text-sm">Development of lightweight RTOS for resource-constrained embedded devices.</p>
-                </div>
-                <div className="bg-white p-6 rounded-xl shadow-lg">
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">Edge Computing for IoT</h3>
-                  <p className="text-sm text-[#4CC9BF] mb-3">Dr. Sarah Johnson, Lead Researcher</p>
-                  <p className="text-slate-600 text-sm">Optimizing data processing at the edge to reduce latency in IoT applications.</p>
-                </div>
-              </div>
+              )}
             </div>
-            <div className="relative rounded-xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-xl overflow-hidden shadow-2xl lg:sticky lg:top-24">
               <ImageWithFallback
                 src="https://images.unsplash.com/photo-1763372278600-fd0b0997a7b8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbWJlZGRlZCUyMHN5c3RlbXMlMjBjaXJjdWl0c3xlbnwxfHx8fDE3NjkwNjQ5MDh8MA&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Research"

@@ -9,11 +9,16 @@ class StudentProject(models.Model):
         ('Capstone', 'Capstone'),
         ('Research', 'Research'),
     ]
+    STATUS_CHOICES = [
+        ('Ongoing', 'Ongoing'),
+        ('Completed', 'Completed'),
+    ]
 
     title = models.CharField(max_length=200)
     team_members = models.CharField(max_length=500, help_text="Comma-separated names", default="")
     track = models.CharField(max_length=50, choices=TRACK_CHOICES, default='IoT')
     project_type = models.CharField(max_length=50, choices=TYPE_CHOICES, default='Capstone')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Ongoing')
     year_level = models.CharField(max_length=20, default='4th Year', help_text="e.g., '4th Year' or '3rd Year'")
     semester = models.CharField(max_length=20, default='2023-2024')
     description = models.TextField()

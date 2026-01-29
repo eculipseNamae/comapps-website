@@ -1,10 +1,17 @@
 from rest_framework import serializers
-from .models import FacultyMember, Publication
+from .models import FacultyMember, Publication, FacultyResearchProject
 
 class PublicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Publication
-        fields = ['title', 'year', 'venue', 'link']
+        fields = ['id', 'title', 'year', 'venue', 'link']
+
+class FacultyResearchProjectSerializer(serializers.ModelSerializer):
+    lead_researcher_name = serializers.CharField(source='lead_researcher.name', read_only=True)
+    
+    class Meta:
+        model = FacultyResearchProject
+        fields = ['id', 'title', 'lead_researcher', 'lead_researcher_name', 'description', 'status']
 
 class FacultyMemberSerializer(serializers.ModelSerializer):
     publications = PublicationSerializer(many=True, read_only=True)

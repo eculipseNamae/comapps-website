@@ -11,7 +11,7 @@ class StudentProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudentProject
-        fields = ['id', 'title', 'description', 'image', 'track', 'year', 'semester', 'type', 'students', 'technologies', 'awards']
+        fields = ['id', 'title', 'description', 'image', 'track', 'year', 'semester', 'type', 'students', 'technologies', 'awards', 'status']
 
     def get_students(self, obj):
         return [s.strip() for s in obj.team_members.split(',')] if obj.team_members else []

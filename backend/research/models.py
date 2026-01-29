@@ -1,9 +1,22 @@
 from django.db import models
+from faculty.models import FacultyResearchProject as BaseFacultyResearch
+from students.models import StudentProject as BaseStudentProject
 
-class ResearchProject(models.Model):
-    title = models.CharField(max_length=500)
-    description = models.TextField()
-    image = models.ImageField(upload_to='research_images/', blank=True, null=True)
-    
-    def __str__(self):
-        return self.title
+# Delete the old ResearchProject if possible, or just leave it out. 
+# User asked to "delete the current content ... it's obsolete".
+# So I will remove ResearchProject class. 
+# If existing data exists, this will delete the table on migrate.
+
+class FacultyResearchProject(BaseFacultyResearch):
+    class Meta:
+        proxy = True
+        verbose_name = "Faculty Research Project"
+        verbose_name_plural = "Faculty Research Projects"
+        app_label = 'research'
+
+class StudentResearchProject(BaseStudentProject):
+    class Meta:
+        proxy = True
+        verbose_name = "Student Research Project"
+        verbose_name_plural = "Student Research Projects"
+        app_label = 'research'
