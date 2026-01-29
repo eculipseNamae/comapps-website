@@ -189,6 +189,43 @@ export function About() {
         </div>
       </section>
 
+      {/* Internship & Industry Partners */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Internship & Industry Partnerships</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-[#4CC9BF]/10 p-8 rounded-xl">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Industry Partners</h3>
+              <ul className="space-y-3">
+                {['Tech Solutions Inc.', 'IoT Innovations Corp.', 'Smart Systems Philippines', 'Digital Transformation Hub', 'Embedded Tech Solutions'].map((company, idx) => (
+                  <li key={idx} className="flex items-center text-slate-700">
+                    <div className="w-5 h-5 bg-[#4CC9BF] rounded-lg mr-4 flex-shrink-0" />
+                    <span className="font-semibold">{company}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-[#4CC9BF]/10 p-8 rounded-xl">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6">Internship Programs</h3>
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-lg">
+                  <h4 className="font-bold text-slate-900 mb-2">Summer Internship</h4>
+                  <p className="text-slate-600 text-sm">3-month program during summer break at partner companies</p>
+                </div>
+                <div className="bg-white p-4 rounded-lg">
+                  <h4 className="font-bold text-slate-900 mb-2">On-the-Job Training</h4>
+                  <p className="text-slate-600 text-sm">600-hour practicum requirement in 4th year</p>
+                </div>
+                <div className="bg-white p-4 rounded-lg">
+                  <h4 className="font-bold text-slate-900 mb-2">Industry Collaboration</h4>
+                  <p className="text-slate-600 text-sm">Joint projects with tech companies</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer Contact Teaser */}
       <section className="py-20 bg-white border-t border-slate-100">
         <div className="max-w-4xl mx-auto text-center px-4">

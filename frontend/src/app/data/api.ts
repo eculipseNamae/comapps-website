@@ -57,3 +57,27 @@ export async function fetchAdmissionDeadlines() {
   }
   return response.json();
 }
+
+export async function fetchStudentProjects() {
+  const response = await fetch(`${API_BASE_URL}/projects/`);
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+}
+
+export async function fetchAcademicScholars() {
+  const response = await fetch(`${API_BASE_URL}/scholars/`);
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+}
+
+export async function fetchAlumni() {
+  const response = await fetch(`${API_BASE_URL}/alumni/`);
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+}

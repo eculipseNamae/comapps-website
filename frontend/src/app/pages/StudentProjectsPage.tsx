@@ -1,7 +1,8 @@
 import { motion } from "motion/react";
 import { Search, Filter, ArrowLeft, Code, Award, Users, Calendar } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { fetchStudentProjects } from "@/app/data/api";
 
 export function StudentProjects() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -9,158 +10,23 @@ export function StudentProjects() {
   const [selectedTrack, setSelectedTrack] = useState("all");
   const [selectedType, setSelectedType] = useState("all");
 
-  // Comprehensive Student Projects Data
-  const projects = [
-    // 4th Year Capstone Projects
-    {
-      title: "Smart Agriculture Monitoring System",
-      students: ["Juan Dela Cruz", "Maria Santos"],
-      track: "IoT",
-      year: "4th Year",
-      semester: "2023-2024",
-      type: "Capstone",
-      description: "An IoT-based system for real-time monitoring of soil moisture, temperature, and crop health using wireless sensors and cloud analytics. The system provides farmers with actionable insights through a mobile application.",
-      image: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Arduino", "MQTT", "Firebase", "React", "Node.js"],
-      awards: ["Best Capstone Project 2024", "Innovation Award"]
-    },
-    {
-      title: "Automated Home Security with Facial Recognition",
-      students: ["Carlos Reyes", "Anna Lim"],
-      track: "Embedded Systems",
-      year: "4th Year",
-      semester: "2023-2024",
-      type: "Capstone",
-      description: "A security system utilizing embedded cameras and machine learning for facial recognition to control access and monitor home security. Features real-time alerts and cloud-based surveillance storage.",
-      image: "https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Raspberry Pi", "OpenCV", "Python", "TensorFlow", "Flask"],
-      awards: ["Presented at IEEE Conference 2024"]
-    },
-    {
-      title: "Traffic Flow Optimization using Edge Computing",
-      students: ["Rafael Gomez", "Sofia Tan", "Miguel Santos"],
-      track: "IoT",
-      year: "4th Year",
-      semester: "2023-2024",
-      type: "Capstone",
-      description: "An intelligent traffic management system that uses edge computing to process real-time traffic data and optimize signal timing. Reduces congestion by 30% in test scenarios.",
-      image: "https://images.unsplash.com/photo-1502489597346-dad15683d4c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Edge AI", "Computer Vision", "MQTT", "Node-RED", "Python"],
-      awards: ["Outstanding Research Award"]
-    },
-    {
-      title: "Wearable Health Monitoring Device for Elderly Care",
-      students: ["Patricia Cruz", "Daniel Reyes"],
-      track: "Embedded Systems",
-      year: "4th Year",
-      semester: "2023-2024",
-      type: "Capstone",
-      description: "A low-power wearable device that monitors vital signs including heart rate, blood pressure, and fall detection. Automatically alerts caregivers in emergency situations.",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["ARM Cortex", "Bluetooth LE", "C/C++", "Mobile App", "Cloud"],
-      awards: ["Healthcare Innovation Award"]
-    },
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    // 3rd Year Research Projects
-    {
-      title: "Blockchain-Based Supply Chain Tracking System",
-      students: ["Jasmine Flores", "Kenneth Torres"],
-      track: "IoT",
-      year: "3rd Year",
-      semester: "2023-2024",
-      type: "Research",
-      description: "A decentralized system using blockchain and IoT sensors to track products throughout the supply chain, ensuring transparency and authenticity.",
-      image: "https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Ethereum", "Solidity", "IoT Sensors", "Web3.js", "React"],
-      awards: []
-    },
-    {
-      title: "Automated Waste Segregation Robot",
-      students: ["Gabriel Santos", "Christine Lim"],
-      track: "Embedded Systems",
-      year: "3rd Year",
-      semester: "2023-2024",
-      type: "Research",
-      description: "A robot that uses computer vision and machine learning to automatically identify and segregate different types of waste materials for recycling purposes.",
-      image: "https://images.unsplash.com/photo-1485841890310-6a055c88698a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Raspberry Pi", "TensorFlow", "OpenCV", "Servo Motors", "Python"],
-      awards: ["Environmental Innovation Award"]
-    },
-    {
-      title: "Smart Parking Management System",
-      students: ["Nicole Fernandez", "Bryan Garcia"],
-      track: "IoT",
-      year: "3rd Year",
-      semester: "2023-2024",
-      type: "Research",
-      description: "An IoT system that monitors parking space availability in real-time and provides navigation to available spots through a mobile application.",
-      image: "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Arduino", "Ultrasonic Sensors", "Firebase", "React Native", "MQTT"],
-      awards: []
-    },
-    {
-      title: "Real-Time Air Quality Monitoring Network",
-      students: ["Marcus Villanueva", "Diana Lopez"],
-      track: "IoT",
-      year: "3rd Year",
-      semester: "2023-2024",
-      type: "Research",
-      description: "A distributed network of IoT sensors that measure air quality parameters across the city and provide real-time pollution data through an interactive web dashboard.",
-      image: "https://images.unsplash.com/photo-1569163139394-de4798aa62b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["ESP32", "Air Quality Sensors", "InfluxDB", "Grafana", "Node.js"],
-      awards: []
-    },
-
-    // Previous Year Projects
-    {
-      title: "Autonomous Drone for Disaster Response",
-      students: ["Alexandra Torres", "Vincent Rodriguez"],
-      track: "Embedded Systems",
-      year: "4th Year",
-      semester: "2022-2023",
-      type: "Capstone",
-      description: "An autonomous drone equipped with cameras and sensors for rapid disaster assessment and search-and-rescue operations in hard-to-reach areas.",
-      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Flight Controller", "Computer Vision", "GPS", "Radio Communication", "Python"],
-      awards: ["Best Innovation Award 2023"]
-    },
-    {
-      title: "Smart Energy Management for Buildings",
-      students: ["Isabella Gomez", "Francis Santiago"],
-      track: "IoT",
-      year: "4th Year",
-      semester: "2022-2023",
-      type: "Capstone",
-      description: "An intelligent system that optimizes energy consumption in commercial buildings using IoT sensors, predictive analytics, and automated control of HVAC and lighting systems.",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Zigbee", "Machine Learning", "Cloud Computing", "React", "Python"],
-      awards: ["Sustainability Award 2023"]
-    },
-    {
-      title: "Gesture-Controlled Robotic Arm",
-      students: ["Michelle Bautista", "Kenneth Navarro"],
-      track: "Embedded Systems",
-      year: "4th Year",
-      semester: "2022-2023",
-      type: "Capstone",
-      description: "A robotic arm that can be controlled using hand gestures detected by computer vision, designed for assistive technology and industrial automation applications.",
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Arduino", "OpenCV", "Servo Motors", "MediaPipe", "Python"],
-      awards: []
-    },
-    {
-      title: "IoT-Based Flood Monitoring and Early Warning System",
-      students: ["Gabriel Ramos", "Stephanie Garcia"],
-      track: "IoT",
-      year: "4th Year",
-      semester: "2022-2023",
-      type: "Capstone",
-      description: "A comprehensive flood monitoring system using water level sensors and weather data to provide early warnings to communities at risk of flooding.",
-      image: "https://images.unsplash.com/photo-1547683905-f686c993aae5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Water Level Sensors", "Weather API", "SMS Gateway", "Web Dashboard", "MySQL"],
-      awards: ["Community Service Award 2023"]
-    }
-  ];
+  // Fetch projects from API
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const data = await fetchStudentProjects();
+        setProjects(data);
+      } catch (error) {
+        console.error("Failed to fetch student projects", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProjects();
+  }, []);
 
   // Get unique values for filters
   const years = ["all", ...Array.from(new Set(projects.map(p => p.year)))];
@@ -168,16 +34,16 @@ export function StudentProjects() {
 
   // Filter projects
   const filteredProjects = projects.filter(project => {
-    const matchesSearch = 
+    const matchesSearch =
       project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      project.students.some(student => student.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      project.technologies.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
-    
+      (project.students && project.students.some((student: string) => student.toLowerCase().includes(searchTerm.toLowerCase()))) ||
+      (project.technologies && project.technologies.some((tech: string) => tech.toLowerCase().includes(searchTerm.toLowerCase())));
+
     const matchesYear = selectedYear === "all" || project.year === selectedYear;
     const matchesTrack = selectedTrack === "all" || project.track === selectedTrack;
     const matchesType = selectedType === "all" || project.type === selectedType;
-    
+
     return matchesSearch && matchesYear && matchesTrack && matchesType;
   });
 
@@ -186,9 +52,9 @@ export function StudentProjects() {
       {/* Hero Section */}
       <div className="relative bg-gradient-to-br from-[#0F172A] via-slate-900 to-[#0F172A] text-white py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
-          <img 
-            src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-            alt="Students working on projects" 
+          <img
+            src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+            alt="Students working on projects"
             className="w-full h-full object-cover"
           />
         </div>
@@ -202,7 +68,7 @@ export function StudentProjects() {
           >
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Student Projects</h1>
             <p className="text-xl text-slate-300 max-w-3xl">
-              Explore innovative capstone projects and research initiatives by Computer Applications students, 
+              Explore innovative capstone projects and research initiatives by Computer Applications students,
               showcasing cutting-edge solutions in IoT and Embedded Systems.
             </p>
           </motion.div>
@@ -310,7 +176,12 @@ export function StudentProjects() {
       {/* Projects Grid */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredProjects.length > 0 ? (
+          {loading ? (
+            <div className="text-center py-20">
+              <Code className="w-16 h-16 text-slate-300 mx-auto mb-4 animate-pulse" />
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">Loading projects...</h3>
+            </div>
+          ) : filteredProjects.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredProjects.map((project, idx) => (
                 <motion.div
@@ -322,8 +193,8 @@ export function StudentProjects() {
                   className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all border border-slate-100 flex flex-col"
                 >
                   <div className="h-48 overflow-hidden">
-                    <img 
-                      src={project.image} 
+                    <img
+                      src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                     />
@@ -340,10 +211,10 @@ export function StudentProjects() {
                         {project.type}
                       </span>
                     </div>
-                    
+
                     <h3 className="text-xl font-bold text-slate-900 mb-2">{project.title}</h3>
                     <p className="text-sm text-slate-600 mb-4 flex-1">{project.description}</p>
-                    
+
                     {/* Team Members */}
                     <div className="mb-4">
                       <div className="flex items-center text-xs font-semibold text-slate-500 mb-2">
@@ -362,7 +233,7 @@ export function StudentProjects() {
                         {project.semester}
                       </div>
                     </div>
-                    
+
                     {/* Technologies */}
                     <div className="mb-4">
                       <div className="flex items-center text-xs font-semibold text-slate-500 mb-2">
@@ -370,7 +241,7 @@ export function StudentProjects() {
                         TECHNOLOGIES:
                       </div>
                       <div className="flex flex-wrap gap-2">
-                        {project.technologies.map((tech, i) => (
+                        {project.technologies.map((tech: string, i: number) => (
                           <span key={i} className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded">
                             {tech}
                           </span>
@@ -386,7 +257,7 @@ export function StudentProjects() {
                           AWARDS:
                         </div>
                         <div className="flex flex-wrap gap-2">
-                          {project.awards.map((award, i) => (
+                          {project.awards.map((award: string, i: number) => (
                             <span key={i} className="px-2 py-1 bg-yellow-50 text-yellow-700 text-xs rounded border border-yellow-200">
                               {award}
                             </span>

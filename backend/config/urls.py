@@ -5,7 +5,7 @@ from faculty.views import FacultyMemberViewSet
 from news.views import NewsItemViewSet
 from core.views import HeroSlideViewSet, AdmissionDeadlineViewSet
 from news.views import NewsItemViewSet, EventViewSet
-from students.views import StudentAchievementViewSet
+from students.views import StudentAchievementViewSet, StudentProjectViewSet, AcademicScholarViewSet, AlumniViewSet
 
 router = DefaultRouter()
 router.register(r'faculty', FacultyMemberViewSet)
@@ -14,6 +14,9 @@ router.register(r'hero-slides', HeroSlideViewSet)
 router.register(r'admission-deadlines', AdmissionDeadlineViewSet)
 router.register(r'events', EventViewSet, basename='events')
 router.register(r'achievements', StudentAchievementViewSet)
+router.register(r'projects', StudentProjectViewSet)
+router.register(r'scholars', AcademicScholarViewSet)
+router.register(r'alumni', AlumniViewSet)
 
 # Admin Site Customization
 admin.site.site_header = "ComApps Dashboard"

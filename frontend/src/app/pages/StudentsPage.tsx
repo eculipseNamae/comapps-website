@@ -1,128 +1,82 @@
 import { motion } from "motion/react";
 import { Award, Users, Lightbulb, Code, Trophy, ArrowRight, Medal, Star } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+import { fetchStudentProjects, fetchAcademicScholars } from "@/app/data/api";
 
 export function Students() {
   const [activeListTab, setActiveListTab] = useState("1st-year");
+  const [projects, setProjects] = useState<any[]>([]);
+  const [scholars, setScholars] = useState<any[]>([]);
+  const [loadingProjects, setLoadingProjects] = useState(true);
+  const [loadingScholars, setLoadingScholars] = useState(true);
 
-  // Student Projects
-  const projects = [
-    {
-      title: "Smart Agriculture Monitoring System",
-      students: ["Juan Dela Cruz", "Maria Santos"],
-      track: "IoT",
-      year: "4th Year",
-      description: "An IoT-based system for real-time monitoring of soil moisture, temperature, and crop health using wireless sensors and cloud analytics.",
-      image: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Arduino", "MQTT", "Firebase", "React"]
-    },
-    {
-      title: "Automated Home Security with Facial Recognition",
-      students: ["Carlos Reyes", "Anna Lim"],
-      track: "Embedded Systems",
-      year: "4th Year",
-      description: "A security system utilizing embedded cameras and machine learning for facial recognition to control access and monitor home security.",
-      image: "https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Raspberry Pi", "OpenCV", "Python", "TensorFlow"]
-    },
-    {
-      title: "Traffic Flow Optimization using Edge Computing",
-      students: ["Rafael Gomez", "Sofia Tan"],
-      track: "IoT",
-      year: "3rd Year",
-      description: "An intelligent traffic management system that uses edge computing to process real-time traffic data and optimize signal timing.",
-      image: "https://images.unsplash.com/photo-1502489597346-dad15683d4c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Edge AI", "Computer Vision", "MQTT", "Node-RED"]
-    }
-  ];
+  // Fetch Data
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        // Fetch Projects
+        const projectsData = await fetchStudentProjects();
+        const sortedProjects = [...projectsData].sort((a, b) => b.id - a.id).slice(0, 3);
+        setProjects(sortedProjects);
+        setLoadingProjects(false);
 
-  // Academic Listers by Year Level
-  const listers = {
-    "1st-year": {
-      rizal: [
-        { name: "John Michael Cruz", gwa: "1.00" },
-        { name: "Angela Mae Santos", gwa: "1.05" }
-      ],
-      chancellor: [
-        { name: "Patricia Reyes", gwa: "1.18" },
-        { name: "Mark Anthony Dela Cruz", gwa: "1.22" },
-        { name: "Clarissa Joy Gonzales", gwa: "1.25" }
-      ],
-      dean: [
-        { name: "Joshua David Ramos", gwa: "1.35" },
-        { name: "Maria Isabelle Lopez", gwa: "1.38" },
-        { name: "Kenneth Paul Torres", gwa: "1.42" },
-        { name: "Stephanie Ann Garcia", gwa: "1.45" }
-      ]
-    },
-    "2nd-year": {
-      rizal: [
-        { name: "Alexandra Grace Lim", gwa: "1.02" }
-      ],
-      chancellor: [
-        { name: "Francis Miguel Tan", gwa: "1.15" },
-        { name: "Isabella Marie Cruz", gwa: "1.20" },
-        { name: "Daniel Joseph Aquino", gwa: "1.28" }
-      ],
-      dean: [
-        { name: "Samantha Rose Rivera", gwa: "1.32" },
-        { name: "Gabriel Antonio Santos", gwa: "1.36" },
-        { name: "Christine Mae Villanueva", gwa: "1.40" },
-        { name: "Bryan Miguel Flores", gwa: "1.48" }
-      ]
-    },
-    "3rd-year": {
-      rizal: [
-        { name: "Nicole Patricia Fernandez", gwa: "1.00" }
-      ],
-      chancellor: [
-        { name: "Christian James Mendoza", gwa: "1.12" },
-        { name: "Angelica Joy Bautista", gwa: "1.25" }
-      ],
-      dean: [
-        { name: "Marcus Julius Santiago", gwa: "1.30" },
-        { name: "Diana Rose Manalo", gwa: "1.38" },
-        { name: "Rafael James Reyes", gwa: "1.45" },
-        { name: "Kathleen Marie Castro", gwa: "1.50" }
-      ]
-    },
-    "4th-year": {
-      rizal: [],
-      chancellor: [
-        { name: "Vincent Carl Rodriguez", gwa: "1.15" },
-        { name: "Michelle Anne Gomez", gwa: "1.22" }
-      ],
-      dean: [
-        { name: "Adrian Miguel Torres", gwa: "1.32" },
-        { name: "Jasmine Claire Navarro", gwa: "1.40" },
-        { name: "Patrick James Diaz", gwa: "1.48" }
-      ]
-    }
+        // Fetch Scholars
+        const scholarsData = await fetchAcademicScholars();
+        setScholars(scholarsData);
+        setLoadingScholars(false);
+      } catch (error) {
+        console.error("Failed to fetch data", error);
+        setLoadingProjects(false);
+        setLoadingScholars(false);
+      }
+    };
+    loadData();
+  }, []);
+
+  // Process Scholars Data dynamically
+  const getFilteredScholars = (yearLevel: string, category: 'rizal' | 'chancellor' | 'dean') => {
+    if (!scholars || !Array.isArray(scholars)) return [];
+
+    // Standardize year format (Frontend tab "1st-year" -> Backend "1st Year")
+    const formattedYear = yearLevel.replace('-', ' ').replace('year', 'Year').replace(/\b\w/g, l => l.toUpperCase());
+
+    return scholars.filter((scholar: any) => {
+      const gpa = parseFloat(scholar.gpa);
+      const isYearMatch = scholar.year_level === formattedYear;
+
+      let isCategoryMatch = false;
+      if (category === 'rizal') isCategoryMatch = gpa >= 1.00 && gpa <= 1.20;
+      else if (category === 'chancellor') isCategoryMatch = gpa >= 1.21 && gpa <= 1.45;
+      else if (category === 'dean') isCategoryMatch = gpa >= 1.46 && gpa <= 1.75;
+
+      return isYearMatch && isCategoryMatch;
+    }).sort((a: any, b: any) => parseFloat(a.gpa) - parseFloat(b.gpa)); // Sort by GPA ascending (best first)
   };
 
   // Student Organizations
   const organizations = [
     {
-      name: "Computer Applications Society (CAS)",
+      name: "Computer Applications Society",
       description: "The official student organization fostering academic excellence and camaraderie.",
       icon: Users,
       color: "bg-blue-100 text-blue-600"
     },
     {
-      name: "MSU-IIT Developers' Guild",
+      name: "College of Computer Studies Student Council",
       description: "A community of developers building innovative projects and competing in hackathons.",
       icon: Code,
       color: "bg-teal-100 text-teal-600"
     },
     {
-      name: "Embedded Systems Club",
+      name: "The Motherboard",
       description: "Focused on hardware-software integration and embedded systems innovation.",
       icon: Lightbulb,
       color: "bg-purple-100 text-purple-600"
     },
     {
-      name: "IoT Innovation Lab",
+      name: "Tesseract",
       description: "Exploring the Internet of Things and smart device technologies.",
       icon: Award,
       color: "bg-green-100 text-green-600"
@@ -134,9 +88,9 @@ export function Students() {
       {/* Hero Section */}
       <div className="relative bg-gradient-to-br from-[#0F172A] via-slate-900 to-[#0F172A] text-white py-24 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
-          <img 
-            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-            alt="Students collaborating" 
+          <img
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+            alt="Students collaborating"
             className="w-full h-full object-cover"
           />
         </div>
@@ -160,7 +114,7 @@ export function Students() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-slate-900 mb-4">Student Overview</h2>
             <p className="text-slate-600 max-w-3xl mx-auto">
-              Our students are the heart of the Computer Applications Department. From groundbreaking research to innovative projects, 
+              Our students are the heart of the Computer Applications Department. From groundbreaking research to innovative projects,
               they continuously push the boundaries of technology and make meaningful contributions to society.
             </p>
           </div>
@@ -227,49 +181,60 @@ export function Students() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {projects.map((project, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all border border-slate-100"
-              >
-                <div className="h-48 overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="px-3 py-1 bg-[#4CC9BF]/10 text-[#33AAA1] text-xs font-semibold rounded-full">
-                      {project.track}
-                    </span>
-                    <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded-full">
-                      {project.year}
-                    </span>
+            {loadingProjects ? (
+              <div className="col-span-3 text-center py-10 text-slate-500">Loading projects...</div>
+            ) : projects.length > 0 ? (
+              projects.map((project, idx) => (
+                <motion.div
+                  key={project.id || idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all border border-slate-100 flex flex-col h-full"
+                >
+                  <div className="h-48 overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">{project.title}</h3>
-                  <p className="text-sm text-slate-600 mb-4">{project.description}</p>
-                  <div className="mb-4">
-                    <div className="text-xs font-semibold text-slate-500 mb-2">TEAM MEMBERS:</div>
-                    <div className="text-sm text-slate-700">
-                      {project.students.join(", ")}
+                  <div className="p-6 flex-1 flex flex-col">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="px-3 py-1 bg-[#4CC9BF]/10 text-[#33AAA1] text-xs font-semibold rounded-full">
+                        {project.track}
+                      </span>
+                      <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded-full">
+                        {project.year}
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2 line-clamp-2">{project.title}</h3>
+                    <p className="text-sm text-slate-600 mb-4 line-clamp-3 flex-1">{project.description}</p>
+                    <div className="mb-4">
+                      <div className="text-xs font-semibold text-slate-500 mb-2">TEAM MEMBERS:</div>
+                      <div className="text-sm text-slate-700 line-clamp-1">
+                        {project.students ? project.students.join(", ") : ""}
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-2 mt-auto">
+                      {project.technologies && project.technologies.slice(0, 3).map((tech: string, i: number) => (
+                        <span key={i} className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded">
+                          {tech}
+                        </span>
+                      ))}
+                      {project.technologies && project.technologies.length > 3 && (
+                        <span className="px-2 py-1 bg-slate-50 text-slate-500 text-xs rounded">
+                          +{project.technologies.length - 3}
+                        </span>
+                      )}
                     </div>
                   </div>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, i) => (
-                      <span key={i} className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))
+            ) : (
+              <div className="col-span-3 text-center py-10 text-slate-500">No projects to display.</div>
+            )}
           </div>
 
           {/* See All Projects Link */}
@@ -301,11 +266,10 @@ export function Students() {
               <button
                 key={year}
                 onClick={() => setActiveListTab(year)}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  activeListTab === year
-                    ? "bg-[#4CC9BF] text-white shadow-lg"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                }`}
+                className={`px-6 py-3 rounded-lg font-semibold transition-all ${activeListTab === year
+                  ? "bg-[#4CC9BF] text-white shadow-lg"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                  }`}
               >
                 {year.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
               </button>
@@ -326,15 +290,17 @@ export function Students() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-slate-900">Rizal's List</h3>
-                  <p className="text-sm text-slate-600">GWA: 1.00 - 1.10</p>
+                  <p className="text-sm text-slate-600">GPA: 1.00 - 1.20</p>
                 </div>
               </div>
               <div className="space-y-3">
-                {listers[activeListTab as keyof typeof listers].rizal.length > 0 ? (
-                  listers[activeListTab as keyof typeof listers].rizal.map((student, idx) => (
+                {loadingScholars ? (
+                  <div className="text-center text-slate-500 py-4 italic">Loading...</div>
+                ) : getFilteredScholars(activeListTab, 'rizal').length > 0 ? (
+                  getFilteredScholars(activeListTab, 'rizal').map((student, idx) => (
                     <div key={idx} className="flex justify-between items-center p-3 bg-white rounded-lg border border-yellow-100">
                       <span className="font-semibold text-slate-900">{student.name}</span>
-                      <span className="text-yellow-700 font-bold">{student.gwa}</span>
+                      <span className="text-yellow-700 font-bold">{student.gpa}</span>
                     </div>
                   ))
                 ) : (
@@ -356,15 +322,17 @@ export function Students() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-slate-900">Chancellor's List</h3>
-                  <p className="text-sm text-slate-600">GWA: 1.11 - 1.30</p>
+                  <p className="text-sm text-slate-600">GPA: 1.21 - 1.45</p>
                 </div>
               </div>
               <div className="space-y-3">
-                {listers[activeListTab as keyof typeof listers].chancellor.length > 0 ? (
-                  listers[activeListTab as keyof typeof listers].chancellor.map((student, idx) => (
+                {loadingScholars ? (
+                  <div className="text-center text-slate-500 py-4 italic">Loading...</div>
+                ) : getFilteredScholars(activeListTab, 'chancellor').length > 0 ? (
+                  getFilteredScholars(activeListTab, 'chancellor').map((student, idx) => (
                     <div key={idx} className="flex justify-between items-center p-3 bg-white rounded-lg border border-blue-100">
                       <span className="font-semibold text-slate-900">{student.name}</span>
-                      <span className="text-blue-700 font-bold">{student.gwa}</span>
+                      <span className="text-blue-700 font-bold">{student.gpa}</span>
                     </div>
                   ))
                 ) : (
@@ -386,15 +354,17 @@ export function Students() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-slate-900">Dean's List</h3>
-                  <p className="text-sm text-slate-600">GWA: 1.31 - 1.50</p>
+                  <p className="text-sm text-slate-600">GPA: 1.46 - 1.75</p>
                 </div>
               </div>
               <div className="space-y-3">
-                {listers[activeListTab as keyof typeof listers].dean.length > 0 ? (
-                  listers[activeListTab as keyof typeof listers].dean.map((student, idx) => (
+                {loadingScholars ? (
+                  <div className="text-center text-slate-500 py-4 italic">Loading...</div>
+                ) : getFilteredScholars(activeListTab, 'dean').length > 0 ? (
+                  getFilteredScholars(activeListTab, 'dean').map((student, idx) => (
                     <div key={idx} className="flex justify-between items-center p-3 bg-white rounded-lg border border-teal-100">
                       <span className="font-semibold text-slate-900">{student.name}</span>
-                      <span className="text-teal-700 font-bold">{student.gwa}</span>
+                      <span className="text-teal-700 font-bold">{student.gpa}</span>
                     </div>
                   ))
                 ) : (
@@ -448,7 +418,7 @@ export function Students() {
             <Award className="w-16 h-16 text-[#4CC9BF] mx-auto mb-6" />
             <h2 className="text-3xl font-bold mb-4">Meet Our Accomplished Alumni</h2>
             <p className="text-slate-300 mb-8 text-lg">
-              Discover the success stories of our graduates who are making their mark in the tech industry worldwide. 
+              Discover the success stories of our graduates who are making their mark in the tech industry worldwide.
               Explore their achievements, research publications, and career paths.
             </p>
             <Link
