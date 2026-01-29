@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'news',
     'research',
     'students',
+    'extensions',
     'core.apps.CoreConfig',
 ]
 

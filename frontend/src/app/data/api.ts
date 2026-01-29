@@ -82,10 +82,26 @@ export async function fetchAlumni() {
   return response.json();
 }
 
-export async function fetchFacultyResearch() {
+export const fetchFacultyResearch = async () => {
   const response = await fetch(`${API_BASE_URL}/faculty-research/`);
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }
   return response.json();
-}
+};
+
+export const fetchExtensionPrograms = async () => {
+  const response = await fetch(`${API_BASE_URL}/extensions/`);
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+};
+
+export const fetchExtensionMetrics = async () => {
+  const response = await fetch(`${API_BASE_URL}/extensions/metrics/`);
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+};
