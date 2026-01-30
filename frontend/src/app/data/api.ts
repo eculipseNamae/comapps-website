@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'http://localhost:8000/api';
+export const API_BASE_URL = import.meta.env.PROD ? '/api' : 'http://localhost:8000/api';
 
 export async function fetchFaculty() {
   const response = await fetch(`${API_BASE_URL}/faculty/`);
