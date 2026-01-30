@@ -22,6 +22,7 @@ import { Research } from '@/app/pages/Research';
 import { Extension } from '@/app/pages/Extension';
 import { Contact } from '@/app/pages/Contact';
 import { News } from '@/app/pages/News';
+import { Developers } from '@/app/pages/Developers';
 
 import { ScrollToTop } from '@/app/components/ScrollToTop';
 
@@ -53,6 +54,7 @@ export default function App() {
           <Route path="/extension" element={<Extension />} />
           <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/developers" element={<Developers />} />
         </Routes>
       </Layout>
     </BrowserRouter>

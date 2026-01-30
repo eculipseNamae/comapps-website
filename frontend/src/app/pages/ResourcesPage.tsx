@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { FileText, Download, FileCheck, FlaskConical, Search } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -137,9 +138,9 @@ export function Resources() {
             <p className="mb-6 max-w-xl mx-auto opacity-90">
               If you need a specific document that isn't listed here, please contact the department office directly.
             </p>
-            <button className="px-6 py-3 bg-white text-[#33AAA1] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-lg">
+            <Link to="/contact" className="inline-block px-6 py-3 bg-white text-[#33AAA1] font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-lg">
               Contact Office
-            </button>
+            </Link>
           </div>
           {/* Decorative circles */}
           <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-[#4CC9BF] rounded-full opacity-50 blur-2xl"></div>

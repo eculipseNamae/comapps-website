@@ -248,6 +248,14 @@ export function Layout({ children }: LayoutProps) {
                     Resources
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/developers"
+                    className="hover:text-white transition-colors"
+                  >
+                    About the Developers
+                  </Link>
+                </li>
                 <li className="pt-2">
                   <Link
                     to="/contact"
@@ -269,6 +277,9 @@ export function Layout({ children }: LayoutProps) {
               &copy; {new Date().getFullYear()} Computer
               Applications Department, MSU-IIT. All rights
               reserved.
+            </p>
+            <p className="mt-2 text-xs text-slate-600">
+              Version 1.0
             </p>
           </div>
         </div>

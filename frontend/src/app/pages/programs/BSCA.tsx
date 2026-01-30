@@ -120,12 +120,12 @@ export function BSCA() {
       <div className="bg-[#0F172A] text-white py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-teal-900/60 to-slate-900/90 z-10" />
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center opacity-30" />
-        
+
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link to="/programs-admissions" className="inline-flex items-center text-teal-400 hover:text-teal-300 mb-6 transition-colors">
             <ArrowLeft className="w-4 h-4 mr-2" /> Back to Programs
           </Link>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold mb-4"
@@ -146,11 +146,10 @@ export function BSCA() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab.toLowerCase())}
-                className={`py-4 px-2 border-b-2 font-medium text-sm transition-colors whitespace-nowrap ${
-                  activeTab === tab.toLowerCase()
+                className={`py-4 px-2 border-b-2 font-medium text-sm transition-colors whitespace-nowrap ${activeTab === tab.toLowerCase()
                     ? 'border-[#4CC9BF] text-[#33AAA1]'
                     : 'border-transparent text-slate-500 hover:text-slate-700'
-                }`}
+                  }`}
               >
                 {tab}
               </button>
@@ -161,7 +160,7 @@ export function BSCA() {
 
       {/* Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        
+
         {/* Overview Tab */}
         {activeTab === 'overview' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12">
@@ -201,65 +200,65 @@ export function BSCA() {
         {/* Tracks Tab */}
         {activeTab === 'tracks' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12">
-             <div className="text-center max-w-3xl mx-auto mb-12">
-               <h2 className="text-3xl font-bold text-slate-900 mb-4">Specialized Tracks</h2>
-               <p className="text-slate-600 text-lg">
-                 Choose your path. Our program offers two distinct specializations designed to meet the demands of the modern tech landscape.
-               </p>
-             </div>
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Specialized Tracks</h2>
+              <p className="text-slate-600 text-lg">
+                Choose your path. Our program offers two distinct specializations designed to meet the demands of the modern tech landscape.
+              </p>
+            </div>
 
-             <div className="grid md:grid-cols-2 gap-8">
-               {/* Embedded Systems Track */}
-               <Link to="/programs/bsca/embedded-systems" className="bg-white rounded-2xl p-8 border border-slate-200 shadow-lg hover:shadow-xl transition-all hover:border-[#4CC9BF] group cursor-pointer">
-                 <div className="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-100 transition-colors">
-                   <Cpu className="w-8 h-8 text-blue-600" />
-                 </div>
-                 <h3 className="text-2xl font-bold text-slate-900 mb-4">Embedded Systems</h3>
-                 <p className="text-slate-600 mb-6">
-                   Focuses on the design, development, and testing of computer systems embedded within other devices. Students learn low-level programming, circuit design, and real-time operating systems.
-                 </p>
-                 <div className="bg-slate-50 rounded-xl p-6">
-                   <h4 className="font-semibold text-slate-900 mb-3">Key Topics:</h4>
-                   <ul className="space-y-2 text-sm text-slate-600">
-                     <li className="flex items-center"><Code className="w-4 h-4 mr-2 text-blue-500"/> Microcontroller Programming</li>
-                     <li className="flex items-center"><Server className="w-4 h-4 mr-2 text-blue-500"/> RTOS & Firmware</li>
-                     <li className="flex items-center"><Cpu className="w-4 h-4 mr-2 text-blue-500"/> FPGA & Logic Design</li>
-                   </ul>
-                 </div>
-                 <div className="mt-6 text-[#4CC9BF] font-semibold flex items-center group-hover:text-[#33AAA1] transition-colors">
-                   Learn More <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
-                 </div>
-               </Link>
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Embedded Systems Track */}
+              <Link to="/programs/bsca/embedded-systems" className="bg-white rounded-2xl p-8 border border-slate-200 shadow-lg hover:shadow-xl transition-all hover:border-[#4CC9BF] group cursor-pointer">
+                <div className="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-100 transition-colors">
+                  <Cpu className="w-8 h-8 text-blue-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">Embedded Systems</h3>
+                <p className="text-slate-600 mb-6">
+                  Focuses on the design, development, and testing of computer systems embedded within other devices. Students learn low-level programming, circuit design, and real-time operating systems.
+                </p>
+                <div className="bg-slate-50 rounded-xl p-6">
+                  <h4 className="font-semibold text-slate-900 mb-3">Key Topics:</h4>
+                  <ul className="space-y-2 text-sm text-slate-600">
+                    <li className="flex items-center"><Code className="w-4 h-4 mr-2 text-blue-500" /> Microcontroller Programming</li>
+                    <li className="flex items-center"><Server className="w-4 h-4 mr-2 text-blue-500" /> RTOS & Firmware</li>
+                    <li className="flex items-center"><Cpu className="w-4 h-4 mr-2 text-blue-500" /> FPGA & Logic Design</li>
+                  </ul>
+                </div>
+                <div className="mt-6 text-[#4CC9BF] font-semibold flex items-center group-hover:text-[#33AAA1] transition-colors">
+                  Learn More <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
+                </div>
+              </Link>
 
-               {/* IoT Track */}
-               <Link to="/programs/bsca/iot" className="bg-white rounded-2xl p-8 border border-slate-200 shadow-lg hover:shadow-xl transition-all hover:border-[#4CC9BF] group cursor-pointer">
-                 <div className="w-16 h-16 bg-teal-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-teal-100 transition-colors">
-                   <Wifi className="w-8 h-8 text-teal-600" />
-                 </div>
-                 <h3 className="text-2xl font-bold text-slate-900 mb-4">Internet of Things (IoT)</h3>
-                 <p className="text-slate-600 mb-6">
-                   Deals with connecting physical devices to the internet for data collection, analysis, and automation. Students explore sensor networks, cloud computing, and smart home/city technologies.
-                 </p>
-                 <div className="bg-slate-50 rounded-xl p-6">
-                   <h4 className="font-semibold text-slate-900 mb-3">Key Topics:</h4>
-                   <ul className="space-y-2 text-sm text-slate-600">
-                     <li className="flex items-center"><Wifi className="w-4 h-4 mr-2 text-teal-500"/> Wireless Sensor Networks</li>
-                     <li className="flex items-center"><Database className="w-4 h-4 mr-2 text-teal-500"/> Cloud Integration & Analytics</li>
-                     <li className="flex items-center"><Shield className="w-4 h-4 mr-2 text-teal-500"/> IoT Security Protocols</li>
-                   </ul>
-                 </div>
-                 <div className="mt-6 text-[#4CC9BF] font-semibold flex items-center group-hover:text-[#33AAA1] transition-colors">
-                   Learn More <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
-                 </div>
-               </Link>
-             </div>
+              {/* IoT Track */}
+              <Link to="/programs/bsca/iot" className="bg-white rounded-2xl p-8 border border-slate-200 shadow-lg hover:shadow-xl transition-all hover:border-[#4CC9BF] group cursor-pointer">
+                <div className="w-16 h-16 bg-teal-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-teal-100 transition-colors">
+                  <Wifi className="w-8 h-8 text-teal-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">Internet of Things (IoT)</h3>
+                <p className="text-slate-600 mb-6">
+                  Deals with connecting physical devices to the internet for data collection, analysis, and automation. Students explore sensor networks, cloud computing, and smart home/city technologies.
+                </p>
+                <div className="bg-slate-50 rounded-xl p-6">
+                  <h4 className="font-semibold text-slate-900 mb-3">Key Topics:</h4>
+                  <ul className="space-y-2 text-sm text-slate-600">
+                    <li className="flex items-center"><Wifi className="w-4 h-4 mr-2 text-teal-500" /> Wireless Sensor Networks</li>
+                    <li className="flex items-center"><Database className="w-4 h-4 mr-2 text-teal-500" /> Cloud Integration & Analytics</li>
+                    <li className="flex items-center"><Shield className="w-4 h-4 mr-2 text-teal-500" /> IoT Security Protocols</li>
+                  </ul>
+                </div>
+                <div className="mt-6 text-[#4CC9BF] font-semibold flex items-center group-hover:text-[#33AAA1] transition-colors">
+                  Learn More <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
+                </div>
+              </Link>
+            </div>
           </motion.div>
         )}
 
         {/* Curriculum Tab */}
         {activeTab === 'curriculum' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            
+
             {/* Degree Requirements Header */}
             <div className="grid md:grid-cols-3 gap-8 mb-16">
               <div className="bg-gradient-to-br from-[#4CC9BF]/10 to-white p-8 rounded-xl shadow-lg text-center border border-slate-100">
@@ -274,8 +273,8 @@ export function BSCA() {
               </div>
               <div className="bg-gradient-to-br from-[#4CC9BF]/10 to-white p-8 rounded-xl shadow-lg text-center border border-slate-100">
                 <CheckCircle className="w-12 h-12 text-[#4CC9BF] mx-auto mb-4" />
-                <div className="text-4xl font-bold text-slate-900 mb-2">CHED</div>
-                <div className="text-slate-600 font-semibold">Accredited</div>
+                <div className="text-4xl font-bold text-slate-900 mb-2">AACCUP</div>
+                <div className="text-slate-600 font-semibold">Accredited Level III</div>
               </div>
             </div>
 
@@ -301,13 +300,12 @@ export function BSCA() {
                                   <div className="font-semibold text-slate-900">{course.code}</div>
                                   <div className="text-sm text-slate-600">{course.title}</div>
                                   <div className="flex gap-2 mt-1 flex-wrap">
-                                    <span className={`inline-block px-2 py-1 text-xs rounded-full ${
-                                      course.type === 'Major' ? 'bg-blue-100 text-blue-700' : 
-                                      course.type === 'GE' ? 'bg-green-100 text-green-700' : 
-                                      course.type === 'PE' ? 'bg-yellow-100 text-yellow-700' :
-                                      course.type === 'Elective' ? 'bg-purple-100 text-purple-700' :
-                                      'bg-slate-200 text-slate-700'
-                                    }`}>
+                                    <span className={`inline-block px-2 py-1 text-xs rounded-full ${course.type === 'Major' ? 'bg-blue-100 text-blue-700' :
+                                        course.type === 'GE' ? 'bg-green-100 text-green-700' :
+                                          course.type === 'PE' ? 'bg-yellow-100 text-yellow-700' :
+                                            course.type === 'Elective' ? 'bg-purple-100 text-purple-700' :
+                                              'bg-slate-200 text-slate-700'
+                                      }`}>
                                       {course.type}
                                     </span>
                                     {course.prereq && (
@@ -386,24 +384,24 @@ export function BSCA() {
             </div>
 
             {/* Notes */}
-             <div className="mt-16 space-y-4">
-               <h2 className="text-2xl font-bold text-slate-900 mb-4">Important Notes</h2>
-                <div className="bg-[#4CC9BF]/10 border-l-4 border-[#4CC9BF] p-6 rounded-r-lg">
-                  <p className="text-slate-700">
-                    <strong>Prerequisites:</strong> Many courses have prerequisites that must be completed before enrollment. Review the prerequisite tags carefully when planning your schedule.
-                  </p>
-                </div>
-                <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
-                  <p className="text-slate-700">
-                    <strong>NSTP Units:</strong> National Service Training Program courses (NST001, NST002) are shown with units in parentheses (3) as they are not counted toward the 147-unit program total, but are required for graduation.
-                  </p>
-                </div>
-                <div className="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
-                  <p className="text-slate-700">
-                    <strong>Technical Electives:</strong> Students must select Technical Elective subjects based on their chosen track specialization (Embedded Systems or IoT). Consult with your adviser for proper track selection.
-                  </p>
-                </div>
-             </div>
+            <div className="mt-16 space-y-4">
+              <h2 className="text-2xl font-bold text-slate-900 mb-4">Important Notes</h2>
+              <div className="bg-[#4CC9BF]/10 border-l-4 border-[#4CC9BF] p-6 rounded-r-lg">
+                <p className="text-slate-700">
+                  <strong>Prerequisites:</strong> Many courses have prerequisites that must be completed before enrollment. Review the prerequisite tags carefully when planning your schedule.
+                </p>
+              </div>
+              <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                <p className="text-slate-700">
+                  <strong>NSTP Units:</strong> National Service Training Program courses (NST001, NST002) are shown with units in parentheses (3) as they are not counted toward the 147-unit program total, but are required for graduation.
+                </p>
+              </div>
+              <div className="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
+                <p className="text-slate-700">
+                  <strong>Technical Electives:</strong> Students must select Technical Elective subjects based on their chosen track specialization (Embedded Systems or IoT). Consult with your adviser for proper track selection.
+                </p>
+              </div>
+            </div>
 
             <p className="mt-8 text-slate-500 text-sm italic text-center">
               Based on BOR Resolution No. 129, Series of 2018
@@ -413,24 +411,24 @@ export function BSCA() {
 
         {/* Careers Tab */}
         {activeTab === 'careers' && (
-           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-             <h2 className="text-3xl font-bold text-slate-900 mb-8">Career Opportunities</h2>
-             <div className="grid md:grid-cols-3 gap-6">
-                {[
-                  { title: "Embedded Software Engineer", icon: Code },
-                  { title: "IoT Solutions Architect", icon: Globe },
-                  { title: "Firmware Developer", icon: Cpu },
-                  { title: "Systems Integrator", icon: Server },
-                  { title: "Smart Home Automation Specialist", icon: Wifi },
-                  { title: "Technical Consultant", icon: BookOpen }
-                ].map((job, idx) => (
-                  <div key={idx} className="bg-white p-6 rounded-xl border border-slate-200 hover:border-[#4CC9BF] hover:shadow-lg transition-all group">
-                    <job.icon className="w-10 h-10 text-slate-400 group-hover:text-[#33AAA1] mb-4 transition-colors" />
-                    <h3 className="font-bold text-slate-900">{job.title}</h3>
-                  </div>
-                ))}
-             </div>
-           </motion.div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <h2 className="text-3xl font-bold text-slate-900 mb-8">Career Opportunities</h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                { title: "Embedded Software Engineer", icon: Code },
+                { title: "IoT Solutions Architect", icon: Globe },
+                { title: "Firmware Developer", icon: Cpu },
+                { title: "Systems Integrator", icon: Server },
+                { title: "Smart Home Automation Specialist", icon: Wifi },
+                { title: "Technical Consultant", icon: BookOpen }
+              ].map((job, idx) => (
+                <div key={idx} className="bg-white p-6 rounded-xl border border-slate-200 hover:border-[#4CC9BF] hover:shadow-lg transition-all group">
+                  <job.icon className="w-10 h-10 text-slate-400 group-hover:text-[#33AAA1] mb-4 transition-colors" />
+                  <h3 className="font-bold text-slate-900">{job.title}</h3>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         )}
 
       </div>

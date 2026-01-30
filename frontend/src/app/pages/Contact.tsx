@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Clock, Facebook, Twitter, Instagram } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Facebook } from 'lucide-react';
 
 export function Contact() {
   return (
@@ -12,77 +12,14 @@ export function Contact() {
         </div>
       </section>
 
-      {/* Contact Form and Info */}
+      {/* Contact Info Only */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-12">
             <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-8">Send Us a Message</h2>
-              <form className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="Juan Dela Cruz"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="juan.delacruz@email.com"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-semibold text-slate-700 mb-2">Phone Number</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="+63 123 456 7890"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-semibold text-slate-700 mb-2">Subject</label>
-                  <select
-                    id="subject"
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                  >
-                    <option>General Inquiry</option>
-                    <option>Admissions</option>
-                    <option>Curriculum Questions</option>
-                    <option>Technical Support</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-slate-700 mb-2">Message</label>
-                  <textarea
-                    id="message"
-                    rows={6}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                    placeholder="Type your message here..."
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full px-8 py-4 bg-gradient-to-r from-[#4CC9BF] to-[#33AAA1] text-white rounded-lg font-semibold hover:shadow-lg transition-all"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div>
+              <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">Contact Information</h2>
 
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-3xl font-bold text-slate-900 mb-8">Contact Information</h2>
-                
+              <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-6">
                   <div className="flex items-start">
                     <div className="w-12 h-12 bg-[#4CC9BF]/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
@@ -113,7 +50,9 @@ export function Contact() {
                       </p>
                     </div>
                   </div>
+                </div>
 
+                <div className="space-y-6">
                   <div className="flex items-start">
                     <div className="w-12 h-12 bg-[#4CC9BF]/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
                       <Mail className="w-6 h-6 text-[#4CC9BF]" />
@@ -143,21 +82,21 @@ export function Contact() {
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Social Media */}
-              <div className="bg-[#4CC9BF]/10 p-6 rounded-xl">
-                <h3 className="font-bold text-slate-900 mb-4">Follow Us on Social Media</h3>
-                <div className="flex gap-4">
-                  <a href="#" className="w-12 h-12 bg-[#4CC9BF] rounded-lg flex items-center justify-center hover:bg-[#33AAA1] transition-colors">
-                    <Facebook className="w-6 h-6 text-white" />
-                  </a>
-                  <a href="#" className="w-12 h-12 bg-[#4CC9BF] rounded-lg flex items-center justify-center hover:bg-[#33AAA1] transition-colors">
-                    <Twitter className="w-6 h-6 text-white" />
-                  </a>
-                  <a href="#" className="w-12 h-12 bg-[#4CC9BF] rounded-lg flex items-center justify-center hover:bg-[#33AAA1] transition-colors">
-                    <Instagram className="w-6 h-6 text-white" />
-                  </a>
-                </div>
+            {/* Social Media */}
+            <div className="bg-[#4CC9BF]/10 p-8 rounded-xl text-center">
+              <h3 className="text-xl font-bold text-slate-900 mb-6">Follow Us on Facebook</h3>
+              <div className="flex justify-center">
+                <a
+                  href="https://www.facebook.com/MSUIIT.CCS.CA.Dept"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-6 py-3 bg-[#1877F2] text-white rounded-lg font-semibold hover:bg-[#166fe5] transition-colors shadow-lg"
+                >
+                  <Facebook className="w-6 h-6" />
+                  <span>MSU-IIT Computer Applications Department</span>
+                </a>
               </div>
             </div>
           </div>
@@ -174,7 +113,7 @@ export function Contact() {
               { q: 'What are the tuition fees?', a: 'Tuition is approximately ₱39,000 per semester, which includes tuition, miscellaneous fees, and laboratory fees. Scholarships are available.' },
               { q: 'Can I choose my specialization track?', a: 'Yes, students choose between IoT and Embedded Systems specialization during their third year, based on their interests and academic performance.' },
               { q: 'Are there job placement services?', a: 'Yes, we have a dedicated career services office that provides job placement assistance, resume workshops, and direct connections to hiring companies.' },
-              { q: 'Is the program accredited?', a: 'Yes, the BS in Computer Applications program is accredited by CHED (Commission on Higher Education) at Level III status.' },
+              { q: 'Is the program accredited?', a: 'Yes, the BS in Computer Applications program is accredited by AACCUP at Level III status.' },
             ].map((faq, idx) => (
               <div key={idx} className="bg-white p-6 rounded-xl shadow-lg">
                 <h3 className="font-bold text-slate-900 mb-3">{faq.q}</h3>
@@ -185,19 +124,6 @@ export function Contact() {
         </div>
       </section>
 
-      {/* Map */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Find Us on the Map</h2>
-          <div className="bg-slate-200 rounded-xl overflow-hidden shadow-xl h-96 flex items-center justify-center">
-            <div className="text-center">
-              <MapPin className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-              <p className="text-slate-600 font-semibold">Mindanao State University - Iligan Institute of Technology</p>
-              <p className="text-slate-500">Tibanga Highway, Iligan City, Lanao del Norte</p>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

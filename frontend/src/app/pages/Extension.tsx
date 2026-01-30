@@ -23,6 +23,11 @@ export function Extension() {
   });
   const [loading, setLoading] = useState(true);
 
+  /* Pagination State */
+  const [visibleOngoing, setVisibleOngoing] = useState(3);
+  const [visibleUpcoming, setVisibleUpcoming] = useState(6);
+  const [visibleCompleted, setVisibleCompleted] = useState(4);
+
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -56,12 +61,13 @@ export function Extension() {
       <section className="bg-gradient-to-r from-[#33AAA1] to-[#4CC9BF] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl font-bold mb-6">Extension Programs</h1>
-          <p className="text-xl text-[#77D6CE] max-w-3xl">
+          <p className="text-xl text-slate-100 max-w-3xl">
             Empowering communities through technology education, outreach initiatives, and collaborative partnerships.
           </p>
         </div>
       </section>
 
+      {/* Mission Section (unchanged) */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -89,13 +95,14 @@ export function Extension() {
         </div>
       </section>
 
+      {/* Ongoing Extension Programs */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Ongoing Extension Programs</h2>
 
           {loading ? <div className="text-center text-slate-500">Loading programs...</div> : (
             <div className="space-y-8">
-              {ongoing.map((program, idx) => (
+              {ongoing.slice(0, visibleOngoing).map((program, idx) => (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -144,18 +151,29 @@ export function Extension() {
                 </motion.div>
               ))}
               {ongoing.length === 0 && <div className="text-center text-slate-500 italic">No ongoing programs at the moment.</div>}
+
+              {ongoing.length > visibleOngoing && (
+                <div className="text-center mt-8">
+                  <button
+                    onClick={() => setVisibleOngoing(prev => prev + 3)}
+                    className="px-6 py-3 bg-white border border-[#4CC9BF] text-[#4CC9BF] font-semibold rounded-lg hover:bg-[#4CC9BF] hover:text-white transition-all shadow-sm"
+                  >
+                    See More Ongoing Programs
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
       </section>
 
-      {/* Upcoming Section - Ordered second as requested */}
+      {/* Upcoming Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Upcoming Extension Programs</h2>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {upcoming.map((program, idx) => {
+            {upcoming.slice(0, visibleUpcoming).map((program, idx) => {
               const Icon = getIcon(program.category);
               return (
                 <motion.div
@@ -181,16 +199,27 @@ export function Extension() {
             })}
             {upcoming.length === 0 && <div className="col-span-full text-center text-slate-500 italic">No upcoming programs scheduled yet.</div>}
           </div>
+
+          {upcoming.length > visibleUpcoming && (
+            <div className="text-center mt-12">
+              <button
+                onClick={() => setVisibleUpcoming(prev => prev + 6)}
+                className="px-6 py-3 bg-white border border-[#4CC9BF] text-[#4CC9BF] font-semibold rounded-lg hover:bg-[#4CC9BF] hover:text-white transition-all shadow-sm"
+              >
+                See More Upcoming Programs
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Completed Section - Ordered last */}
+      {/* Completed Section */}
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Completed Extension Programs</h2>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {completed.map((program, idx) => {
+            {completed.slice(0, visibleCompleted).map((program, idx) => {
               const Icon = getIcon(program.category);
               return (
                 <motion.div
@@ -214,6 +243,17 @@ export function Extension() {
             })}
             {completed.length === 0 && <div className="col-span-full text-center text-slate-500 italic">No completed programs to show.</div>}
           </div>
+
+          {completed.length > visibleCompleted && (
+            <div className="text-center mt-12">
+              <button
+                onClick={() => setVisibleCompleted(prev => prev + 4)}
+                className="px-6 py-3 bg-white border border-[#4CC9BF] text-[#4CC9BF] font-semibold rounded-lg hover:bg-[#4CC9BF] hover:text-white transition-all shadow-sm"
+              >
+                See More Completed Programs
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -250,12 +290,7 @@ export function Extension() {
             education and extension programs? We'd love to collaborate with you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="mailto:extension@comapps.msuiit.edu.ph"
-              className="px-8 py-3 bg-white text-[#33AAA1] rounded-lg font-semibold hover:shadow-lg transition-all"
-            >
-              Contact Extension Office
-            </a>
+
             <a
               href="/contact"
               className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-[#33AAA1] transition-all"

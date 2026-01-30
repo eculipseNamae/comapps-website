@@ -11,7 +11,7 @@ export function About() {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h1 className="text-5xl font-bold mb-6">About the Department</h1>
-          <p className="text-xl text-[#77D6CE] max-w-3xl">
+          <p className="text-xl text-slate-100 max-w-3xl">
             The Computer Applications Department at MSU-IIT is dedicated to advancing technology through excellence in education, research, and innovation.
           </p>
         </div>

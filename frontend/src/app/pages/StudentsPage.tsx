@@ -90,7 +90,7 @@ export function Students() {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-[#0F172A] via-slate-900 to-[#0F172A] text-white py-24 overflow-hidden">
+      <div className="relative bg-gradient-to-br from-[#0F172A] via-slate-900 to-[#0F172A] text-white py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <img
             src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
@@ -98,14 +98,14 @@ export function Students() {
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Student Life</h1>
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            <h1 className="text-5xl font-bold mb-6">Student Life</h1>
+            <p className="text-xl text-slate-300 max-w-3xl">
               Empowering the next generation of innovators through excellence, collaboration, and cutting-edge technology.
             </p>
           </motion.div>
