@@ -62,28 +62,28 @@ export function Students() {
       description: "The official student organization fostering academic excellence and camaraderie.",
       icon: Users,
       color: "bg-blue-100 text-blue-600",
-      image: "/comapps-society-logo.jpg"
+      image: "/static/comapps-society-logo.jpg"
     },
     {
       name: "College of Computer Studies Student Council",
       description: "The official student governing body of the College of Computer Studies.",
       icon: Code,
       color: "bg-teal-100 text-teal-600",
-      image: "/ccs-sc-logo.png"
+      image: "/static/ccs-sc-logo.png"
     },
     {
       name: "The Motherboard",
       description: "The official publication of the College of Computer Studies.",
       icon: Lightbulb,
       color: "bg-purple-100 text-purple-600",
-      image: "/themotherboard-logo.png"
+      image: "/static/themotherboard-logo.png"
     },
     {
       name: "Tesseract",
-      description: "Community for showcasing and upskilling IT talents.",
+      description: "A student-based organization originally founded in CCS. A Community for showcasing and upskilling IT-related talents.",
       icon: Award,
       color: "bg-green-100 text-green-600",
-      image: "/tesseract-logo.png"
+      image: "/static/tesseract-logo.png"
     }
   ];
 

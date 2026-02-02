@@ -15,7 +15,20 @@ export default defineConfig({
       // Alias @ to the src directory
       '@': path.resolve(__dirname, './src'),
     },
+    
   },
+  
   base: '/static/',
   assetsInclude: ['**/*.HEIC', '**/*.heif'],
+
+  server: {
+  proxy: {
+    '/api': {
+      target: 'http://127.0.0.1:8000',
+      changeOrigin: true,
+      secure: false,
+    },
+  },
+}
 })
+

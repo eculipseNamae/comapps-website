@@ -134,22 +134,7 @@ export function Home() {
                   ) : (
                     /* Fallback Static Slides if API returns empty */
                     <>
-                      <div>
-                        <ImageWithFallback
-                          src="https://images.unsplash.com/photo-1685456891912-c09f9cd252eb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwY2FtcHVzJTIwbW9kZXJufGVufDF8fHx8MTc2ODk4ODg2OXww&ixlib=rb-4.1.0&q=80&w=1080"
-                          alt="MSU Campus"
-                          className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#236c65]/50 to-transparent" />
-                      </div>
-                      <div>
-                        <ImageWithFallback
-                          src="https://images.unsplash.com/photo-1717323181080-334e21c2dde5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxJb1QlMjBkZXZpY2VzJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NjkwNjQ5MDd8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                          alt="IoT Technology"
-                          className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#236c65]/50 to-transparent" />
-                      </div>
+                     
                     </>
                   )}
                 </Slider>
