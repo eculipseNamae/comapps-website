@@ -39,5 +39,9 @@ from django.conf.urls.static import static
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    from core.views import custom_404_test
+    urlpatterns += [path('test-404/', custom_404_test)]
+
+handler404 = 'core.views.custom_404_view'
 
 urlpatterns.append(re_path(r'^.*$', TemplateView.as_view(template_name='index.html')))

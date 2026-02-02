@@ -43,13 +43,16 @@ export function Students() {
     const formattedYear = yearLevel.replace('-', ' ').replace('year', 'Year').replace(/\b\w/g, l => l.toUpperCase());
 
     return scholars.filter((scholar: any) => {
-      const gpa = parseFloat(scholar.gpa);
+      const gpaRaw = parseFloat(scholar.gpa);
+      if (Number.isNaN(gpaRaw)) return false;
+      const gpa = Number(gpaRaw.toFixed(4)); // normalize precision
       const isYearMatch = scholar.year_level === formattedYear;
 
       let isCategoryMatch = false;
-      if (category === 'rizal') isCategoryMatch = gpa >= 1.00 && gpa <= 1.20;
-      else if (category === 'chancellor') isCategoryMatch = gpa >= 1.21 && gpa <= 1.45;
-      else if (category === 'dean') isCategoryMatch = gpa >= 1.46 && gpa <= 1.75;
+      // Use contiguous ranges so no GPA falls into a gap
+      if (category === 'rizal') isCategoryMatch = gpa >= 1.0 && gpa <= 1.20;
+      else if (category === 'chancellor') isCategoryMatch = gpa > 1.20 && gpa <= 1.45;
+      else if (category === 'dean') isCategoryMatch = gpa > 1.45 && gpa <= 1.75;
 
       return isYearMatch && isCategoryMatch;
     }).sort((a: any, b: any) => parseFloat(a.gpa) - parseFloat(b.gpa)); // Sort by GPA ascending (best first)
@@ -304,7 +307,7 @@ export function Students() {
                   getFilteredScholars(activeListTab, 'rizal').map((student, idx) => (
                     <div key={idx} className="flex justify-between items-center p-3 bg-white rounded-lg border border-yellow-100">
                       <span className="font-semibold text-slate-900">{student.name}</span>
-                      <span className="text-yellow-700 font-bold">{student.gpa}</span>
+                      {/* <span className="text-yellow-700 font-bold">{student.gpa}</span> */}
                     </div>
                   ))
                 ) : (
@@ -336,7 +339,7 @@ export function Students() {
                   getFilteredScholars(activeListTab, 'chancellor').map((student, idx) => (
                     <div key={idx} className="flex justify-between items-center p-3 bg-white rounded-lg border border-blue-100">
                       <span className="font-semibold text-slate-900">{student.name}</span>
-                      <span className="text-blue-700 font-bold">{student.gpa}</span>
+                      {/* <span className="text-blue-700 font-bold">{student.gpa}</span> */}
                     </div>
                   ))
                 ) : (
@@ -368,7 +371,7 @@ export function Students() {
                   getFilteredScholars(activeListTab, 'dean').map((student, idx) => (
                     <div key={idx} className="flex justify-between items-center p-3 bg-white rounded-lg border border-teal-100">
                       <span className="font-semibold text-slate-900">{student.name}</span>
-                      <span className="text-teal-700 font-bold">{student.gpa}</span>
+                      {/* <span className="text-teal-700 font-bold">{student.gpa}</span> */}
                     </div>
                   ))
                 ) : (

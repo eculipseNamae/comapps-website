@@ -50,7 +50,7 @@ class AcademicScholar(models.Model):
 
     name = models.CharField(max_length=200)
     year_level = models.CharField(max_length=20, choices=YEAR_CHOICES, default='1st Year')
-    gpa = models.DecimalField(max_digits=4, decimal_places=2, help_text="Grade Point Average (1.00 - 5.00)")
+    gpa = models.DecimalField(max_digits=6, decimal_places=4, help_text="Grade Point Average (1.00 - 5.00)")
 
     def __str__(self):
         return f"{self.name} - {self.gpa} ({self.year_level})"

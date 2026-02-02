@@ -25,6 +25,7 @@ import { News } from '@/app/pages/News';
 import { Developers } from '@/app/pages/Developers';
 
 import { ScrollToTop } from '@/app/components/ScrollToTop';
+import { NotFound } from '@/app/pages/NotFound';
 
 export default function App() {
   return (
@@ -55,6 +56,7 @@ export default function App() {
           <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/developers" element={<Developers />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </BrowserRouter>
