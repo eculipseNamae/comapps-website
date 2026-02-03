@@ -113,7 +113,7 @@ export function Layout({ children }: LayoutProps) {
       <main className="pt-20">{children}</main>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-b from-slate-900 to-slate-950 text-white mt-20">
+      <footer className="border-t border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {/* MSU-IIT Branding Section */}
           <div className="flex flex-col items-center justify-center mb-12 pb-8 border-b border-slate-800">

@@ -285,7 +285,7 @@ export function Extension() {
       <section className="py-20 bg-gradient-to-r from-[#33AAA1] to-[#4CC9BF] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-6">Partner With Us</h2>
-          <p className="text-lg text-[#77D6CE] mb-8">
+          <p className="text-lg text-slate-100 mb-8">
             Are you a community organization, local government unit, or NGO interested in partnering for technology
             education and extension programs? We'd love to collaborate with you.
           </p>

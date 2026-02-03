@@ -6,7 +6,7 @@ export function Contact() {
       <section className="bg-gradient-to-r from-[#33AAA1] to-[#4CC9BF] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-5xl font-bold mb-6">Contact and Support</h1>
-          <p className="text-xl text-[#77D6CE] max-w-3xl">
+          <p className="text-xl text-slate-100 max-w-3xl">
             Get in touch with us for inquiries, admissions, or any questions about our programs.
           </p>
         </div>

@@ -35,12 +35,12 @@ export function AdmissionsUndergrad() {
       <section className="bg-gradient-to-r from-[#33AAA1] to-[#4CC9BF] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-4">
-            <Link to="/programs-admissions" className="text-[#77D6CE] hover:text-white transition-colors">
+            <Link to="/programs-admissions" className="text-slate-300 hover:text-white transition-colors">
               ← Back to Programs & Admissions
             </Link>
           </div>
           <h1 className="text-5xl font-bold mb-6">BS Computer Applications Admissions</h1>
-          <p className="text-xl text-[#77D6CE] max-w-3xl">
+          <p className="text-xl text-slate-100 max-w-3xl">
             Begin your undergraduate journey in Computer Applications with specializations in IoT and Embedded Systems.
             Learn about admission requirements, application process, and important dates.
           </p>
@@ -328,7 +328,7 @@ export function AdmissionsUndergrad() {
                 <Award className="w-12 h-12 flex-shrink-0" />
                 <div>
                   <h3 className="text-2xl font-bold mb-3">100% FREE Education under RA 10931</h3>
-                  <p className="text-[#77D6CE] mb-4">
+                  <p className="text-slate-200 mb-4">
                     As a State University and College (SUC), MSU-IIT is covered by <strong>Republic Act 10931</strong>,
                     the Universal Access to Quality Tertiary Education Act. Filipino students enrolled in the BS Computer Applications
                     program enjoy <strong>completely FREE education</strong> with ALL fees covered by the government.
@@ -347,7 +347,7 @@ export function AdmissionsUndergrad() {
               <div className="bg-[#4CC9BF] text-white p-6">
                 <Award className="w-12 h-12 mb-4" />
                 <h3 className="text-2xl font-bold">Complete Fee Coverage</h3>
-                <p className="text-[#77D6CE] text-sm mt-2">ALL fees are FREE under RA 10931</p>
+                <p className="text-slate-200 text-sm mt-2">ALL fees are FREE under RA 10931</p>
               </div>
               <div className="p-8">
                 <div className="space-y-4">
@@ -458,24 +458,33 @@ export function AdmissionsUndergrad() {
             other educational expenses such as books, materials, and living allowances.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-lg">
+            {/* Card 1 */}
+            <div className="bg-white p-8 rounded-xl shadow-lg flex flex-col"> {/* Added flex flex-col */}
               <Award className="w-12 h-12 text-[#4CC9BF] mb-4" />
               <h3 className="text-xl font-bold text-slate-900 mb-3">Academic Excellence Grants</h3>
-              <p className="text-slate-600 mb-4">Merit-based grants for students with outstanding academic records (GPA 95% and above). Covers books, materials, and stipends.</p>
+              <p className="text-slate-600 mb-4 flex-1"> {/* Added flex-1 */}
+                Merit-based grants for students with outstanding academic records (GPA 95% and above). Covers books, materials, and stipends.
+              </p>
               <div className="text-[#4CC9BF] font-bold">₱15,000 - ₱25,000/semester</div>
             </div>
 
-            <div className="bg-white p-8 rounded-xl shadow-lg">
+            {/* Card 2 */}
+            <div className="bg-white p-8 rounded-xl shadow-lg flex flex-col"> {/* Added flex flex-col */}
               <Award className="w-12 h-12 text-[#4CC9BF] mb-4" />
               <h3 className="text-xl font-bold text-slate-900 mb-3">DOST Scholarship</h3>
-              <p className="text-slate-600 mb-4">Department of Science and Technology scholarship program with monthly allowances for STEM students pursuing technology fields.</p>
+              <p className="text-slate-600 mb-4 flex-1"> {/* Added flex-1 */}
+                Department of Science and Technology scholarship program with monthly allowances for STEM students pursuing technology fields.
+              </p>
               <div className="text-[#4CC9BF] font-bold">₱7,000/month + book allowance</div>
             </div>
 
-            <div className="bg-white p-8 rounded-xl shadow-lg">
+            {/* Card 3 */}
+            <div className="bg-white p-8 rounded-xl shadow-lg flex flex-col"> {/* Added flex flex-col */}
               <Award className="w-12 h-12 text-[#4CC9BF] mb-4" />
               <h3 className="text-xl font-bold text-slate-900 mb-3">CHED Scholarships</h3>
-              <p className="text-slate-600 mb-4">Commission on Higher Education programs including TDP-TES, UniFAST, and other grants for qualified students.</p>
+              <p className="text-slate-600 mb-4 flex-1"> {/* Added flex-1 */}
+                Commission on Higher Education programs including TDP-TES, UniFAST, and other grants for qualified students.
+              </p>
               <div className="text-[#4CC9BF] font-bold">Varies per program</div>
             </div>
           </div>
@@ -486,7 +495,7 @@ export function AdmissionsUndergrad() {
       <section className="py-20 bg-gradient-to-r from-[#4CC9BF] to-[#33AAA1] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">Ready to Apply?</h2>
-          <p className="text-xl text-[#77D6CE] mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-200 mb-8 max-w-2xl mx-auto">
             Take the first step towards your future in Computer Applications
           </p>
           <div className="flex flex-wrap justify-center gap-4">

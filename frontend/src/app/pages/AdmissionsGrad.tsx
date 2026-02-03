@@ -40,7 +40,7 @@ export function AdmissionsGrad() {
             </Link>
           </div>
           <h1 className="text-5xl font-bold mb-6">MSCA Graduate Admissions</h1>
-          <p className="text-xl text-[#77D6CE] max-w-3xl">
+          <p className="text-xl text-slate-100 max-w-3xl">
             Advance your career with a Master of Science in Computer Applications. Learn about graduate program
             admission requirements, application process, and important dates.
           </p>
