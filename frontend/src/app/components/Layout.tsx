@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Menu, X, Facebook, Twitter, Linkedin, Youtube, LogIn, Search } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/app/components/ui/dialog";
+// import { Input } from "@/app/components/ui/input";
+import React, { useState, useEffect } from "react";
 import logo from "@/assets/721e8860ecf7fd24f6d6e1c0bd7539b905efe973.png";
 import msuiitLogo from "@/assets/fc071c6dc211e12e50c4b5044f61820e7a508026.png";
 
@@ -10,10 +12,67 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [backendResults, setBackendResults] = useState<any[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
   const location = useLocation();
 
   const isActive = (path: string) =>
     location.pathname.startsWith(path);
+
+  const searchIndex = [
+    { title: "Home", path: "/", description: "Welcome to the Department of Computer Applications" },
+    { title: "About Us", path: "/about", description: "Learn about our department's history and vision" },
+    { title: "Programs & Admissions", path: "/programs-admissions", description: "Explore the BSCA and MSCA programs" },
+    { title: "Bachelor of Science in Computer Applications (BSCA)", path: "/programs/bsca", description: "Undergraduate degree details" },
+    { title: "Master of Science in Computer Applications (MSCA)", path: "/programs/msca", description: "Graduate degree details" },
+    { title: "BSCA Embedded Systems Track", path: "/programs/bsca/embedded-systems", description: "Specialization in embedded systems" },
+    { title: "BSCA IoT Track", path: "/programs/bsca/iot", description: "Specialization in Internet of Things" },
+    { title: "Students", path: "/students", description: "Student life and activities" },
+    { title: "Student Projects", path: "/students/projects", description: "Showcase of outstanding student work" },
+    { title: "Alumni", path: "/students/alumni", description: "Connect with our graduates" },
+    { title: "Faculty & Staff", path: "/faculty", description: "Meet our dedicated educators and staff" },
+    { title: "Research", path: "/research", description: "Discover our latest research publications" },
+    { title: "Extension", path: "/extension", description: "Community outreach and extension projects" },
+    { title: "Resources", path: "/resources", description: "Important links and downloads for students" },
+    { title: "Career Services", path: "/career", description: "Job postings and internship opportunities" },
+    { title: "News", path: "/news", description: "Latest announcements and events" },
+    { title: "Contact Us", path: "/contact", description: "Get in touch with the department" },
+    { title: "About the Developers", path: "/developers", description: "Meet the team who built this site" }
+  ];
+
+  const staticResults = searchIndex.filter(item => 
+    item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    item.description.toLowerCase().includes(searchQuery.toLowerCase())
+  ).map(item => ({ ...item, type: 'page' }));
+
+  useEffect(() => {
+    if (!searchQuery) {
+      setBackendResults([]);
+      setIsSearching(false);
+      return;
+    }
+
+    const fetchTimer = setTimeout(async () => {
+      setIsSearching(true);
+      try {
+        const response = await fetch(`/api/search/?q=${encodeURIComponent(searchQuery)}`);
+        if (response.ok) {
+          const data = await response.json();
+          setBackendResults(data.results || []);
+        }
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+      } finally {
+        setIsSearching(false);
+      }
+    }, 300); // 300ms debounce
+
+    return () => clearTimeout(fetchTimer);
+  }, [searchQuery]);
+
+  const allResults = [...staticResults, ...backendResults];
 
   const navItems = [
     { name: "About Us", path: "/about" },
@@ -31,8 +90,99 @@ export function Layout({ children }: LayoutProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/50 shadow-sm">
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 bg-[rgba(0,0,0,0)]">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/50 shadow-sm flex flex-col">
+        {/* Top Header Bar */}
+        <div className="bg-primary text-primary-foreground py-1.5 px-6 sm:px-8 lg:px-12 w-full flex justify-between items-center text-sm font-medium">
+          <div className="flex items-center">
+            <span>Department of Computer Applications</span>
+          </div>
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <a href="https://www.facebook.com/MSUIIT.CCS.CA.Dept" target="_blank" rel="noopener noreferrer" className="hover:text-[#4CC9BF] transition-colors" aria-label="Facebook">
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a href="#" className="hover:text-[#4CC9BF] transition-colors" aria-label="Twitter">
+                <Twitter className="w-4 h-4" />
+              </a>
+              <a href="#" className="hover:text-[#4CC9BF] transition-colors" aria-label="LinkedIn">
+                <Linkedin className="w-4 h-4" />
+              </a>
+              <a href="#" className="hover:text-[#4CC9BF] transition-colors" aria-label="YouTube">
+                <Youtube className="w-4 h-4" />
+              </a>
+            </div>
+            <div className="h-4 w-px bg-slate-600"></div>
+            <a href="https://my.iit.edu.ph" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-1 hover:text-[#4CC9BF] transition-colors">
+              <LogIn className="w-4 h-4" />
+              <span>Portal Login</span>
+            </a>
+            
+            <Dialog open={isSearchOpen} onOpenChange={setIsSearchOpen}>
+              <DialogTrigger asChild>
+                <button className="flex items-center space-x-1 hover:text-[#4CC9BF] transition-colors">
+                  <Search className="w-4 h-4" />
+                  <span>Search</span>
+                </button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[600px] h-[80vh] flex flex-col pt-10">
+                <DialogHeader className="px-6 shrink-0 h-10">
+                  <DialogTitle>Search</DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-col gap-4 py-4 px-6 flex-1 min-h-0">
+                  <div className="flex items-center gap-2 border-b pb-2">
+                    <Search className="w-5 h-5 text-muted-foreground mr-2 shrink-0" />
+                    <input 
+                      placeholder="Type your search and view real-time database results..." 
+                      className="flex-1 min-w-0 border-0 outline-none active:outline-none focus:outline-none bg-transparent text-lg" 
+                      autoFocus
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    {isSearching && (
+                      <div className="w-4 h-4 rounded-full border-2 border-primary border-t-transparent animate-spin ml-2 shrink-0"></div>
+                    )}
+                  </div>
+                  <div className="flex-1 overflow-y-auto flex flex-col gap-2 min-h-0 px-1 pb-6 mt-2">
+                    {searchQuery.length === 0 ? (
+                      <div className="flex-1 flex items-center justify-center text-sm text-muted-foreground">
+                        Start typing to search website pages, faculty, news, and events...
+                      </div>
+                    ) : allResults.length > 0 ? (
+                      allResults.map((result, idx) => (
+                        <Link 
+                          key={idx} 
+                          to={result.path}
+                          onClick={() => {
+                            setIsSearchOpen(false);
+                            setSearchQuery("");
+                          }}
+                          className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 hover:shadow-sm border border-transparent hover:border-slate-100 transition-all shrink-0 group"
+                        >
+                          <div className="flex flex-col min-w-0 flex-1">
+                             <div className="flex items-center gap-2 mb-1">
+                                <span className="font-semibold text-slate-900 group-hover:text-primary transition-colors truncate">{result.title}</span>
+                                <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 shrink-0">{result.type}</span>
+                             </div>
+                             <span className="text-sm text-slate-500 line-clamp-2 leading-relaxed">{result.description}</span>
+                          </div>
+                        </Link>
+                      ))
+                    ) : (
+                      <div className="flex-1 flex flex-col items-center justify-center text-sm text-muted-foreground">
+                        <Search className="w-8 h-8 mb-4 text-slate-200" />
+                        <p>No results found for "{searchQuery}"</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+            
+          </div>
+        </div>
+
+        {/* Main Navigation */}
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12 bg-[rgba(0,0,0,0)] w-full">
           <div className="flex justify-between items-center h-20">
             {/* Logo and University Name */}
             <Link
@@ -109,8 +259,8 @@ export function Layout({ children }: LayoutProps) {
         )}
       </header>
 
-      {/* Main Content with padding for fixed header */}
-      <main className="pt-20">{children}</main>
+      {/* Main Content with padding for fixed header + top bar */}
+      <main className="pt-28">{children}</main>
 
       {/* Footer */}
       <footer className="border-t border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 text-white">

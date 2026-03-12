@@ -29,8 +29,11 @@ admin.site.site_header = "ComApps Dashboard"
 admin.site.site_title = "ComApps Admin"
 admin.site.index_title = "Website Administration"
 
+from core.views import global_search
+
 urlpatterns = [
     path('backdoor/', admin.site.urls),
+    path('api/search/', global_search, name='global_search'),
     path('api/', include(router.urls)),
 ]
 
