@@ -1,10 +1,97 @@
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Facebook, Twitter, Linkedin, Youtube, LogIn, Search } from "lucide-react";
+import { Menu, X, Facebook, Twitter, Linkedin, Youtube, LogIn, Search, ChevronDown } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/app/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 // import { Input } from "@/app/components/ui/input";
 import React, { useState, useEffect } from "react";
 import logo from "@/assets/721e8860ecf7fd24f6d6e1c0bd7539b905efe973.png";
 import msuiitLogo from "@/assets/fc071c6dc211e12e50c4b5044f61820e7a508026.png";
+
+const mainNavItems = [
+  { label: "Home", href: "/" },
+  {
+    label: "About",
+    href: "/about",
+    children: [
+      { label: "Overview", href: "/about" },
+      { label: "Vision, Mission, Goals", href: "/about/vmgo" },
+      { label: "History & Milestones", href: "/about/history" },
+      { label: "Chair's Message", href: "/about/chair-message" },
+      { label: "Organizational Structure", href: "/about/organization" },
+      { label: "Faculty & Staff", href: "/about/faculty-staff" },
+      { label: "Contact Us", href: "/about/contact" },
+      { label: "Location", href: "/about/location" },
+    ],
+  },
+  {
+    label: "Programs",
+    href: "/programs",
+    children: [
+      { label: "All Programs", href: "/programs" },
+      { label: "BS Computer Applications", href: "/programs/bsca" },
+      { label: "MS Computer Applications", href: "/programs/msca" },
+    ],
+  },
+  {
+    label: "Research",
+    href: "/research",
+    children: [
+      { label: "Overview", href: "/research" },
+      { label: "Focus Areas", href: "/research/focus-areas" },
+      { label: "Faculty Profiles", href: "/research/faculty-profiles" },
+      { label: "Projects", href: "/research/projects" },
+      { label: "Publications", href: "/research/publications" },
+      { label: "Labs & Facilities", href: "/research/labs" },
+      { label: "Student Research", href: "/research/student-research" },
+      { label: "Collaborations", href: "/research/collaborations" },
+      { label: "Metrics Dashboard", href: "/research/metrics" },
+    ],
+  },
+  {
+    label: "Extension",
+    href: "/extension",
+    children: [
+      { label: "Overview", href: "/extension" },
+      { label: "Programs", href: "/extension/programs" },
+      { label: "Partnerships", href: "/extension/partnerships" },
+      { label: "Tech Transfer", href: "/extension/tech-transfer" },
+      { label: "Service Projects", href: "/extension/service-projects" },
+      { label: "Impact & Outcomes", href: "/extension/impact" },
+    ],
+  },
+  {
+    label: "Faculty",
+    href: "/faculty",
+    children: [
+      { label: "Directory", href: "/faculty" },
+      { label: "Qualifications", href: "/faculty/qualifications" },
+      { label: "Achievements", href: "/faculty/achievements" },
+      { label: "Development", href: "/faculty/development" },
+    ],
+  },
+  {
+    label: "Students",
+    href: "/students",
+    children: [
+      { label: "Current Students", href: "/students/current" },
+      { label: "Prospective Students", href: "/students/prospective" },
+      { label: "Organizations", href: "/students/organizations" },
+    ],
+  },
+  { label: "Admissions", href: "/admissions" },
+  { label: "Alumni", href: "/alumni" },
+  { label: "News & Events", href: "/news" },
+];
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -73,20 +160,6 @@ export function Layout({ children }: LayoutProps) {
   }, [searchQuery]);
 
   const allResults = [...staticResults, ...backendResults];
-
-  const navItems = [
-    { name: "About Us", path: "/about" },
-    {
-      name: "Programs & Admissions",
-      path: "/programs-admissions",
-    },
-    { name: "Students", path: "/students" },
-    { name: "Faculty & Staff", path: "/faculty" },
-    { name: "Research", path: "/research" },
-    { name: "Extension", path: "/extension" },
-    { name: "Resources", path: "/resources" },
-    { name: "Career Services", path: "/career" },
-  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
@@ -192,71 +265,141 @@ export function Layout({ children }: LayoutProps) {
               <img
                 src={logo}
                 alt="My ComApps Logo"
-                className="h-50 w-auto"
+                className="h-16 lg:h-[72px] w-auto object-contain"
               />
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className={`px-3 py-2 rounded-lg transition-all text-sm font-medium whitespace-nowrap ${isActive(item.path)
-                    ? "bg-[#4CC9BF] text-white"
-                    : "text-slate-700 hover:bg-slate-100"
-                    }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
+            <NavigationMenu viewport={false} className="hidden lg:flex z-50">
+              <NavigationMenuList className="gap-0.5">
+                {mainNavItems.map((item) =>
+                  item.children ? (
+                    <NavigationMenuItem key={item.label}>
+                      <NavigationMenuTrigger
+                        className={cn(
+                          "text-sm font-medium px-3 py-2 whitespace-nowrap rounded-md transition-colors",
+                          isActive(item.href)
+                            ? "!bg-[#4CC9BF] !text-white hover:!bg-[#33AAA1] data-[open=true]:!bg-[#4CC9BF] data-[state=open]:!bg-[#4CC9BF]"
+                            : "bg-transparent text-slate-700 hover:!bg-slate-100 data-[state=open]:!bg-slate-100"
+                        )}
+                      >
+                        {item.label}
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <ul className="grid gap-1 p-4 w-56 bg-white shadow-lg rounded-xl border border-slate-100">
+                          {item.children.map((child) => (
+                            <li key={child.href}>
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  to={child.href}
+                                  className={cn(
+                                    "block select-none rounded-lg p-3 text-sm leading-none no-underline outline-none transition-colors hover:bg-slate-50 hover:text-primary focus:bg-slate-50 focus:text-primary text-slate-600",
+                                    location.pathname === child.href && "bg-slate-50 text-primary font-medium"
+                                  )}
+                                >
+                                  {child.label}
+                                </Link>
+                              </NavigationMenuLink>
+                            </li>
+                          ))}
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  ) : (
+                    <NavigationMenuItem key={item.label}>
+                      <Link
+                        to={item.href}
+                        className={cn(
+                          "text-sm font-medium px-3 py-2 rounded-lg transition-colors inline-block whitespace-nowrap",
+                          isActive(item.href)
+                            ? "!bg-[#4CC9BF] !text-white hover:!bg-[#33AAA1]"
+                            : "bg-transparent text-slate-700 hover:!bg-slate-100"
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    </NavigationMenuItem>
+                  )
+                )}
+              </NavigationMenuList>
+            </NavigationMenu>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
+            {/* CTA Buttons & Mobile Menu Trigger */}
+            <div className="flex items-center gap-2">
+              <div className="hidden md:flex items-center gap-2 mr-2">
+                <Button variant="outline" size="sm" className="border-slate-200 text-slate-700 hover:bg-slate-50" asChild>
+                  <Link to="/admissions/request-info">Request Info</Link>
+                </Button>
+                <Button size="sm" className="bg-primary text-white hover:bg-primary/90 shadow-sm" asChild>
+                  <Link to="/admissions/apply">Apply Now</Link>
+                </Button>
+              </div>
+
+              {/* Mobile Menu Button - Will be updated in next step */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100"
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden bg-white/95 backdrop-blur-md border-t border-slate-200/50 h-screen overflow-y-auto pb-24">
-            <div className="px-4 py-4 space-y-2">
-              <Link
-                to="/"
-                className="block px-4 py-3 rounded-lg text-slate-700 hover:bg-slate-100 font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Home
-              </Link>
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className="block px-4 py-3 rounded-lg text-slate-700 hover:bg-slate-100 font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <Link
-                to="/contact"
-                className="block px-4 py-3 bg-[#33AAA1] text-white rounded-lg hover:bg-[#4CC9BF] font-medium mt-4"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Contact
-              </Link>
+        <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+          <SheetContent side="right" className="w-80 overflow-y-auto z-[60] bg-white border-l border-slate-200">
+            <div className="flex flex-col gap-6 pt-6">
+              <div className="flex flex-col gap-2">
+                <Button className="bg-primary text-white hover:bg-primary/90 w-full" asChild>
+                  <Link to="/admissions/apply" onClick={() => setMobileMenuOpen(false)}>Apply Now</Link>
+                </Button>
+                <Button variant="outline" className="w-full border-slate-200 text-slate-700 hover:bg-slate-50" asChild>
+                  <Link to="/admissions/request-info" onClick={() => setMobileMenuOpen(false)}>Request Info</Link>
+                </Button>
+              </div>
+              <nav className="flex flex-col gap-1">
+                {mainNavItems.map((item) => (
+                  <div key={item.label}>
+                    {item.children ? (
+                      <details className="group">
+                        <summary className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 cursor-pointer font-medium text-slate-700">
+                          {item.label}
+                          <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+                        </summary>
+                        <div className="pl-4 mt-1 space-y-1">
+                          {item.children.map((child) => (
+                            <SheetClose asChild key={child.href}>
+                              <Link
+                                to={child.href}
+                                className="block p-2 rounded-lg text-sm text-slate-500 hover:text-primary hover:bg-slate-50 transition-colors"
+                              >
+                                {child.label}
+                              </Link>
+                            </SheetClose>
+                          ))}
+                        </div>
+                      </details>
+                    ) : (
+                      <SheetClose asChild>
+                        <Link
+                          to={item.href}
+                          className="block p-3 rounded-lg font-medium text-slate-700 hover:bg-slate-50 transition-colors"
+                        >
+                          {item.label}
+                        </Link>
+                      </SheetClose>
+                    )}
+                  </div>
+                ))}
+              </nav>
             </div>
-          </div>
-        )}
+          </SheetContent>
+        </Sheet>
       </header>
 
       {/* Main Content with padding for fixed header + top bar */}
