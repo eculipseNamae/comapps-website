@@ -260,6 +260,12 @@ export function Layout({ children }: LayoutProps) {
             {/* Logo and University Name */}
             <Link
               to="/"
+              onClick={(e) => {
+                if (location.pathname === "/") {
+                  e.preventDefault();
+                  window.location.reload();
+                }
+              }}
               className="flex items-center space-x-3 group shrink-0"
             >
               <img
@@ -309,11 +315,19 @@ export function Layout({ children }: LayoutProps) {
                     <NavigationMenuItem key={item.label}>
                       <Link
                         to={item.href}
+                        onClick={(e) => {
+                          if (item.href === "/" && location.pathname === "/") {
+                            e.preventDefault();
+                            window.location.reload();
+                          }
+                        }}
                         className={cn(
                           "text-sm font-medium px-3 py-2 rounded-lg transition-colors inline-block whitespace-nowrap",
-                          isActive(item.href)
+                          isActive(item.href) && item.href !== "/"
                             ? "!bg-[#4CC9BF] !text-white hover:!bg-[#33AAA1]"
-                            : "bg-transparent text-slate-700 hover:!bg-slate-100"
+                            : item.href === "/" && location.pathname === "/" 
+                              ? "!bg-[#4CC9BF] !text-white hover:!bg-[#33AAA1]"
+                              : "bg-transparent text-slate-700 hover:!bg-slate-100"
                         )}
                       >
                         {item.label}
@@ -388,6 +402,12 @@ export function Layout({ children }: LayoutProps) {
                       <SheetClose asChild>
                         <Link
                           to={item.href}
+                          onClick={(e) => {
+                            if (item.href === "/" && location.pathname === "/") {
+                              e.preventDefault();
+                              window.location.reload();
+                            }
+                          }}
                           className="block p-3 rounded-lg font-medium text-slate-700 hover:bg-slate-50 transition-colors"
                         >
                           {item.label}
