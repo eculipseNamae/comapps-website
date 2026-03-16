@@ -28,7 +28,7 @@ const mainNavItems = [
       { label: "History & Milestones", href: "/about/history" },
       { label: "Chair's Message", href: "/about/chair-message" },
       { label: "Organizational Structure", href: "/about/organization" },
-      { label: "Faculty & Staff", href: "/about/faculty-staff" },
+      { label: "Faculty & Staff", href: "/faculty" },
       { label: "Contact Us", href: "/about/contact" },
       { label: "Location", href: "/about/location" },
     ],
@@ -129,8 +129,8 @@ export function Layout({ children }: LayoutProps) {
     { title: "About the Developers", path: "/developers", description: "Meet the team who built this site" }
   ];
 
-  const staticResults = searchIndex.filter(item => 
-    item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+  const staticResults = searchIndex.filter(item =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     item.description.toLowerCase().includes(searchQuery.toLowerCase())
   ).map(item => ({ ...item, type: 'page' }));
 
@@ -189,7 +189,7 @@ export function Layout({ children }: LayoutProps) {
               <LogIn className="w-4 h-4" />
               <span>Portal Login</span>
             </a>
-            
+
             <Dialog open={isSearchOpen} onOpenChange={setIsSearchOpen}>
               <DialogTrigger asChild>
                 <button className="flex items-center space-x-1 hover:text-[#4CC9BF] transition-colors">
@@ -204,9 +204,9 @@ export function Layout({ children }: LayoutProps) {
                 <div className="flex flex-col gap-4 py-4 px-6 flex-1 min-h-0">
                   <div className="flex items-center gap-2 border-b pb-2">
                     <Search className="w-5 h-5 text-muted-foreground mr-2 shrink-0" />
-                    <input 
-                      placeholder="Type your search and view real-time database results..." 
-                      className="flex-1 min-w-0 border-0 outline-none active:outline-none focus:outline-none bg-transparent text-lg" 
+                    <input
+                      placeholder="Type your search and view real-time database results..."
+                      className="flex-1 min-w-0 border-0 outline-none active:outline-none focus:outline-none bg-transparent text-lg"
                       autoFocus
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
@@ -222,8 +222,8 @@ export function Layout({ children }: LayoutProps) {
                       </div>
                     ) : allResults.length > 0 ? (
                       allResults.map((result, idx) => (
-                        <Link 
-                          key={idx} 
+                        <Link
+                          key={idx}
                           to={result.path}
                           onClick={() => {
                             setIsSearchOpen(false);
@@ -232,11 +232,11 @@ export function Layout({ children }: LayoutProps) {
                           className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 hover:shadow-sm border border-transparent hover:border-slate-100 transition-all shrink-0 group"
                         >
                           <div className="flex flex-col min-w-0 flex-1">
-                             <div className="flex items-center gap-2 mb-1">
-                                <span className="font-semibold text-slate-900 group-hover:text-primary transition-colors truncate">{result.title}</span>
-                                <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 shrink-0">{result.type}</span>
-                             </div>
-                             <span className="text-sm text-slate-500 line-clamp-2 leading-relaxed">{result.description}</span>
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="font-semibold text-slate-900 group-hover:text-primary transition-colors truncate">{result.title}</span>
+                              <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 shrink-0">{result.type}</span>
+                            </div>
+                            <span className="text-sm text-slate-500 line-clamp-2 leading-relaxed">{result.description}</span>
                           </div>
                         </Link>
                       ))
@@ -250,7 +250,7 @@ export function Layout({ children }: LayoutProps) {
                 </div>
               </DialogContent>
             </Dialog>
-            
+
           </div>
         </div>
 
@@ -325,7 +325,7 @@ export function Layout({ children }: LayoutProps) {
                           "text-sm font-medium px-3 py-2 rounded-lg transition-colors inline-block whitespace-nowrap",
                           isActive(item.href) && item.href !== "/"
                             ? "!bg-[#4CC9BF] !text-white hover:!bg-[#33AAA1]"
-                            : item.href === "/" && location.pathname === "/" 
+                            : item.href === "/" && location.pathname === "/"
                               ? "!bg-[#4CC9BF] !text-white hover:!bg-[#33AAA1]"
                               : "bg-transparent text-slate-700 hover:!bg-slate-100"
                         )}

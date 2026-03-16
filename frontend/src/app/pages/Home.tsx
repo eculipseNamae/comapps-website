@@ -55,7 +55,7 @@ export function Home() {
   return (
     <div>
       {/* 1. Hero Carousel Section */}
-      <section className="relative bg-gradient-to-br from-[#236c65] via-[#288179] to-slate-900 text-white overflow-hidden pb-16">
+      <section className="relative bg-gradient-to-br from-[#236c65] via-[#288179] to-slate-900 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9nPjwvc3ZnPg==')] opacity-20" />
         </div>
@@ -116,10 +116,10 @@ export function Home() {
       </section>
 
       {/* 2. Quick Stats */}
-      <section className="-mt-12 relative z-20 container mx-auto px-4 max-w-7xl mb-20 md:mb-24">
+      <section className="py-16 relative z-20 container mx-auto px-4 max-w-7xl mb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-lg p-6 border border-slate-100 flex items-center justify-between hover:-translate-y-1 transition-transform">
+            <div key={index} className="bg-white rounded-xl shadow-xl p-6 border border-slate-200 flex items-center justify-between hover:-translate-y-1 transition-transform">
               <div>
                 <p className="text-3xl font-black text-slate-900">{stat.value}</p>
                 <p className="text-sm text-slate-500 font-bold mt-1 uppercase tracking-tight">{stat.label}</p>
