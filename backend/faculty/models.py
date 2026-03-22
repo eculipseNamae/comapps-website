@@ -55,10 +55,19 @@ class FacultyResearchProject(models.Model):
         ('Completed', 'Completed'),
     ]
 
+    CATEGORY_CHOICES = [
+        ('MS', 'MS Thesis'),
+        ('PhD', 'PhD Dissertation'),
+        ('Faculty/Funded', 'Faculty / Funded Research')
+    ]
+
     title = models.CharField(max_length=500)
     lead_researcher = models.ForeignKey(FacultyMember, related_name='research_projects', on_delete=models.CASCADE)
     description = models.TextField()
+    abstract = models.TextField(blank=True, default="")
+    technologies = models.CharField(max_length=500, blank=True, help_text="Comma-separated technologies (e.g., Python, React)")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Ongoing')
+    research_category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Faculty/Funded')
     
     def __str__(self):
         return self.title

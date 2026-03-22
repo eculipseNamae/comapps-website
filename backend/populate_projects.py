@@ -1,156 +1,117 @@
 import os
 import django
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 django.setup()
 
 from students.models import StudentProject
 
+StudentProject.objects.all().delete() # wiping test data
+
 projects = [
-    # 4th Year Capstone Projects
     {
-        "title": "Smart Agriculture Monitoring System",
-        "team_members": "Juan Dela Cruz, Maria Santos",
-        "track": "IoT",
-        "year_level": "4th Year",
-        "semester": "2023-2024",
-        "project_type": "Capstone",
-        "description": "An IoT-based system for real-time monitoring of soil moisture, temperature, and crop health using wireless sensors and cloud analytics. The system provides farmers with actionable insights through a mobile application.",
-        "technologies": "Arduino, MQTT, Firebase, React, Node.js",
-        "awards": "Best Capstone Project 2024, Innovation Award"
+        'title': 'Smart City Waste Management IoT System',
+        'description': 'An intelligent IoT-based garbage bin monitoring system that optimizes waste collection routes.',
+        'team_members': 'Alice Smith, Bob Jones, Prof. Garcia (Adviser)',
+        'technologies': 'Arduino, Raspberry Pi, React, Node.js',
+        'year_level': '4th Year',
+        'track': 'IoT',
+        'is_masters': False,
+        'project_type': 'Project'
     },
     {
-        "title": "Automated Home Security with Facial Recognition",
-        "team_members": "Carlos Reyes, Anna Lim",
-        "track": "Embedded Systems",
-        "year_level": "4th Year",
-        "semester": "2023-2024",
-        "project_type": "Capstone",
-        "description": "A security system utilizing embedded cameras and machine learning for facial recognition to control access and monitor home security. Features real-time alerts and cloud-based surveillance storage.",
-        "technologies": "Raspberry Pi, OpenCV, Python, TensorFlow, Flask",
-        "awards": "Presented at IEEE Conference 2024"
+        'title': 'Autonomous Warehouse Robot',
+        'description': 'A small-scale embedded robot for autonomous pathfinding and inventory scanning.',
+        'team_members': 'Charlie Brown, Diane Lee',
+        'technologies': 'C++, ROS, Embedded Linux',
+        'year_level': '3rd Year',
+        'track': 'Embedded Systems',
+        'is_masters': False,
+        'project_type': 'Project'
     },
     {
-        "title": "Traffic Flow Optimization using Edge Computing",
-        "team_members": "Rafael Gomez, Sofia Tan, Miguel Santos",
-        "track": "IoT",
-        "year_level": "4th Year",
-        "semester": "2023-2024",
-        "project_type": "Capstone",
-        "description": "An intelligent traffic management system that uses edge computing to process real-time traffic data and optimize signal timing. Reduces congestion by 30% in test scenarios.",
-        "technologies": "Edge AI, Computer Vision, MQTT, Node-RED, Python",
-        "awards": "Outstanding Research Award"
+        'title': 'Advanced Neural Networks for Edge Devices',
+        'description': 'A masters level implementation of compressed neural networks running natively on ESP32 microcontrollers.',
+        'team_members': 'Evan Wright',
+        'technologies': 'TensorFlow Lite, ESP-IDF, Python',
+        'is_masters': True,
+        'year_level': '',
+        'track': '',
+        'project_type': 'Project'
     },
     {
-        "title": "Wearable Health Monitoring Device for Elderly Care",
-        "team_members": "Patricia Cruz, Daniel Reyes",
-        "track": "Embedded Systems",
-        "year_level": "4th Year",
-        "semester": "2023-2024",
-        "project_type": "Capstone",
-        "description": "A low-power wearable device that monitors vital signs including heart rate, blood pressure, and fall detection. Automatically alerts caregivers in emergency situations.",
-        "technologies": "ARM Cortex, Bluetooth LE, C/C++, Mobile App, Cloud",
-        "awards": "Healthcare Innovation Award"
-    },
-
-    # 3rd Year Research Projects
-    {
-        "title": "Blockchain-Based Supply Chain Tracking System",
-        "team_members": "Jasmine Flores, Kenneth Torres",
-        "track": "IoT",
-        "year_level": "3rd Year",
-        "semester": "2023-2024",
-        "project_type": "Research",
-        "description": "A decentralized system using blockchain and IoT sensors to track products throughout the supply chain, ensuring transparency and authenticity.",
-        "technologies": "Ethereum, Solidity, IoT Sensors, Web3.js, React",
-        "awards": ""
+        'title': 'Low-Power Environmental Sensor Node',
+        'description': 'Designing an ultra-low power sensor node that survives for years on a single coin battery.',
+        'team_members': 'Fiona Gallagher',
+        'technologies': 'Zephyr RTOS, BLE, Nordic nRF52',
+        'year_level': '2nd Year',
+        'track': '',
+        'is_masters': False,
+        'project_type': 'Project'
     },
     {
-        "title": "Automated Waste Segregation Robot",
-        "team_members": "Gabriel Santos, Christine Lim",
-        "track": "Embedded Systems",
-        "year_level": "3rd Year",
-        "semester": "2023-2024",
-        "project_type": "Research",
-        "description": "A robot that uses computer vision and machine learning to automatically identify and segregate different types of waste materials for recycling purposes.",
-        "technologies": "Raspberry Pi, TensorFlow, OpenCV, Servo Motors, Python",
-        "awards": "Environmental Innovation Award"
+        'title': 'Blockchain-Based Secure IoT Firmware Updates',
+        'description': 'A scalable architecture for distributing OTA firmware updates securely using distributed ledgers.',
+        'team_members': 'George Harris, Hector Villa',
+        'technologies': 'Solidity, ESP8266, FreeRTOS',
+        'year_level': '4th Year',
+        'track': 'IoT',
+        'is_masters': False,
+        'project_type': 'Project'
     },
     {
-        "title": "Smart Parking Management System",
-        "team_members": "Nicole Fernandez, Bryan Garcia",
-        "track": "IoT",
-        "year_level": "3rd Year",
-        "semester": "2023-2024",
-        "project_type": "Research",
-        "description": "An IoT system that monitors parking space availability in real-time and provides navigation to available spots through a mobile application.",
-        "technologies": "Arduino, Ultrasonic Sensors, Firebase, React Native, MQTT",
-        "awards": ""
-    },
-    {
-        "title": "Real-Time Air Quality Monitoring Network",
-        "team_members": "Marcus Villanueva, Diana Lopez",
-        "track": "IoT",
-        "year_level": "3rd Year",
-        "semester": "2023-2024",
-        "project_type": "Research",
-        "description": "A distributed network of IoT sensors that measure air quality parameters across the city and provide real-time pollution data through an interactive web dashboard.",
-        "technologies": "ESP32, Air Quality Sensors, InfluxDB, Grafana, Node.js",
-        "awards": ""
-    },
-
-    # Previous Year Projects
-    {
-        "title": "Autonomous Drone for Disaster Response",
-        "team_members": "Alexandra Torres, Vincent Rodriguez",
-        "track": "Embedded Systems",
-        "year_level": "4th Year",
-        "semester": "2022-2023",
-        "project_type": "Capstone",
-        "description": "An autonomous drone equipped with cameras and sensors for rapid disaster assessment and search-and-rescue operations in hard-to-reach areas.",
-        "technologies": "Flight Controller, Computer Vision, GPS, Radio Communication, Python",
-        "awards": "Best Innovation Award 2023"
-    },
-    {
-        "title": "Smart Energy Management for Buildings",
-        "team_members": "Isabella Gomez, Francis Santiago",
-        "track": "IoT",
-        "year_level": "4th Year",
-        "semester": "2022-2023",
-        "project_type": "Capstone",
-        "description": "An intelligent system that optimizes energy consumption in commercial buildings using IoT sensors, predictive analytics, and automated control of HVAC and lighting systems.",
-        "technologies": "Zigbee, Machine Learning, Cloud Computing, React, Python",
-        "awards": "Sustainability Award 2023"
-    },
-    {
-        "title": "Gesture-Controlled Robotic Arm",
-        "team_members": "Michelle Bautista, Kenneth Navarro",
-        "track": "Embedded Systems",
-        "year_level": "4th Year",
-        "semester": "2022-2023",
-        "project_type": "Capstone",
-        "description": "A robotic arm that can be controlled using hand gestures detected by computer vision, designed for assistive technology and industrial automation applications.",
-        "technologies": "Arduino, OpenCV, Servo Motors, MediaPipe, Python",
-        "awards": ""
-    },
-    {
-        "title": "IoT-Based Flood Monitoring and Early Warning System",
-        "team_members": "Gabriel Ramos, Stephanie Garcia",
-        "track": "IoT",
-        "year_level": "4th Year",
-        "semester": "2022-2023",
-        "project_type": "Capstone",
-        "description": "A comprehensive flood monitoring system using water level sensors and weather data to provide early warnings to communities at risk of flooding.",
-        "technologies": "Water Level Sensors, Weather API, SMS Gateway, Web Dashboard, MySQL",
-        "awards": "Community Service Award 2023"
+        'title': 'Real-Time Biometric Security Access Control',
+        'description': 'An embedded system integrating fingerprint matching and live facial detection directly on an ARM Cortex processor.',
+        'team_members': 'Iris West, Jack Dawson',
+        'technologies': 'OpenCV, C, ARM Cortex-M4',
+        'year_level': '3rd Year',
+        'track': 'Embedded Systems',
+        'is_masters': False,
+        'project_type': 'Project'
     }
 ]
 
-print("Populating Student Projects...")
-StudentProject.objects.all().delete()  # Clear existing to avoid duplicates
+for p in projects:
+    StudentProject.objects.create(**p)
 
-for p_data in projects:
-    project = StudentProject.objects.create(**p_data)
-    print(f"Created project: {project.title}")
+# We also need 4 Research entries so the UI doesn't break.
+research = [
+    {
+        'title': 'Optimizing RTOS Schedulers for Heavy IoT Loads',
+        'description': 'A detailed analysis on preemption mechanisms in modern real-time operating systems.',
+        'team_members': 'Kyle Rayner',
+        'technologies': 'FreeRTOS, Performance Analysis',
+        'is_masters': True,
+        'project_type': 'Research'
+    },
+    {
+        'title': 'Vulnerability Assessment of Standard MQTT Implementations',
+        'description': 'Research highlighting critical security flaws when unencrypted MQTT is deployed in smart homes.',
+        'team_members': 'Lois Lane',
+        'technologies': 'Wireshark, Python, Mosquitto',
+        'year_level': '4th Year',
+        'track': 'IoT',
+        'project_type': 'Research'
+    },
+    {
+        'title': 'Energy Harvesting Efficiency in Wearable Tech',
+        'description': 'Investigating thermoelectric and piezoelectric combinations for continuous body sensing.',
+        'team_members': 'Morty Smith',
+        'technologies': 'Hardware Design, Simulation',
+        'year_level': '4th Year',
+        'track': 'Embedded Systems',
+        'project_type': 'Research'
+    },
+    {
+        'title': 'Latency Benchmarks of Edge AI vs Cloud AI',
+        'description': 'Comprehensive testing of local inference latency versus standard cloud relay pipelines.',
+        'team_members': 'Nora Allen',
+        'technologies': 'Edge TPU, AWS IoT',
+        'is_masters': True,
+        'project_type': 'Research'
+    }
+]
 
-print("Student projects populated successfully!")
+for r in research:
+    StudentProject.objects.create(**r)
+
+print("Dummy data successfully populated!")

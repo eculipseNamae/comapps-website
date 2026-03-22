@@ -9,17 +9,29 @@ import {
 } from "lucide-react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {
-  facultyData,
-  lecturersData,
-} from "@/app/data/facultyData";
+import { fetchFacultyMember } from "@/app/data/api";
 
 export function FacultyContact() {
   const { id } = useParams<{ id: string }>();
 
-  // Find the faculty member by ID
-  const allFaculty = [...facultyData, ...lecturersData];
-  const member = allFaculty.find((f) => f.id === id);
+  const [member, setMember] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (id) {
+      fetchFacultyMember(id)
+        .then(data => {
+          setMember(data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error("Failed to fetch faculty member", err);
+          setError(true);
+          setLoading(false);
+        });
+    }
+  }, [id]);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -54,8 +66,12 @@ export function FacultyContact() {
     generateCaptcha();
   }, []);
 
-  // If faculty member not found, redirect to faculty page
-  if (!member) {
+  // If faculty member not found or loading
+  if (loading) {
+    return <div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading contact form...</div>;
+  }
+
+  if (error || !member) {
     return <Navigate to="/faculty" replace />;
   }
 
@@ -141,7 +157,7 @@ export function FacultyContact() {
           </p>
           <div className="space-y-3">
             <Link
-              to={`/facultyprofile/${member.id}`}
+              to={`/faculty/${member.id}`}
               className="block w-full px-6 py-3 bg-[#4CC9BF] hover:bg-[#33AAA1] text-white font-semibold rounded-lg transition-all"
             >
               Back to Profile

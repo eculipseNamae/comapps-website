@@ -36,11 +36,15 @@ import { LocationPage } from '@/app/pages/about/Location';
 import { AllProgramsPage } from '@/app/pages/programs/AllPrograms';
 
 import { FocusAreasPage } from '@/app/pages/research/FocusAreas';
+import { FocusAreaDetailPage } from '@/app/pages/research/FocusAreaDetail';
 import { FacultyProfilesPage } from '@/app/pages/research/FacultyProfiles';
+import { FacultyResearchDetailPage } from '@/app/pages/research/FacultyResearchDetail';
+import { FacultyProjectDetailPage } from '@/app/pages/research/FacultyProjectDetail';
 import { ResearchProjectsPage } from '@/app/pages/research/ResearchProjects';
 import { PublicationsPage } from '@/app/pages/research/Publications';
 import { LabsPage } from '@/app/pages/research/Labs';
 import { StudentResearchPage } from '@/app/pages/research/StudentResearch';
+import { StudentResearchDetailPage } from '@/app/pages/research/StudentResearchDetail';
 import { CollaborationsPage } from '@/app/pages/research/Collaborations';
 import { MetricsPage } from '@/app/pages/research/Metrics';
 
@@ -95,11 +99,15 @@ export default function App() {
           {/* Research */}
           <Route path="/research" element={<Research />} />
           <Route path="/research/focus-areas" element={<FocusAreasPage />} />
+          <Route path="/research/focus-areas/:slug" element={<FocusAreaDetailPage />} />
           <Route path="/research/faculty-profiles" element={<FacultyProfilesPage />} />
+          <Route path="/research/faculty-profiles/:id" element={<FacultyResearchDetailPage />} />
           <Route path="/research/projects" element={<ResearchProjectsPage />} />
+          <Route path="/research/projects/:id" element={<FacultyProjectDetailPage />} />
           <Route path="/research/publications" element={<PublicationsPage />} />
           <Route path="/research/labs" element={<LabsPage />} />
           <Route path="/research/student-research" element={<StudentResearchPage />} />
+          <Route path="/research/student-research/:id" element={<StudentResearchDetailPage />} />
           <Route path="/research/collaborations" element={<CollaborationsPage />} />
           <Route path="/research/metrics" element={<MetricsPage />} />
           
@@ -125,6 +133,7 @@ export default function App() {
           <Route path="/students/prospective" element={<ProspectiveStudentsPage />} />
           <Route path="/students/organizations" element={<StudentOrganizationsPage />} />
           <Route path="/students/projects" element={<StudentProjects />} />
+          <Route path="/studentprojects" element={<StudentProjects />} />
           <Route path="/students/alumni" element={<Alumni />} />
           <Route path="/alumni" element={<Alumni />} />
           

@@ -8,13 +8,20 @@ class PublicationSerializer(serializers.ModelSerializer):
 
 class FacultyResearchProjectSerializer(serializers.ModelSerializer):
     lead_researcher_name = serializers.CharField(source='lead_researcher.name', read_only=True)
+    technologies_list = serializers.SerializerMethodField()
     
     class Meta:
         model = FacultyResearchProject
-        fields = ['id', 'title', 'lead_researcher', 'lead_researcher_name', 'description', 'status']
+        fields = ['id', 'title', 'lead_researcher', 'lead_researcher_name', 'description', 'abstract', 'technologies', 'technologies_list', 'status', 'research_category']
+
+    def get_technologies_list(self, obj):
+        if obj.technologies:
+            return [tech.strip() for tech in obj.technologies.split(',')]
+        return []
 
 class FacultyMemberSerializer(serializers.ModelSerializer):
     publications = PublicationSerializer(many=True, read_only=True)
+    research_projects = FacultyResearchProjectSerializer(many=True, read_only=True)
     
     profile_image = serializers.SerializerMethodField()
 

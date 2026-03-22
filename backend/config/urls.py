@@ -9,6 +9,7 @@ from students.views import StudentAchievementViewSet, StudentProjectViewSet, Aca
 from faculty.views import FacultyMemberViewSet, FacultyResearchProjectViewSet
 from extensions.views import ExtensionProgramViewSet
 from resources_app.views import ResourceViewSet
+from research.views import ResearchStatisticsOffsetViewSet, CollaboratorViewSet, FocusAreaViewSet
 
 router = DefaultRouter()
 router.register(r'faculty', FacultyMemberViewSet)
@@ -23,6 +24,9 @@ router.register(r'achievements', StudentAchievementViewSet)
 router.register(r'projects', StudentProjectViewSet)
 router.register(r'scholars', AcademicScholarViewSet)
 router.register(r'alumni', AlumniViewSet)
+router.register(r'research-settings', ResearchStatisticsOffsetViewSet, basename='research-settings')
+router.register(r'collaborators', CollaboratorViewSet)
+router.register(r'focus-areas', FocusAreaViewSet, basename='focus-areas')
 
 # Admin Site Customization
 admin.site.site_header = "ComApps Dashboard"

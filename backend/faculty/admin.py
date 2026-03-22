@@ -27,7 +27,7 @@ class RegularFacultyAdmin(ImageCroppingMixin, admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        return qs.exclude(position__icontains="Lecturer").exclude(position__icontains="Secretary").exclude(position__icontains="Staff").exclude(position__icontains="Admin")
+        return qs.exclude(position__icontains="Lecturer").exclude(position__icontains="Secretary").exclude(position__icontains="Staff").exclude(position__icontains="Admin").exclude(position__icontains="Technician")
 
 @admin.register(Publication)
 class PublicationAdmin(admin.ModelAdmin):
@@ -69,5 +69,5 @@ class SupportStaffAdmin(ImageCroppingMixin, admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        # Filter for Staff-like positions
-        return qs.filter(models.Q(position__icontains="Secretary") | models.Q(position__icontains="Staff") | models.Q(position__icontains="Admin"))
+        # Filter for Staff-like positions including Technician
+        return qs.filter(models.Q(position__icontains="Secretary") | models.Q(position__icontains="Staff") | models.Q(position__icontains="Admin") | models.Q(position__icontains="Technician"))

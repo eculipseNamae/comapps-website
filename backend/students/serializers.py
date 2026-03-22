@@ -8,10 +8,13 @@ class StudentProjectSerializer(serializers.ModelSerializer):
     semester = serializers.CharField()
     year = serializers.CharField(source='year_level') # Map year_level to year for frontend compat
     type = serializers.CharField(source='project_type') # Map project_type to type for frontend compat
+    publications = serializers.SerializerMethodField()
+    presentations = serializers.SerializerMethodField()
+    focus_areas = serializers.SerializerMethodField()
 
     class Meta:
         model = StudentProject
-        fields = ['id', 'title', 'description', 'image', 'track', 'year', 'semester', 'type', 'students', 'technologies', 'awards', 'status']
+        fields = ['id', 'title', 'description', 'abstract', 'image', 'track', 'year', 'semester', 'type', 'students', 'technologies', 'awards', 'status', 'pdf_upload', 'publications', 'presentations', 'is_masters', 'focus_areas']
 
     def get_students(self, obj):
         return [s.strip() for s in obj.team_members.split(',')] if obj.team_members else []
@@ -21,6 +24,15 @@ class StudentProjectSerializer(serializers.ModelSerializer):
 
     def get_awards(self, obj):
         return [a.strip() for a in obj.awards.split(',')] if obj.awards and obj.awards.strip() else []
+
+    def get_publications(self, obj):
+        return [{'journal_name': pub.journal_name, 'link': pub.link} for pub in obj.publications.all()]
+
+    def get_presentations(self, obj):
+        return [pres.conference_name for pres in obj.presentations.all()]
+
+    def get_focus_areas(self, obj):
+        return [{'name': f.name, 'slug': f.slug, 'description': f.description} for f in obj.focus_areas.all()]
 
 class StudentAchievementSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,4 +1,5 @@
 from django.db import models
+from research.models import Collaborator
 
 class HeroSlide(models.Model):
     image = models.ImageField(upload_to='hero_slides/')
@@ -32,3 +33,10 @@ class AdmissionDeadline(models.Model):
 
     def __str__(self):
         return f"{self.category} - {self.title}"
+
+class IndustryPartner(Collaborator):
+    class Meta:
+        proxy = True
+        app_label = 'core'
+        verbose_name = "Collaboration / Industry Partner"
+        verbose_name_plural = "Collaborations / Industry Partners"

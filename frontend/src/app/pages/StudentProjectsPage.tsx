@@ -8,7 +8,6 @@ export function StudentProjects() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedYear, setSelectedYear] = useState("all");
   const [selectedTrack, setSelectedTrack] = useState("all");
-  const [selectedType, setSelectedType] = useState("all");
 
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +17,8 @@ export function StudentProjects() {
     const loadProjects = async () => {
       try {
         const data = await fetchStudentProjects();
-        setProjects(data);
+        const arr = Array.isArray(data) ? data : data.results || [];
+        setProjects(arr.filter((p: any) => p.type === 'Project'));
       } catch (error) {
         console.error("Failed to fetch student projects", error);
       } finally {
@@ -42,9 +42,8 @@ export function StudentProjects() {
 
     const matchesYear = selectedYear === "all" || project.year === selectedYear;
     const matchesTrack = selectedTrack === "all" || project.track === selectedTrack;
-    const matchesType = selectedType === "all" || project.type === selectedType;
 
-    return matchesSearch && matchesYear && matchesTrack && matchesType;
+    return matchesSearch && matchesYear && matchesTrack;
   });
 
   return (
@@ -85,9 +84,9 @@ export function StudentProjects() {
             </div>
             <div>
               <div className="text-4xl font-bold text-[#4CC9BF] mb-2">
-                {projects.filter(p => p.type === "Capstone").length}
+                {projects.filter(p => p.year === "4th Year").length}
               </div>
-              <div className="text-slate-600 font-medium">Capstone Projects</div>
+              <div className="text-slate-600 font-medium">Senior Projects</div>
             </div>
             <div>
               <div className="text-4xl font-bold text-[#4CC9BF] mb-2">
@@ -150,19 +149,6 @@ export function StudentProjects() {
                 <Filter className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 pointer-events-none" />
               </div>
 
-              {/* Project Type Filter */}
-              <div className="relative">
-                <select
-                  value={selectedType}
-                  onChange={(e) => setSelectedType(e.target.value)}
-                  className="appearance-none px-6 py-3 pr-10 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4CC9BF] focus:border-transparent bg-white cursor-pointer"
-                >
-                  <option value="all">All Types</option>
-                  <option value="Capstone">Capstone</option>
-                  <option value="Research">Research</option>
-                </select>
-                <Filter className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5 pointer-events-none" />
-              </div>
             </div>
 
             {/* Results Count */}
@@ -192,24 +178,33 @@ export function StudentProjects() {
                   viewport={{ once: true }}
                   className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all border border-slate-100 flex flex-col"
                 >
-                  <div className="h-48 overflow-hidden">
+                  <div className="h-48 overflow-hidden bg-slate-100">
                     <img
-                      src={project.image}
+                      src={project.image || `https://picsum.photos/seed/${project.id}/800/600`}
                       alt={project.title}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                   <div className="p-6 flex-1 flex flex-col">
                     <div className="flex items-center gap-2 mb-3 flex-wrap">
-                      <span className="px-3 py-1 bg-[#4CC9BF]/10 text-[#33AAA1] text-xs font-semibold rounded-full">
-                        {project.track}
-                      </span>
-                      <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded-full">
-                        {project.year}
-                      </span>
-                      <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full">
-                        {project.type}
-                      </span>
+                      {project.is_masters ? (
+                        <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-semibold rounded-full">
+                          Master's
+                        </span>
+                      ) : (
+                        <>
+                          {project.track && (
+                            <span className="px-3 py-1 bg-[#4CC9BF]/10 text-[#33AAA1] text-xs font-semibold rounded-full">
+                              {project.track}
+                            </span>
+                          )}
+                          {project.year && (
+                            <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded-full">
+                              {project.year}
+                            </span>
+                          )}
+                        </>
+                      )}
                     </div>
 
                     <h3 className="text-xl font-bold text-slate-900 mb-2">{project.title}</h3>

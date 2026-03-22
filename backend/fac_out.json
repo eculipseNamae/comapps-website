@@ -1,0 +1,646 @@
+[
+  {
+    "id": "alce-apple",
+    "publications": [
+      {
+        "id": 15,
+        "title": "ICT-enabled Technologies for Pedestrian Safety: A Scoping Review",
+        "year": 2025,
+        "venue": "Pacific-Asia Conference on Information Systems",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/article-detail.php?no=1607&s=4e221077ec7fd7b9aa19490fb96bddb2"
+      },
+      {
+        "id": 16,
+        "title": "Optimizing Drying Efficiency Through an IoT-based Direct Solar Dryer System: Integration of Web Data Logger and SMS Notification",
+        "year": 2023,
+        "venue": "International Journal of Advanced Computer Science and Applications (IJACSA)",
+        "link": "https://thesai.org/Publications/ViewIssue?volume=14&issue=7&code=IJACSA"
+      },
+      {
+        "id": 17,
+        "title": "Are We Inclusive? Accessibility Challenges in Philippine E-Government Websites",
+        "year": 2025,
+        "venue": "none",
+        "link": "https://www.mdpi.com/2227-9709/12/2/41"
+      },
+      {
+        "id": 18,
+        "title": "Design and Development of a University Outdoor Air Quality Monitoring System",
+        "year": 2024,
+        "venue": "7th Information System International Conference (ISICO)",
+        "link": "https://www.sciencedirect.com/science/article/pii/S1877050924005349"
+      },
+      {
+        "id": 19,
+        "title": "Automated Safe AWD Rice Irrigation Scheduling using Low-Power WAN Technology",
+        "year": 2024,
+        "venue": "7th Information System International Conference (ISICO)",
+        "link": "https://www.sciencedirect.com/science/article/pii/S187705092400543X"
+      },
+      {
+        "id": 20,
+        "title": "Development of an Image-Based Reverse Vending Machine using Raspberry Pi",
+        "year": 2024,
+        "venue": "4th International Conference on Novel & Intelligent Digital Systems",
+        "link": "https://link.springer.com/chapter/10.1007/978-3-031-73344-4_8"
+      },
+      {
+        "id": 21,
+        "title": "Exploring Smart City Analytical Framework: Evidence from Select Case Studies",
+        "year": 2023,
+        "venue": "3rd International Conference (NiDS 2023)",
+        "link": "https://link.springer.com/chapter/10.1007/978-3-031-44097-7_17"
+      }
+    ],
+    "research_projects": [
+      {
+        "id": 1,
+        "title": "IoT Security in Smart Cities",
+        "lead_researcher": "alce-apple",
+        "lead_researcher_name": "Alce, Apple Rose B.",
+        "description": "Investigating security protocols and encryption methods for large-scale IoT deployments in urban environments.",
+        "abstract": "",
+        "technologies": "",
+        "technologies_list": [],
+        "status": "Ongoing",
+        "research_category": "Faculty/Funded"
+      }
+    ],
+    "profile_image": "http://localhost:8000/media/faculty_images/Maam_apple.jpg.400x400_q85_box-0%2C106%2C706%2C813_crop_detail.jpg",
+    "name": "Alce, Apple Rose B.",
+    "position": "Assistant Professor",
+    "email": "apple.alce@g.msuiit.edu.ph",
+    "bio": "Dr. Alce specializes in embedded systems...",
+    "research_interests": [
+      "Embedded Systems",
+      "Wireless Sensor Networks"
+    ],
+    "networks": {},
+    "cropping": "0,106,706,813",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "castor-paul",
+    "publications": [
+      {
+        "id": 13,
+        "title": "Design and Development of a University Outdoor Air Quality Monitoring System",
+        "year": 2024,
+        "venue": "Seventh Information Systems International Conference (ISICO 2023) 234 (2024), 1697-1704",
+        "link": "https://doi.org/10.1016/j.procs.2024.03.175"
+      },
+      {
+        "id": 14,
+        "title": "Eyeway: An Artificial Intelligence Of Things Pothole Detection System With Map Visualization",
+        "year": 2024,
+        "venue": "The 15th International Conference on Emerging Ubiquitous Systems and Pervasive Networks (EUSPN 2024)",
+        "link": "https://msuiit.edu.ph/faculty-staff/article-detail.php?no=1451&s=20a49bf08f20a890a1a3a47ab4a6e9c6"
+      }
+    ],
+    "research_projects": [
+      {
+        "id": 2,
+        "title": "Real-Time Embedded Operating Systems",
+        "lead_researcher": "castor-paul",
+        "lead_researcher_name": "Castor, Paul Rodolf P.",
+        "description": "Development of lightweight RTOS for resource-constrained embedded devices.",
+        "abstract": "",
+        "technologies": "",
+        "technologies_list": [],
+        "status": "Completed",
+        "research_category": "Faculty/Funded"
+      }
+    ],
+    "profile_image": "http://localhost:8000/media/faculty_images/sir_paul.png.400x400_q85_box-70%2C26%2C403%2C359_crop_detail.jpg",
+    "name": "Castor, Paul Rodolf P.",
+    "position": "Department Chairman & Assistant Professor",
+    "email": "paulrodolf.castor@g.msuiit.edu.ph",
+    "bio": "Professor Castor leads the Computer Applications Department...",
+    "research_interests": [
+      "Air Quality",
+      "Embedded Systems Design and Programming",
+      "Firmware Development",
+      "Internet of Things",
+      "Mechatronics",
+      "Real-time Operating System (RTOS)",
+      "Wireless Sensor Networks (WSN)",
+      "Microprocessor Designing"
+    ],
+    "networks": {
+      "Linkedin": "https://www.linkedin.com/in/paul-rodolf-castor-295836150",
+      "Researchgate": "https://www.researchgate.net/profile/Paul_Rodolf_Castor",
+      "Orcid": "https://orcid.org/0000-0001-5609-5334"
+    },
+    "cropping": "70,26,403,359",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "alindayo-leah",
+    "publications": [
+      {
+        "id": 22,
+        "title": "Wireless Sensor Network Development: Explosion Locator using Artificial Neural Network",
+        "year": 2020,
+        "venue": "International Journal of Advanced Science and Convergence",
+        "link": "http://ijasc.ascons.org/digital-library/2020/2/2/31"
+      },
+      {
+        "id": 23,
+        "title": "My.BoardHub: Development of a Single-Board Computer-Based Security System Using Artificial Intelligence of Things for Boarding Houses",
+        "year": 2025,
+        "venue": "none",
+        "link": "https://link.springer.com/chapter/10.1007/978-3-032-06634-3_6"
+      },
+      {
+        "id": 24,
+        "title": "Developing a Computer Vision Model to Classify Abaca Fibers Using YOLOv8",
+        "year": 2025,
+        "venue": "Journal of Information Systems Engineering and Management",
+        "link": "https://jisem-journal.com/index.php/journal/article/view/3035"
+      },
+      {
+        "id": 25,
+        "title": "Computer Vision-Based Detection and Monitoring System for Mature Coconut Fruits and Web Dashboard Visualization Platform",
+        "year": 2024,
+        "venue": "International Journal of Advanced Computer Science and Applications(IJACSA)",
+        "link": "https://thesai.org/Publications/ViewPaper?Volume=15&Issue=11&Code=IJACSA&SerialNo=75"
+      },
+      {
+        "id": 26,
+        "title": "Development of Go-Onto-Target Guidance and Control System for Semi-Ballistic Vehicle For Rapid and Precise Search and Rescue Operations",
+        "year": 2020,
+        "venue": "Journal of Critical Reviews",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/ISSN-%202394-5125"
+      },
+      {
+        "id": 27,
+        "title": "REAL-TIME DEVELOPMENT OF EMBEDDED SYSTEM: TARGETTING AND CONTROL SYSTEM FOR SEMI- BALLISTIC VEHICLE FOR RAPID AND PRECISE SEARCH AND RESCUE APPLICATIONS",
+        "year": 2020,
+        "venue": "JOURNAL OF CRITICAL REVIEWS",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/ISSN-%202394-5125"
+      },
+      {
+        "id": 28,
+        "title": "Wireless Sensor Network Development: Targeting and control system for semi-ballistic vehicle for rapid and precise search and rescue applications",
+        "year": 2018,
+        "venue": "Journal of advances in Technology and Engineering Research",
+        "link": "https://tafpublications.com/platform/Articles/full-jater4.4.2.php"
+      },
+      {
+        "id": 29,
+        "title": "Explosion Locator using Artificial Neural Network",
+        "year": 2013,
+        "venue": "IAMURE International Journal of Mathematics, Engineering and Technology",
+        "link": "https://ejournals.ph/article.php?id=2832"
+      }
+    ],
+    "research_projects": [
+      {
+        "id": 3,
+        "title": "Edge Computing for IoT",
+        "lead_researcher": "alindayo-leah",
+        "lead_researcher_name": "Alindayo, Leah A.",
+        "description": "Optimizing data processing at the edge to reduce latency in IoT applications.",
+        "abstract": "Lorem ipsum test",
+        "technologies": "Sensors, IoT, PyTorch",
+        "technologies_list": [
+          "Sensors",
+          "IoT",
+          "PyTorch"
+        ],
+        "status": "Ongoing",
+        "research_category": "Faculty/Funded"
+      }
+    ],
+    "profile_image": "http://localhost:8000/media/faculty_images/maam_leah.png.400x400_q85_box-82%2C56%2C398%2C373_crop_detail.jpg",
+    "name": "Alindayo, Leah A.",
+    "position": "Assistant Professor",
+    "email": "leah.alindayo@g.msuiit.edu.ph",
+    "bio": "Prof. Alindayo focuses on robotics and autonomous systems, particularly in UAV control and navigation. Her expertise includes artificial intelligence applications in autonomous vehicle systems.",
+    "research_interests": [
+      "Robotics",
+      "AI",
+      "UAV Control Mechanism",
+      "Programming and DSP"
+    ],
+    "networks": {},
+    "cropping": "82,56,398,373",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "bahinting-mariafe",
+    "publications": [
+      {
+        "id": 30,
+        "title": "Computer-Vision-Based Detection and Monitoring System for Mature Coconut Fruits with a Web Dashboard Visualization Platform",
+        "year": 2024,
+        "venue": "International Journal of Advanced Computer Science and Applications",
+        "link": "https://thesai.org/Publications/ViewPaper?Volume=15&Issue=11&Code=ijacsa&SerialNo=75"
+      },
+      {
+        "id": 31,
+        "title": "Eggplant Leaf Semantic Segmentation in Aerial Imagery for Precision Agriculture",
+        "year": 2023,
+        "venue": "2023 IEEE 15th International Conference on Humanoid, Nanotechnology, Information Technology, Communication and Control, Environment, and Management (HNICEM)",
+        "link": "https://ieeexplore.ieee.org/document/10589006"
+      },
+      {
+        "id": 32,
+        "title": "Ground Robot Detection for Collaborative UAV-UGV Alignment and Retrieval Operations",
+        "year": 2023,
+        "venue": "International Conference on Humanoid, Nanotechnology, Information Technology,Communication and Control, Environment and Management",
+        "link": "https://ieeexplore.ieee.org/document/10589261"
+      },
+      {
+        "id": 33,
+        "title": "Mark, Hairnet, and Handwash Detection System for Food Manufacturing Health and Safety Monitoring",
+        "year": 2023,
+        "venue": "2023 IEEE 15th International Conference on Humanoid, Nanotechnology, Information Technology, Communication and Control, Environment, and Management, HNICEM 2023",
+        "link": "https://ieeexplore.ieee.org/abstract/document/10589183"
+      },
+      {
+        "id": 34,
+        "title": "Detecting Persons in River Quarry Operations: Aerial Surveillance for Flood Pre-Disaster Monitoring",
+        "year": 2023,
+        "venue": "2023 IEEE 15th International Conference on Humanoid, Nanotechnology, Information Technology, Communication and Control, Environment, and Management, HNICEM 2023",
+        "link": "https://ieeexplore.ieee.org/document/10589218"
+      },
+      {
+        "id": 35,
+        "title": "Development of A Wireless Sensor Node for Storage Bin Volume Measurement",
+        "year": 2023,
+        "venue": "2023 IEEE 15th International Conference on Humanoid, Nanotechnology, Information Technology, Communication and Control, Environment, and Management, HNICEM 2023",
+        "link": "https://ieeexplore.ieee.org/document/10589056"
+      },
+      {
+        "id": 36,
+        "title": "Rural Road Pavement Panel Detection with Unmanned Aerial Vehicles",
+        "year": 2023,
+        "venue": "2023 IEEE 15th International Conference on Humanoid, Nanotechnology, Information Technology, Communication and Control, Environment, and Management, HNICEM 2023",
+        "link": "https://ieeexplore.ieee.org/document/10589124"
+      }
+    ],
+    "research_projects": [
+      {
+        "id": 4,
+        "title": "Machine Learning for Signal Processing",
+        "lead_researcher": "bahinting-mariafe",
+        "lead_researcher_name": "Bahinting, Maria Fe P.",
+        "description": "Advanced algorithms for noise reduction in industrial sensor networks.",
+        "abstract": "",
+        "technologies": "",
+        "technologies_list": [],
+        "status": "Ongoing",
+        "research_category": "Faculty/Funded"
+      }
+    ],
+    "profile_image": "http://localhost:8000/media/faculty_images/maam_fe.png.400x400_q85_box-67%2C51%2C383%2C367_crop_detail.jpg",
+    "name": "Bahinting, Maria Fe P.",
+    "position": "Assistant Professor",
+    "email": "mariafe.bahinting@g.msuiit.edu.ph",
+    "bio": "Prof. Bahinting's research centers on the convergence of IoT, artificial intelligence, and robotics. She is particularly interested in developing intelligent systems for industrial automation.",
+    "research_interests": [
+      "Internet of Things",
+      "AI",
+      "Robotics"
+    ],
+    "networks": {},
+    "cropping": "67,51,383,367",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "caparida-stefany",
+    "publications": [],
+    "research_projects": [
+      {
+        "id": 5,
+        "title": "Sustainable Energy Harvesting for WSNs",
+        "lead_researcher": "caparida-stefany",
+        "lead_researcher_name": "Caparida, Stefany Mae V.",
+        "description": "Developing novel piezoelectric and solar harvesting techniques for wireless sensor nodes.",
+        "abstract": "",
+        "technologies": "",
+        "technologies_list": [],
+        "status": "Completed",
+        "research_category": "Faculty/Funded"
+      }
+    ],
+    "profile_image": "http://localhost:8000/media/faculty_images/maam_stef.png.400x400_q85_box-71%2C19%2C409%2C356_crop_detail.jpg",
+    "name": "Caparida, Stefany Mae V.",
+    "position": "Assistant Professor",
+    "email": "stefany.caparida@g.msuiit.edu.ph",
+    "bio": "Prof. Caparida bridges the gap between technology and entrepreneurship, guiding students in developing innovative tech startups. Her diverse expertise spans from quantum computing to design thinking.",
+    "research_interests": [
+      "Technology Entrepreneurship",
+      "Startups",
+      "QT C++",
+      "Internet of Things",
+      "Design Thinking",
+      "Data Warehousing",
+      "Introduction to Quantum Computing"
+    ],
+    "networks": {},
+    "cropping": "71,19,409,356",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "empig-ernesto",
+    "publications": [
+      {
+        "id": 37,
+        "title": "Microcontroller-based Vessel Passenger Tracker using GSM System: An Aid for Search and Rescue Operations",
+        "year": 2019,
+        "venue": "International Journal of Advanced Computer Science and Applications",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/article-detail.php?no=355&s=a5888dc97e182b4fe5a57cea943d9734"
+      },
+      {
+        "id": 38,
+        "title": "ICT4SFM-CA: Model for Climate Action Using Integrative Visual Neural Network Simulation",
+        "year": 2018,
+        "venue": "International Conference on Environment and Forest Conservation",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/article-detail.php?no=344&s=a5888dc97e182b4fe5a57cea943d9734"
+      },
+      {
+        "id": 39,
+        "title": "Design and Development of Automated Drip Irrigation system for Sustainable Vegetable Gardening",
+        "year": 2017,
+        "venue": "2nd International Summit on Education for Sustainable Development",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/article-detail.php?no=345&s=a5888dc97e182b4fe5a57cea943d9734"
+      },
+      {
+        "id": 40,
+        "title": "Remote Controlled Sea-Garbage Collector: An Ecological Solid Waste management for Coastal Areas",
+        "year": 2017,
+        "venue": "International Conference on Emerging Discourses and Issues in Sustainable Development",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/article-detail.php?no=346&s=a5888dc97e182b4fe5a57cea943d9734"
+      },
+      {
+        "id": 41,
+        "title": "GIS-based Hotspot Analysis of Dengue Cases in Malaybalay City, Bukidnon",
+        "year": 2016,
+        "venue": "Pacific Rim Applications and Grid Middleware Assembly (PRAGMA30)",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/article-detail.php?no=347&s=a5888dc97e182b4fe5a57cea943d9734"
+      },
+      {
+        "id": 42,
+        "title": "Structured Monitoring Security System for Academe",
+        "year": 2015,
+        "venue": "8th International Conference on RCEEE 2015",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/article-detail.php?no=351&s=a5888dc97e182b4fe5a57cea943d9734"
+      },
+      {
+        "id": 43,
+        "title": "Development of Digital Human Body Tracker Alarm System using GPS and Transceiver for Catastrophic Event and Rescue Operation",
+        "year": 2015,
+        "venue": "8th International Conference on RCEEE 2015",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/article-detail.php?no=348&s=a5888dc97e182b4fe5a57cea943d9734"
+      },
+      {
+        "id": 44,
+        "title": "Microcontroller-based Flood Warning System with Short Message Service Notifier",
+        "year": 2015,
+        "venue": "8th International Conference on RCEEE 2015",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/article-detail.php?no=349&s=a5888dc97e182b4fe5a57cea943d9734"
+      },
+      {
+        "id": 45,
+        "title": "Microcontroller-based Monitoring System for Water Filtration",
+        "year": 2015,
+        "venue": "8th International Conference on RCEEE 2015",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/article-detail.php?no=350&s=a5888dc97e182b4fe5a57cea943d9734"
+      },
+      {
+        "id": 46,
+        "title": "Energy-Saving Control System Based on Dynamic Classroom Utilization Schedule",
+        "year": 2014,
+        "venue": "7th IEEE International Conference on Humanoid, Nanotechnology, Information Technology, Communication and Control, Environment and Management (HNICEM)",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/article-detail.php?no=353&s=a5888dc97e182b4fe5a57cea943d9734"
+      },
+      {
+        "id": 47,
+        "title": "Development of a User Preference-based Educational Game",
+        "year": 2014,
+        "venue": "International Journal of Learning and Development",
+        "link": "https://www.macrothink.org/journal/index.php/ijld/article/view/5104/4525"
+      },
+      {
+        "id": 48,
+        "title": "Information and Communication Technology Among Women Micro-entrpreneurs in Iligan City: An Instrument for Sustainable Economic Development",
+        "year": 2015,
+        "venue": "Gendered Development International Conference 2015",
+        "link": "https://www.msuiit.edu.ph/faculty-staff/article-detail.php?no=352&s=a5888dc97e182b4fe5a57cea943d9734"
+      }
+    ],
+    "research_projects": [
+      {
+        "id": 6,
+        "title": "5G-Enabled Industrial Automation",
+        "lead_researcher": "empig-ernesto",
+        "lead_researcher_name": "Empig, Ernesto E.",
+        "description": "Leveraging 5G non-public networks for ultra-reliable low-latency communications in factories.",
+        "abstract": "",
+        "technologies": "",
+        "technologies_list": [],
+        "status": "Ongoing",
+        "research_category": "Faculty/Funded"
+      }
+    ],
+    "profile_image": "http://localhost:8000/media/faculty_images/unnamed_Spzy56M.jpg.400x400_q85_box-0%2C47%2C713%2C762_crop_detail.jpg",
+    "name": "Empig, Ernesto E.",
+    "position": "Professor",
+    "email": "ernesto.empig@g.msuiit.edu.ph",
+    "bio": "Prof. Empig is a distinguished researcher in ICT for sustainable development and environmental computing. His work focuses on leveraging technology to address climate change and achieve sustainable development goals.",
+    "research_interests": [
+      "ICT for Sustainable Development",
+      "Environmental Computing",
+      "Social Network Analysis",
+      "Information and Communication Technology",
+      "Sustainable Development",
+      "Virtual Classroom",
+      "Sustainable Development Goal",
+      "Climate Change"
+    ],
+    "networks": {},
+    "cropping": "0,47,713,762",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "halibas-jerry",
+    "publications": [],
+    "research_projects": [
+      {
+        "id": 7,
+        "title": "Cognitive Radio Networks",
+        "lead_researcher": "halibas-jerry",
+        "lead_researcher_name": "Halibas, Jerry B.",
+        "description": "Dynamic spectrum access techniques for efficient wireless communication.",
+        "abstract": "",
+        "technologies": "",
+        "technologies_list": [],
+        "status": "Completed",
+        "research_category": "Faculty/Funded"
+      }
+    ],
+    "profile_image": "http://localhost:8000/media/faculty_images/Sir_halibas.png.400x400_q85_box-80%2C59%2C399%2C378_crop_detail.jpg",
+    "name": "Halibas, Jerry B.",
+    "position": "Assistant Professor",
+    "email": "jerry.halibas@g.msuiit.edu.ph",
+    "bio": "Prof. Halibas brings practical industry experience to the classroom, focusing on software development and computer applications.",
+    "research_interests": [],
+    "networks": {},
+    "cropping": "80,59,399,378",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "jondonero-excel",
+    "publications": [],
+    "research_projects": [
+      {
+        "id": 8,
+        "title": "AI in Healthcare Diagnostics",
+        "lead_researcher": "jondonero-excel",
+        "lead_researcher_name": "Jondonero, Excel Van O.",
+        "description": "Using deep learning to specific anomalies in medical imaging data.",
+        "abstract": "",
+        "technologies": "",
+        "technologies_list": [],
+        "status": "Ongoing",
+        "research_category": "Faculty/Funded"
+      }
+    ],
+    "profile_image": "http://localhost:8000/media/faculty_images/sir_excel.png.400x400_q85_box-68%2C37%2C396%2C365_crop_detail.jpg",
+    "name": "Jondonero, Excel Van O.",
+    "position": "Instructor",
+    "email": "excelvan.jondonero@g.msuiit.edu.ph",
+    "bio": "Mr. Jondonero is dedicated to teaching foundational computer applications and programming courses.",
+    "research_interests": [],
+    "networks": {},
+    "cropping": "68,37,396,365",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "marajas-antonio",
+    "publications": [],
+    "research_projects": [],
+    "profile_image": "http://localhost:8000/media/faculty_images/sir_marajas.png.400x400_q85_box-56%2C38%2C388%2C369_crop_detail.jpg",
+    "name": "Marajas, Antonio S.",
+    "position": "Professor",
+    "email": "antonio.marajas@g.msuiit.edu.ph",
+    "bio": "Prof. Marajas is a senior faculty member with decades of experience in computer science education.",
+    "research_interests": [],
+    "networks": {},
+    "cropping": "56,38,388,369",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "papolonias-juffil",
+    "publications": [],
+    "research_projects": [],
+    "profile_image": "http://localhost:8000/media/faculty_images/sir_juffil.png.400x400_q85_box-63%2C39%2C398%2C374_crop_detail.jpg",
+    "name": "Papolonias, Juffil B.",
+    "position": "Instructor",
+    "email": "juffil.papolonias@g.msuiit.edu.ph",
+    "bio": "Mr. Papolonias specializes in teaching programming and software development courses.",
+    "research_interests": [],
+    "networks": {},
+    "cropping": "63,39,398,374",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "sudaria-phoebe",
+    "publications": [],
+    "research_projects": [],
+    "profile_image": "http://localhost:8000/media/faculty_images/maam_phoebe.png.400x400_q85_box-47%2C55%2C384%2C391_crop_detail.jpg",
+    "name": "Sudaria, Phoebe Ruth Alithea B.",
+    "position": "Assistant Professor",
+    "email": "phoeberuthalithea.sudaria@g.msuiit.edu.ph",
+    "bio": "Prof. Sudaria focuses on computer applications and information systems.",
+    "research_interests": [],
+    "networks": {},
+    "cropping": "47,55,384,391",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "villanueva-jomari",
+    "publications": [],
+    "research_projects": [],
+    "profile_image": "http://localhost:8000/media/faculty_images/sir_jom.png.400x400_q85_box-70%2C43%2C398%2C371_crop_detail.jpg",
+    "name": "Villanueva, Jomari Francis B.",
+    "position": "Assistant Professor",
+    "email": "jomarifrancis.villanueva@g.msuiit.edu.ph",
+    "bio": "Prof. Villanueva specializes in machine learning applications for IoT systems, developing intelligent solutions for smart environments.",
+    "research_interests": [
+      "Internet of Things",
+      "Machine Learning"
+    ],
+    "networks": {},
+    "cropping": "70,43,398,371",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "pepito-collien",
+    "publications": [],
+    "research_projects": [],
+    "profile_image": "http://localhost:8000/media/faculty_images/Maam_pepito.png.400x400_q85_box-42%2C43%2C430%2C431_crop_detail.jpg",
+    "name": "Pepito, Collien Princess C.",
+    "position": "Lecturer",
+    "email": "collienprincess.pepito@g.msuiit.edu.ph",
+    "bio": "Ms. Pepito is a dedicated lecturer focusing on foundational computer applications courses.",
+    "research_interests": [],
+    "networks": {},
+    "cropping": "42,43,430,431",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "example-reference",
+    "publications": [],
+    "research_projects": [],
+    "profile_image": "http://localhost:8000/media/faculty_images/Untitled_design.png.400x400_q85_box-473%2C13%2C1187%2C727_crop_detail.jpg",
+    "name": "Dr. Example Reference",
+    "position": "Professor",
+    "email": "example.reference@university.edu",
+    "bio": "This is a sample faculty member to demonstrate the data format. You can delete this user after checking the fields.",
+    "research_interests": [
+      "Artificial Intelligence",
+      "Data Science",
+      "Machine Learning"
+    ],
+    "networks": {
+      "linkedin": "https://www.linkedin.com/in/example",
+      "googleScholar": "https://scholar.google.com/citations?user=example",
+      "researchgate": "https://www.researchgate.net/profile/Example",
+      "orcid": "https://orcid.org/0000-0000-0000-0000",
+      "Facebook": "https://www.facebook.com"
+    },
+    "cropping": "473,13,1187,727",
+    "faculty_type": "Adjunct"
+  },
+  {
+    "id": "odvina-cendy",
+    "publications": [],
+    "research_projects": [],
+    "profile_image": "http://localhost:8000/media/faculty_images/Maam_lou.png.400x400_q85_box-22%2C0%2C329%2C307_crop_detail.png",
+    "name": "Odvina, Cendy Lou",
+    "position": "Department Secretary",
+    "email": "cendylou.odvina@g.msuiit.edu.ph",
+    "bio": "Department Secretary",
+    "research_interests": [],
+    "networks": {},
+    "cropping": "22,0,329,307",
+    "faculty_type": "Core"
+  },
+  {
+    "id": "bicada-allan",
+    "publications": [],
+    "research_projects": [],
+    "profile_image": "http://localhost:8000/media/faculty_images/Screenshot_2026-03-17_144405.png.400x400_q85_box-54%2C1%2C270%2C217_crop_detail.png",
+    "name": "Bicada, Allan P.",
+    "position": "Laboratory Technician",
+    "email": "allan.bicada@g.msuiit.edu.ph",
+    "bio": "",
+    "research_interests": [],
+    "networks": {},
+    "cropping": "54,1,270,217",
+    "faculty_type": "Core"
+  }
+]

@@ -21,17 +21,20 @@ export function Faculty() {
 
   // Derived state
   const lecturers = facultyMembers.filter(m => m.position.toLowerCase().includes('lecturer'));
+  // Filter for staff, including technicians
   const staff = facultyMembers.filter(m =>
     m.position.toLowerCase().includes('secretary') ||
     m.position.toLowerCase().includes('admin') ||
-    m.position.toLowerCase().includes('staff')
+    m.position.toLowerCase().includes('staff') ||
+    m.position.toLowerCase().includes('technician')
   );
   // Regular faculty is everyone who is NOT a lecturer and NOT staff
   const allFaculty = facultyMembers.filter(m =>
     !m.position.toLowerCase().includes('lecturer') &&
     !m.position.toLowerCase().includes('secretary') &&
     !m.position.toLowerCase().includes('admin') &&
-    !m.position.toLowerCase().includes('staff')
+    !m.position.toLowerCase().includes('staff') &&
+    !m.position.toLowerCase().includes('technician')
   );
 
   const coreFaculty = allFaculty.filter(m => m.faculty_type === 'Core' || !m.faculty_type);

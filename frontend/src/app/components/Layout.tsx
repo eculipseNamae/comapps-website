@@ -37,7 +37,7 @@ const mainNavItems = [
     label: "Programs",
     href: "/programs",
     children: [
-      { label: "All Programs", href: "/programs" },
+      { label: "All Programs", href: "/programs-admissions" },
       { label: "BS Computer Applications", href: "/programs/bsca" },
       { label: "MS Computer Applications", href: "/programs/msca" },
     ],
@@ -49,7 +49,7 @@ const mainNavItems = [
       { label: "Overview", href: "/research" },
       { label: "Focus Areas", href: "/research/focus-areas" },
       { label: "Faculty Profiles", href: "/research/faculty-profiles" },
-      { label: "Projects", href: "/research/projects" },
+      { label: "Projects", href: "/studentprojects" },
       { label: "Publications", href: "/research/publications" },
       { label: "Labs & Facilities", href: "/research/labs" },
       { label: "Student Research", href: "/research/student-research" },

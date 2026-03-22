@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HeroSlide, AdmissionDeadline
+from .models import HeroSlide, AdmissionDeadline, IndustryPartner
 
 @admin.register(HeroSlide)
 class HeroSlideAdmin(admin.ModelAdmin):
@@ -13,3 +13,9 @@ class AdmissionDeadlineAdmin(admin.ModelAdmin):
     list_filter = ('category', 'is_active')
     list_editable = ('is_active', 'order')
     search_fields = ('title', 'description')
+
+@admin.register(IndustryPartner)
+class IndustryPartnerAdmin(admin.ModelAdmin):
+    list_display = ('name', 'order')
+    search_fields = ('name',)
+    list_editable = ('order',)
