@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Search, ArrowLeft, FlaskConical, Code } from 'lucide-react';
-import { fetchStudentProjects } from '@/app/data/api';
+import { fetchStudentProjects, fetchFocusAreas } from '@/app/data/api';
 
 export function FocusAreaDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -10,14 +10,25 @@ export function FocusAreaDetailPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Map slug back to title cleanly
-  const domainTitle = slug?.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') || 'Focus Area';
+  const [domainTitle, setDomainTitle] = useState('Focus Area');
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const res = await fetchStudentProjects();
-        const arr = Array.isArray(res) ? res : res.results || [];
+        const [projectsRes, focusAreasRes] = await Promise.all([
+          fetchStudentProjects(),
+          fetchFocusAreas().catch(() => null)
+        ]);
+
+        const areas = Array.isArray(focusAreasRes) ? focusAreasRes : focusAreasRes?.results || [];
+        const matchedArea = areas.find((a: any) => a.slug === slug);
+        if (matchedArea) {
+           setDomainTitle(matchedArea.name);
+        } else {
+           setDomainTitle(slug?.replace(/-/g, ' ') || 'Focus Area');
+        }
+
+        const arr = Array.isArray(projectsRes) ? projectsRes : projectsRes.results || [];
         // Filter strictly to items containing this exact focus area slug
         const matched = arr.filter((p: any) => 
           p.focus_areas && p.focus_areas.some((f: any) => f.slug === slug)
