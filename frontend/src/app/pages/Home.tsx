@@ -16,7 +16,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import { fetchHeroSlides, fetchNews, fetchEvents, fetchFacultyResearch } from "@/app/data/api";
+import { fetchHeroSlides, fetchNews, fetchEvents, fetchFacultyResearch, fetchResearchSettings, fetchCollaborators } from "@/app/data/api";
 import { useEffect, useState } from "react";
 
 export function Home() {
@@ -29,12 +29,24 @@ export function Home() {
   const [loadingNews, setLoadingNews] = useState(true);
   const [loadingEvents, setLoadingEvents] = useState(true);
   const [loadingResearch, setLoadingResearch] = useState(true);
+  const [scopusPubs, setScopusPubs] = useState<string>("85");
+  const [partnersCount, setPartnersCount] = useState<string>("50");
 
   useEffect(() => {
     fetchHeroSlides().then(data => { setHeroSlides(data); setLoadingHero(false); }).catch(() => setLoadingHero(false));
     fetchNews(1).then(data => { setNewsItems((data.results ? data.results : data).slice(0, 3)); setLoadingNews(false); }).catch(() => setLoadingNews(false));
     fetchEvents().then(data => { setEventsItems(data); setLoadingEvents(false); }).catch(() => setLoadingEvents(false));
     fetchFacultyResearch().then(data => { setResearchItems(data); setLoadingResearch(false); }).catch(() => setLoadingResearch(false));
+    fetchResearchSettings().then(data => {
+      if (data && data.scopus_publications !== undefined) {
+         setScopusPubs(data.scopus_publications.toString());
+      }
+    }).catch(console.error);
+    fetchCollaborators().then(data => {
+      const arr = Array.isArray(data) ? data : (data.results || []);
+      if (arr.length > 0) setPartnersCount(arr.length.toString());
+      else setPartnersCount("0"); // ensure 0 falls through safely
+    }).catch(console.error);
   }, []);
 
   const formatDate = (dateString: string) => {
@@ -47,9 +59,9 @@ export function Home() {
 
   const stats = [
     { value: "95%", label: "Employment Rate", icon: <Briefcase className="h-8 w-8" />, trend: "+3% from last year" },
-    { value: "85+", label: "Scopus Publications", icon: <BookOpen className="h-8 w-8" />, trend: "5-year total" },
+    { value: `${scopusPubs}+`, label: "Scopus Publications", icon: <BookOpen className="h-8 w-8" />, trend: "5-year total" },
     { value: "700", label: "OJT Hours Required", icon: <Building className="h-8 w-8" /> },
-    { value: "50+", label: "Industry Partners", icon: <Globe className="h-8 w-8" /> },
+    { value: `${partnersCount}+`, label: "Industry Partners", icon: <Globe className="h-8 w-8" /> },
   ];
 
   return (
